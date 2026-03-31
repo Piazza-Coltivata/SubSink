@@ -9,6 +9,7 @@ class AudioManager:
         self.usb_audio_device = usb_audio_device
         self._cycling = False
         self._cycle_thread = None
+        self._loopback_module_id = None
 
     def _pactl(self, *args):
         """Run a pactl command and return stdout."""
@@ -156,6 +157,32 @@ class AudioManager:
             if parts:
                 stream_id = parts[0]
                 self._pactl("move-sink-input", stream_id, sink_name)
+
+    def start_loopback(self, source_name, sink_name, latency_msec=200):
+        """Load a PulseAudio module-loopback to bridge a source to a sink with buffering."""
+        self.stop_loopback()
+        result = self._pactl(
+            "load-module", "module-loopback",
+            f"source={source_name}",
+            f"sink={sink_name}",
+            f"latency_msec={latency_msec}",
+            "adjust_time=3"
+        )
+        if result.returncode == 0:
+            module_id = result.stdout.strip()
+            self._loopback_module_id = module_id
+            print(f"Loopback started (module {module_id}): {source_name} -> {sink_name}, buffer {latency_msec}ms")
+            return True
+        else:
+            print(f"ERROR: Failed to start loopback: {result.stderr.strip()}")
+            return False
+
+    def stop_loopback(self):
+        """Unload the current loopback module if one is running."""
+        if self._loopback_module_id:
+            self._pactl("unload-module", self._loopback_module_id)
+            print(f"Loopback stopped (module {self._loopback_module_id})")
+            self._loopback_module_id = None
 
     def start_cycle_test(self, interval=2):
         sources = self.get_sources()

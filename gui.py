@@ -85,6 +85,21 @@ class AudioRouterGUI:
         bottom_frame = tk.Frame(self.root)
         bottom_frame.pack(fill=tk.X, padx=15, pady=(5, 10))
 
+        loopback_frame = tk.Frame(bottom_frame)
+        loopback_frame.pack(fill=tk.X, pady=(0, 5))
+
+        self.loopback_btn = tk.Button(
+            loopback_frame, text="Start Loopback (Input -> Output)",
+            font=("Helvetica", 10), command=self._on_start_loopback
+        )
+        self.loopback_btn.pack(side=tk.LEFT, expand=True, fill=tk.X, padx=(0, 3))
+
+        self.stop_loopback_btn = tk.Button(
+            loopback_frame, text="Stop Loopback",
+            font=("Helvetica", 10), command=self._on_stop_loopback
+        )
+        self.stop_loopback_btn.pack(side=tk.LEFT, expand=True, fill=tk.X, padx=(3, 0))
+
         self.refresh_btn = tk.Button(
             bottom_frame, text="Refresh All",
             font=("Helvetica", 11), command=self._refresh_all
@@ -180,9 +195,32 @@ class AudioRouterGUI:
         else:
             self.status_bar.config(text=f"Failed to set output: {sink['description']}")
 
+    def _on_start_loopback(self):
+        source_sel = self.source_list.curselection()
+        sink_sel = self.sink_list.curselection()
+        if not source_sel:
+            self.status_bar.config(text="Select an input source first")
+            return
+        if not sink_sel:
+            self.status_bar.config(text="Select an output sink first")
+            return
+        source = self._sources[source_sel[0]]
+        sink = self._sinks[sink_sel[0]]
+        if self.audio.start_loopback(source["name"], sink["name"], latency_msec=200):
+            self.status_bar.config(
+                text=f"Loopback: {source['description']} -> {sink['description']} (200ms buffer)"
+            )
+        else:
+            self.status_bar.config(text="Failed to start loopback")
+
+    def _on_stop_loopback(self):
+        self.audio.stop_loopback()
+        self.status_bar.config(text="Loopback stopped")
+
     def run(self):
         self.root.mainloop()
 
     def stop(self):
         self._running = False
+        self.audio.stop_loopback()
         self.root.destroy()
