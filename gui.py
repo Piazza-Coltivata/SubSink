@@ -5,14 +5,15 @@ class AudioRouterGUI:
 
     REFRESH_INTERVAL_MS = 3000
 
-    def __init__(self, audio_manager, capture_pipeline=None):
+    def __init__(self, audio_manager, capture_pipeline=None, null_sink_mgr=None):
         self.audio = audio_manager
         self.capture = capture_pipeline
+        self.null_mgr = null_sink_mgr
         self.current_source = None
         self.current_sink = None
 
         self.root = tk.Tk()
-        self.root.title("BT Audio Router")
+        self.root.title("BT Audio Router" + (" [EXCLUSIVE]" if null_sink_mgr else ""))
         self.root.geometry("640x520")
         self.root.resizable(True, True)
 
@@ -177,15 +178,21 @@ class AudioRouterGUI:
             return
 
         source = self._sources[selection[0]]
+
+        # In exclusive mode with capture, just switch the capture source — no need to
+        # change PA default since all BT audio is routed to the null sink anyway.
+        if self.capture and self.capture._running:
+            self.capture.switch_source(source["name"])
+            self.current_source = source["name"]
+            self.active_source_label.config(text=source["description"])
+            self.status_bar.config(text=f"Now playing: {source['description']}")
+            return
+
         if self.audio.set_default_source(source["name"]):
             self.current_source = source["name"]
             self.active_source_label.config(text=source["description"])
-            # If capture pipeline is running, switch its source
-            if self.capture and self.capture._running:
-                self.capture.switch_source(source["name"])
-                self.status_bar.config(text=f"Input + capture switched to: {source['description']}")
             # Restart loopback with new source if one is active
-            elif self.audio._loopback_module_id:
+            if self.audio._loopback_module_id:
                 if self.audio.restart_loopback(source_name=source["name"]):
                     self.status_bar.config(text=f"Input + loopback switched to: {source['description']}")
                 else:
@@ -202,15 +209,20 @@ class AudioRouterGUI:
             return
 
         sink = self._sinks[selection[0]]
+
+        # In exclusive mode with capture, just switch the capture sink
+        if self.capture and self.capture._running:
+            self.capture.switch_sink(sink["name"])
+            self.current_sink = sink["name"]
+            self.active_sink_label.config(text=sink["description"])
+            self.status_bar.config(text=f"Output switched to: {sink['description']}")
+            return
+
         if self.audio.set_default_sink_by_name(sink["name"]):
             self.current_sink = sink["name"]
             self.active_sink_label.config(text=sink["description"])
-            # If capture pipeline is running, switch its sink
-            if self.capture and self.capture._running:
-                self.capture.switch_sink(sink["name"])
-                self.status_bar.config(text=f"Output + capture switched to: {sink['description']}")
             # Restart loopback with new sink if one is active
-            elif self.audio._loopback_module_id:
+            if self.audio._loopback_module_id:
                 if self.audio.restart_loopback(sink_name=sink["name"]):
                     self.status_bar.config(text=f"Output + loopback switched to: {sink['description']}")
                 else:
@@ -250,4 +262,7 @@ class AudioRouterGUI:
         self.audio.stop_loopback()
         if self.capture:
             self.capture.stop()
+        if self.null_mgr:
+            self.null_mgr.stop_monitoring()
+            self.null_mgr.teardown()
         self.root.destroy()

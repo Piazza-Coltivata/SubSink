@@ -13,6 +13,10 @@ Usage (standalone):
     sudo python3 capture_pipeline.py --source <source_name> --sink <sink_name>
     sudo python3 capture_pipeline.py --list          # list sources/sinks
 
+    # Exclusive mode — mutes all BT devices, only selected one plays through Python:
+    python3 capture_pipeline.py --exclusive
+    python3 capture_pipeline.py --exclusive --sink <real_output>
+
 Or via main.py:
     sudo python3 main.py --capture
     sudo python3 main.py --capture --capture-source <name> --capture-sink <name>
@@ -119,6 +123,113 @@ class RingBuffer:
     def __len__(self):
         with self._lock:
             return len(self._buf)
+
+
+class NullSinkManager:
+    """Creates a null sink (audio black hole) and redirects all Bluetooth
+    sink-inputs to it so they don't play through the real output.
+
+    The selected BT device's audio is captured through its .monitor source
+    by the CapturePipeline and forwarded to the real output — giving Python
+    exclusive control over which phone you hear.
+
+    Flow:
+        Phone A ──BT──> bluez_sink_A ──(moved to)──> null_sink  (silent)
+        Phone B ──BT──> bluez_sink_B ──(moved to)──> null_sink  (silent)
+
+        CapturePipeline:
+            parec reads from bluez_sink_A.monitor ──> Python ──> paplay to real speaker
+
+        User switches to Phone B:
+            parec now reads from bluez_sink_B.monitor  (instant)
+    """
+
+    NULL_SINK_NAME = "bt_capture_null"
+    NULL_SINK_DESC = "BT Capture Null Sink"
+
+    def __init__(self):
+        self._null_module_id = None
+        self._null_sink_name = None
+        self._monitor_thread = None
+        self._monitoring = False
+
+    def setup(self):
+        """Create the null sink and return its name."""
+        # Remove any stale null sink from a previous run
+        self.teardown()
+
+        result = _pactl_internal(
+            "load-module", "module-null-sink",
+            f"sink_name={self.NULL_SINK_NAME}",
+            f"sink_properties=device.description=\"{self.NULL_SINK_DESC}\""
+        )
+        if result.returncode != 0:
+            print(f"ERROR: Failed to create null sink: {result.stderr.strip()}")
+            return None
+
+        self._null_module_id = result.stdout.strip()
+        self._null_sink_name = self.NULL_SINK_NAME
+        print(f"Null sink created: {self._null_sink_name} (module {self._null_module_id})")
+        return self._null_sink_name
+
+    def teardown(self):
+        """Remove the null sink."""
+        if self._null_module_id:
+            _pactl_internal("unload-module", self._null_module_id)
+            print(f"Null sink removed (module {self._null_module_id})")
+            self._null_module_id = None
+            self._null_sink_name = None
+
+    def move_bt_streams_to_null(self):
+        """Move all Bluetooth sink-inputs to the null sink so they go silent."""
+        if not self._null_sink_name:
+            return 0
+        moved = 0
+        result = _pactl_internal("list", "short", "sink-inputs")
+        if result.returncode != 0:
+            return 0
+        for line in result.stdout.splitlines():
+            parts = line.split()
+            if len(parts) >= 2:
+                stream_id = parts[0]
+                # Move every sink-input to the null sink
+                r = _pactl_internal("move-sink-input", stream_id, self._null_sink_name)
+                if r.returncode == 0:
+                    moved += 1
+        if moved:
+            print(f"Moved {moved} stream(s) to null sink")
+        return moved
+
+    def get_bt_monitor_sources(self):
+        """Return a list of .monitor sources belonging to Bluetooth sinks."""
+        sources = list_sources()
+        return [s for s in sources if "bluez" in s.get("name", "") and ".monitor" in s.get("name", "")]
+
+    def start_monitoring(self, interval=2):
+        """Background thread that watches for new BT connections and moves
+        their sink-inputs to the null sink automatically."""
+        if self._monitoring:
+            return
+        self._monitoring = True
+        self._monitor_thread = threading.Thread(target=self._monitor_loop, args=(interval,), daemon=True)
+        self._monitor_thread.start()
+        print(f"BT stream monitor started (checking every {interval}s)")
+
+    def stop_monitoring(self):
+        self._monitoring = False
+        if self._monitor_thread:
+            self._monitor_thread.join(timeout=5)
+            self._monitor_thread = None
+
+    def _monitor_loop(self, interval):
+        while self._monitoring:
+            self.move_bt_streams_to_null()
+            time.sleep(interval)
+
+
+def _pactl_internal(*args):
+    """Internal pactl wrapper used by NullSinkManager (avoids circular dep with module-level _pactl)."""
+    return subprocess.run(["pactl"] + list(args), capture_output=True, text=True)
 
 
 class CapturePipeline:
@@ -435,6 +546,8 @@ if __name__ == "__main__":
                         help="PulseAudio sink name (or interactive if omitted)")
     parser.add_argument("--list", action="store_true",
                         help="Just list sources and sinks, then exit")
+    parser.add_argument("--exclusive", action="store_true",
+                        help="Exclusive mode: mute all BT devices, only forward selected one through Python")
     parser.add_argument("--buffer-chunks", type=int, default=64,
                         help="Ring buffer size in chunks (default: 64)")
     parser.add_argument("--rate", type=int, default=DEFAULT_RATE,
@@ -452,8 +565,58 @@ if __name__ == "__main__":
             print(f"  {s.get('description', '')}  ->  {s['name']}")
         sys.exit(0)
 
-    source = args.source or interactive_select(list_sources(), "source")
-    sink = args.sink or interactive_select(list_sinks(), "sink")
+    null_mgr = None
+
+    if args.exclusive:
+        print("=" * 50)
+        print("EXCLUSIVE CAPTURE MODE")
+        print("=" * 50)
+        print()
+        print("All BT audio will be silenced. Only the device you")
+        print("select will play through Python -> your real output.")
+        print()
+
+        null_mgr = NullSinkManager()
+        null_sink_name = null_mgr.setup()
+        if not null_sink_name:
+            print("ERROR: Could not create null sink. Exiting.")
+            sys.exit(1)
+
+        # Move existing BT streams to null
+        null_mgr.move_bt_streams_to_null()
+
+        # Start watching for new BT connections
+        null_mgr.start_monitoring(interval=2)
+
+        # Pick source from BT monitors only
+        print("\nWaiting for Bluetooth devices...")
+        print("Connect your phones now. They will appear below.")
+        print("(Press Ctrl+C to cancel)\n")
+
+        bt_sources = null_mgr.get_bt_monitor_sources()
+        while not bt_sources:
+            try:
+                time.sleep(2)
+                bt_sources = null_mgr.get_bt_monitor_sources()
+                if bt_sources:
+                    break
+                # Also show any regular sources that appeared
+                all_sources = list_sources()
+                if len(all_sources) > 0:
+                    print(f"  {len(all_sources)} source(s) available, {len(bt_sources)} are BT monitors...")
+            except KeyboardInterrupt:
+                null_mgr.stop_monitoring()
+                null_mgr.teardown()
+                sys.exit(0)
+
+        source = interactive_select(bt_sources, "BT source")
+
+        # For sink, pick the REAL output (exclude null sink)
+        real_sinks = [s for s in list_sinks() if null_sink_name not in s.get("name", "")]
+        sink = args.sink or interactive_select(real_sinks, "output sink")
+    else:
+        source = args.source or interactive_select(list_sources(), "source")
+        sink = args.sink or interactive_select(list_sinks(), "sink")
 
     pipeline = CapturePipeline(
         source_name=source,
@@ -465,6 +628,9 @@ if __name__ == "__main__":
 
     def on_exit(signum, frame):
         pipeline.stop()
+        if null_mgr:
+            null_mgr.stop_monitoring()
+            null_mgr.teardown()
         sys.exit(0)
 
     signal.signal(signal.SIGINT, on_exit)
@@ -472,9 +638,22 @@ if __name__ == "__main__":
 
     pipeline.start(print_stats=True)
 
+    if args.exclusive:
+        print("=" * 50)
+        print("EXCLUSIVE MODE ACTIVE")
+        print(f"  Capturing: {source}")
+        print(f"  Output:    {sink}")
+        print()
+        print("To switch to a different phone, press Ctrl+C and restart,")
+        print("or use --gui mode for live switching.")
+        print("=" * 50)
+
     # Block main thread until stopped
     try:
         while pipeline._running:
             time.sleep(1)
     except KeyboardInterrupt:
         pipeline.stop()
+        if null_mgr:
+            null_mgr.stop_monitoring()
+            null_mgr.teardown()

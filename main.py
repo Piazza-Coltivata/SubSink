@@ -36,6 +36,10 @@ if __name__ == "__main__":
         "--force-a2dp", action="store_true",
         help="Force A2DP profile on all Bluetooth cards at startup"
     )
+    parser.add_argument(
+        "--exclusive", action="store_true",
+        help="Exclusive capture mode: mute all BT, only forward selected device through Python"
+    )
     args = parser.parse_args()
 
     router = BTAudioRouter()
@@ -48,4 +52,5 @@ if __name__ == "__main__":
         capture_sink=args.capture_sink,
         capture_buffer=args.capture_buffer,
         force_a2dp=args.force_a2dp,
+        exclusive=args.exclusive,
     )
