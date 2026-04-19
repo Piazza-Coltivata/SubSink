@@ -152,33 +152,63 @@ class NullSinkManager:
         self._null_sink_name = None
         self._monitor_thread = None
         self._monitoring = False
+        self._pw_native = False
 
     def setup(self):
         """Create the null sink and return its name."""
         # Remove any stale null sink from a previous run
         self.teardown()
 
+        # Try PipeWire-native null sink first (pipewire-pulse often refuses
+        # the PulseAudio module-null-sink with "Refused")
         result = _pactl_internal(
             "load-module", "module-null-sink",
             f"sink_name={self.NULL_SINK_NAME}",
             f"sink_properties=device.description=\"{self.NULL_SINK_DESC}\""
         )
-        if result.returncode != 0:
-            print(f"ERROR: Failed to create null sink: {result.stderr.strip()}")
-            return None
 
-        self._null_module_id = result.stdout.strip()
+        if result.returncode != 0:
+            print(f"module-null-sink failed ({result.stderr.strip()}), trying pw-cli...")
+            # Fallback: create a null sink via pw-loopback or pw-cli
+            result = subprocess.run(
+                [
+                    "pw-cli", "create-node", "adapter",
+                    "{factory.name=support.null-audio-sink "
+                    f"node.name={self.NULL_SINK_NAME} "
+                    f"node.description=\"{self.NULL_SINK_DESC}\" "
+                    "media.class=Audio/Sink "
+                    "audio.position=[FL FR] "
+                    "monitor.channel-volumes=true}"
+                ],
+                capture_output=True, text=True,
+            )
+            if result.returncode != 0:
+                print(f"ERROR: Failed to create null sink via pw-cli: {result.stderr.strip()}")
+                print("Hint: ensure pipewire is running, or install pulseaudio module-null-sink")
+                return None
+            # pw-cli returns the object id
+            self._null_module_id = result.stdout.strip().split()[-1] if result.stdout.strip() else None
+            self._pw_native = True
+        else:
+            self._null_module_id = result.stdout.strip()
+            self._pw_native = False
+
         self._null_sink_name = self.NULL_SINK_NAME
-        print(f"Null sink created: {self._null_sink_name} (module {self._null_module_id})")
+        print(f"Null sink created: {self._null_sink_name} (id {self._null_module_id})")
         return self._null_sink_name
 
     def teardown(self):
         """Remove the null sink."""
         if self._null_module_id:
-            _pactl_internal("unload-module", self._null_module_id)
-            print(f"Null sink removed (module {self._null_module_id})")
+            if self._pw_native:
+                subprocess.run(["pw-cli", "destroy", self._null_module_id],
+                               capture_output=True, text=True)
+            else:
+                _pactl_internal("unload-module", self._null_module_id)
+            print(f"Null sink removed (id {self._null_module_id})")
             self._null_module_id = None
             self._null_sink_name = None
+            self._pw_native = False
 
     def move_bt_streams_to_null(self):
         """Move all Bluetooth sink-inputs to the null sink so they go silent."""
