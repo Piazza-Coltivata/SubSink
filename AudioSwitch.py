@@ -100,7 +100,7 @@ class MultiPhoneSwitcher(tk.Tk):
 
 
     def toggle_hub(self):
-        if self.capture_pipeline and self.capture_pipeline._running:
+        if self.capture_pipeline and self.capture_pipeline.is_running():
             self.stop_hub()
         else:
             self.start_hub()
@@ -141,7 +141,6 @@ class MultiPhoneSwitcher(tk.Tk):
         print(f"HUB_DEBUG: Starting capture with SOURCE: '{capture_source}' and SINK: '{capture_sink}'")
 
         self.capture_pipeline = CapturePipeline(capture_source, capture_sink)
-        self.capture_pipeline.start()
 
         self.start_stop_btn.config(text="Stop Hub")
         self.status_label.config(text=f"Hub Active. Playing from {initial_device['description']}", foreground="green")
