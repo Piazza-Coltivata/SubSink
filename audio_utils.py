@@ -42,6 +42,48 @@ def list_devices(dev_type="sinks"):
         devices.append(current)
     return devices
 
+def ensure_a2dp_sink(card_name):
+    """
+    Checks if a card has an 'a2dp-sink' profile and sets it if not active.
+    Returns True if the card is ready, False otherwise.
+    """
+    card_info = _pactl("list", "cards")
+    if not card_info:
+        return False
+
+    in_card_section = False
+    active_profile = ""
+    has_a2dp_sink = False
+
+    for line in card_info.stdout.splitlines():
+        line = line.strip()
+        if f"Name: {card_name}" in line:
+            in_card_section = True
+            continue
+        
+        if in_card_section:
+            if line.startswith("Card #"): # Reached the next card
+                break
+            if "a2dp-sink" in line:
+                has_a2dp_sink = True
+            if line.startswith("Active Profile:") and "a2dp-sink" in line:
+                # Already in the correct mode
+                return True
+    
+    if in_card_section and has_a2dp_sink:
+        print(f"Card '{card_name}' is not in a2dp-sink mode. Attempting to set it...")
+        result = _pactl("set-card-profile", card_name, "a2dp-sink")
+        if result and result.returncode == 0:
+            print("Successfully set profile to a2dp-sink.")
+            time.sleep(1) # Give the system a moment to apply the change
+            return True
+        else:
+            print(f"Failed to set profile for '{card_name}'.")
+            return False
+    
+    return False
+
+
 def get_bt_devices():
     """
     Return a list of all connected Bluetooth devices (cards), active or not.
@@ -57,7 +99,9 @@ def get_bt_devices():
         line = line.strip()
         if line.startswith("Card #"):
             if current_card and "bluez_card" in current_card.get("name", ""):
-                devices.append(current_card)
+                # Before adding, ensure it's in the right mode
+                if ensure_a2dp_sink(current_card["name"]):
+                    devices.append(current_card)
             current_card = {}
         elif line.startswith("Name:"):
             current_card["name"] = line.split("Name:", 1)[1].strip()
@@ -68,7 +112,8 @@ def get_bt_devices():
             current_card["properties"][key.strip()] = val.strip().strip('"')
 
     if current_card and "bluez_card" in current_card.get("name", ""):
-        devices.append(current_card)
+        if ensure_a2dp_sink(current_card["name"]):
+            devices.append(current_card)
 
     # Now, find the monitor source for each device if it's active
     all_sources = list_devices("sources")
