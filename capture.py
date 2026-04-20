@@ -24,10 +24,12 @@ class CapturePipeline:
         self.link_proc = None
 
         # For pw-link, we need to specify the output port of the source
-        # and the input port of the sink. Often, these can be inferred,
-        # but it's more robust to be explicit if possible.
-        # For now, we let PipeWire infer the default ports.
-        command = ["pw-link", self.source_name, self.sink_name]
+        # and the input port of the sink. Appending a colon ':' tells
+        # pw-link to auto-connect all available ports.
+        source_port = f"{self.source_name}:"
+        sink_port = f"{self.sink_name}:"
+        
+        command = ["pw-link", source_port, sink_port]
         print(f"DEBUG: Running PipeWire link command: {' '.join(command)}")
         
         # Use the shared error log file
@@ -47,7 +49,11 @@ class CapturePipeline:
         """
         Destroys the link between the source and sink.
         """
-        command = ["pw-link", "-d", self.source_name, self.sink_name]
+        # Append colons here as well for consistency
+        source_port = f"{self.source_name}:"
+        sink_port = f"{self.sink_name}:"
+
+        command = ["pw-link", "-d", source_port, sink_port]
         print(f"DEBUG: Running PipeWire unlink command: {' '.join(command)}")
         
         # Use the shared error log file
