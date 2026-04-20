@@ -21,6 +21,7 @@ class CapturePipeline:
         self._record_proc = None
         self._play_proc = None
         self._reader_thread = None
+        self.paplay_proc = None
 
     def start(self):
         if self._running:
@@ -50,9 +51,14 @@ class CapturePipeline:
             stderr=subprocess.PIPE
         )
         self._play_proc = subprocess.Popen(
-            ["paplay", "-d", self.sink_name, "--format=s16le"],
-            stdin=subprocess.PIPE,
-            stderr=subprocess.PIPE
+            [
+                "paplay",
+                "--device", self.sink_name,
+                "--proplist=application.name=BT_HUB_PLAYBACK" # Add a unique property
+            ],
+            stdin=self._record_proc.stdout,
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL
         )
         self._reader_thread = threading.Thread(target=self._reader_loop, daemon=True)
         self._reader_thread.start()
@@ -86,6 +92,7 @@ class NullSinkManager:
         self._module_id = None
         self._monitor_thread = None
         self._monitoring = False
+        self.stop_event = threading.Event()
 
     def setup(self):
         """Creates the null sink."""
@@ -144,3 +151,20 @@ class NullSinkManager:
             except (subprocess.CalledProcessError, FileNotFoundError):
                 pass # pactl might fail if no streams exist
             time.sleep(2)
+
+    def _move_new_streams(self):
+        """Check for new sink-inputs and move them if they are not our playback stream."""
+        while not self.stop_event.is_set():
+            sink_inputs = audio_utils.list_devices("sink-inputs")
+            for si in sink_inputs:
+                # Check if it's a BT stream AND not our special playback stream
+                is_bt_stream = "bluez" in si.get("properties", {}).get("media.role", "") or \
+                               "bluez" in si.get("properties", {}).get("node.name", "")
+                is_our_playback = si.get("properties", {}).get("application.name", "") == "BT_HUB_PLAYBACK"
+
+                if is_bt_stream and not is_our_playback:
+                    if si.get("sink") != self.null_sink_index:
+                        print(f"Moving new stream {si['index']} to null sink.")
+                        audio_utils.move_sink_input(si["index"], self.null_sink_index)
+            
+            time.sleep(self.monitor_interval)
