@@ -13,82 +13,62 @@ error_log_file = open("pipeline_errors.log", "w")
 
 class CapturePipeline:
     """
-    Captures PCM audio from a PulseAudio source and plays it to a sink,
-    passing the data through Python. This allows for exclusive routing.
+    Manages a PipeWire link between a source and a sink using pw-link.
     """
-    def __init__(self, source_name, sink_name, rate=48000, fmt="s16le", channels=2):
+    def __init__(self, source_name, sink_name):
+        """
+        Creates a link between the given source and sink.
+        """
         self.source_name = source_name
         self.sink_name = sink_name
-        self.rate = rate
-        self.channels = channels
-        self.fmt = fmt
-        self._running = False
-        self._record_proc = None
-        self._play_proc = None
-        self._reader_thread = None
-        self.parec_proc = None
-        self.paplay_proc = None
+        self.link_proc = None
 
-    def start(self):
-        if self._running:
-            return
-        self._running = True
-        self._start_procs()
-        print(f"Capture started: {self.source_name} -> {self.sink_name}")
+        # For pw-link, we need to specify the output port of the source
+        # and the input port of the sink. Often, these can be inferred,
+        # but it's more robust to be explicit if possible.
+        # For now, we let PipeWire infer the default ports.
+        command = ["pw-link", self.source_name, self.sink_name]
+        print(f"DEBUG: Running PipeWire link command: {' '.join(command)}")
+        
+        # Use the shared error log file
+        self.link_proc = subprocess.Popen(
+            command,
+            stdout=subprocess.DEVNULL,
+            stderr=error_log_file
+        )
+        # We don't need to wait, pw-link creates the link and exits.
+        # We can check the return code to see if it was successful.
+        self.link_proc.communicate() # Wait for process to finish
+        if self.link_proc.returncode != 0:
+            print(f"ERROR: pw-link command failed with exit code {self.link_proc.returncode}. Check pipeline_errors.log")
+
 
     def stop(self):
-        if not self._running:
-            return
-        self._running = False
-        self._stop_procs()
-        print("Capture stopped.")
-
-    def switch_source(self, new_source_name):
-        print(f"Switching capture source to: {new_source_name}")
-        self._stop_procs()
-        self.source_name = new_source_name
-        self._start_procs()
-        print("Capture source switched.")
-
-    def _start_procs(self):
-        self._record_proc = subprocess.Popen(
-            ["parec", "-d", self.source_name, "--format=s16le"],
-            stdout=subprocess.PIPE,
-            stderr=error_log_file # Redirect stderr to the log file
-        )
-
-        self.paplay_proc = subprocess.Popen(
-            [
-                "paplay",
-                "--device", self.sink_name,
-                "--proplist=application.name=BT_HUB_PLAYBACK" # Add a unique property
-            ],
-            stdin=self._record_proc.stdout,
+        """
+        Destroys the link between the source and sink.
+        """
+        command = ["pw-link", "-d", self.source_name, self.sink_name]
+        print(f"DEBUG: Running PipeWire unlink command: {' '.join(command)}")
+        
+        # Use the shared error log file
+        unlink_proc = subprocess.Popen(
+            command,
             stdout=subprocess.DEVNULL,
-            stderr=error_log_file # Redirect stderr to the log file
+            stderr=error_log_file
         )
-        # Allow parec_proc to receive a SIGPIPE if paplay_proc exits.
-        self._record_proc.stdout.close()
-        self._reader_thread = threading.Thread(target=self._reader_loop, daemon=True)
-        self._reader_thread.start()
+        unlink_proc.communicate() # Wait for it to finish
+        if unlink_proc.returncode != 0:
+            print(f"ERROR: pw-link -d command failed with exit code {unlink_proc.returncode}. Check pipeline_errors.log")
+        print("PipeWire link stopped.")
 
-    def _stop_procs(self):
-        if self._record_proc:
-            self._record_proc.terminate()
-        if self._play_proc:
-            self._play_proc.terminate()
-        if self._reader_thread:
-            self._reader_thread.join(timeout=1)
-
-    def _reader_loop(self):
-        while self._running:
-            try:
-                chunk = self._record_proc.stdout.read(4096)
-                if not chunk:
-                    break
-                self._play_proc.stdin.write(chunk)
-            except (IOError, AttributeError):
-                break
+    def is_running(self):
+        """
+        Since pw-link exits immediately, we can't check if the process is running.
+        A more advanced check would be to parse `pw-links -l`, but for now,
+        we assume if the object exists, the link is meant to be active.
+        The stop() method is the only way to tear it down.
+        """
+        return True # Simplified check
 
 class NullSinkManager:
     """
