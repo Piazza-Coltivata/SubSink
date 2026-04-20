@@ -1,6 +1,9 @@
 import customtkinter as ctk
 import subprocess
+import threading
 import time
+from audio_utils import list_devices, get_bt_devices
+from capture import CapturePipeline, NullSinkManager
 
 ctk.set_appearance_mode("dark")
 
@@ -8,70 +11,133 @@ class MultiPhoneSwitcher(ctk.CTk):
     def __init__(self):
         super().__init__()
         self.title("Pi 5 Audio Hub")
-        self.geometry("450x300")
+        self.geometry("450x350")
+
+        # Audio backend
+        self.null_sink_manager = NullSinkManager()
+        self.capture_pipeline = None
+        self.speaker_sinks = []
+        self.bt_devices = []
 
         # UI Layout
-        self.label = ctk.CTkLabel(self, text="Select Device to Route", font=("Roboto", 20))
-        self.label.pack(pady=15)
+        self.label = ctk.CTkLabel(self, text="Select Active Phone", font=("Roboto", 20))
+        self.label.pack(pady=10)
 
         # Dropdown for Paired Devices
         self.device_var = ctk.StringVar(value="Select a device")
-        self.device_menu = ctk.CTkComboBox(self, values=self.get_paired_devices(), variable=self.device_var, width=300)
-        self.device_menu.pack(pady=10)
+        self.device_menu = ctk.CTkComboBox(self, values=[], variable=self.device_var, width=300, command=self.on_source_select)
+        self.device_menu.pack(pady=5)
+
+        # Dropdown for Speaker Output
+        self.speaker_var = ctk.StringVar(value="Select a speaker")
+        self.speaker_menu = ctk.CTkComboBox(self, values=[], variable=self.speaker_var, width=300, command=self.on_sink_select)
+        self.speaker_menu.pack(pady=5)
 
         # Refresh Button
-        self.refresh_btn = ctk.CTkButton(self, text="Refresh Device List", fg_color="transparent", border_width=1, command=self.refresh_list)
-        self.refresh_btn.pack(pady=5)
+        self.refresh_btn = ctk.CTkButton(self, text="Refresh Lists", fg_color="transparent", border_width=1, command=self.refresh_lists)
+        self.refresh_btn.pack(pady=10)
 
-        self.status_label = ctk.CTkLabel(self, text="Status: Ready", text_color="gray")
+        self.status_label = ctk.CTkLabel(self, text="Status: Initializing...", text_color="gray")
         self.status_label.pack(pady=10)
 
         # Main Action Button
-        self.route_btn = ctk.CTkButton(self, text="Route Audio to Speaker", command=self.route_audio)
-        self.route_btn.pack(pady=20)
+        self.start_stop_btn = ctk.CTkButton(self, text="Start Hub", command=self.toggle_hub)
+        self.start_stop_btn.pack(pady=20)
 
-    def get_paired_devices(self):
-        """Returns a list of 'Name (MAC)' for all paired devices."""
-        devices = []
-        result = subprocess.run(["bluetoothctl", "paired-devices"], capture_output=True, text=True)
-        for line in result.stdout.splitlines():
-            # Line format: 'Device XX:XX:XX:XX:XX:XX Name'
-            parts = line.split(" ", 2)
-            if len(parts) > 2:
-                devices.append(f"{parts[2]} ({parts[1]})")
-        return devices
+        self.protocol("WM_DELETE_WINDOW", self.on_closing)
+        self.refresh_lists()
+        self.status_label.configure(text="Status: Ready. Press 'Start Hub'.")
 
-    def refresh_list(self):
-        self.device_menu.configure(values=self.get_paired_devices())
-        self.status_label.configure(text="List Refreshed", text_color="gray")
+    def refresh_lists(self):
+        """Refreshes the list of available Bluetooth devices and speaker sinks."""
+        self.bt_devices = get_bt_devices()
+        self.speaker_sinks = [s for s in list_devices("sinks") if "bluez" not in s.get("name", "")]
 
-    def route_audio(self):
-        selection = self.device_var.get()
-        if "(" not in selection:
+        bt_names = [dev['description'] for dev in self.bt_devices]
+        speaker_names = [f"{s['description']}" for s in self.speaker_sinks]
+
+        self.device_menu.configure(values=bt_names if bt_names else ["No BT devices found"])
+        self.speaker_menu.configure(values=speaker_names if speaker_names else ["No speakers found"])
+
+        if not bt_names:
+            self.device_var.set("No BT devices found")
+        else:
+            # If the current selection is no longer valid, reset it
+            if self.device_var.get() not in bt_names:
+                self.device_var.set(bt_names[0])
+
+        if not speaker_names:
+            self.speaker_var.set("No speakers found")
+        else:
+            if self.speaker_var.get() not in speaker_names:
+                self.speaker_var.set(speaker_names[0])
+
+        self.status_label.configure(text="Lists Refreshed", text_color="gray")
+
+    def on_source_select(self, choice):
+        """Callback when a new source is selected from the dropdown."""
+        if self.capture_pipeline and self.capture_pipeline._running:
+            selected_device = next((dev for dev in self.bt_devices if dev['description'] == choice), None)
+            if selected_device and selected_device['monitor_source_name']:
+                self.capture_pipeline.switch_source(selected_device['monitor_source_name'])
+                self.status_label.configure(text=f"Switched to {choice}", text_color="green")
+            elif selected_device:
+                self.status_label.configure(text=f"Error: {choice} is not playing audio.", text_color="orange")
+            else:
+                self.status_label.configure(text=f"Error: Could not find device for {choice}", text_color="red")
+
+
+    def on_sink_select(self, choice):
+        """Placeholder for switching output sink if needed in the future."""
+        self.status_label.configure(text=f"Output set to {choice}", text_color="cyan")
+
+
+    def toggle_hub(self):
+        if self.capture_pipeline and self.capture_pipeline._running:
+            self.stop_hub()
+        else:
+            self.start_hub()
+
+    def start_hub(self):
+        """Starts the exclusive capture mode."""
+        self.refresh_lists()
+        
+        source_choice = self.device_var.get()
+        sink_choice = self.speaker_var.get()
+
+        initial_device = next((dev for dev in self.bt_devices if dev['description'] == source_choice), None)
+        initial_sink = next((s for s in self.speaker_sinks if s['description'] == sink_choice), None)
+
+        if not initial_device or not initial_sink:
+            self.status_label.configure(text="Error: Select a valid phone and speaker.", text_color="red")
+            return
+            
+        if not initial_device['monitor_source_name']:
+            self.status_label.configure(text=f"Error: {initial_device['description']} is not playing audio.", text_color="red")
             return
 
-        # Extract MAC address from the string "Name (MAC)"
-        mac = selection.split("(")[-1].replace(")", "")
-        self.status_label.configure(text=f"Connecting to {selection[:15]}...", text_color="yellow")
-        self.update()
+        self.status_label.configure(text="Starting exclusive mode...", text_color="yellow")
+        self.null_sink_manager.setup()
 
-        try:
-            # 1. Ensure the phone is connected
-            subprocess.run(["bluetoothctl", "connect", mac], check=True)
-            time.sleep(1)
+        self.capture_pipeline = CapturePipeline(initial_device['monitor_source_name'], initial_sink['name'])
+        self.capture_pipeline.start()
 
-            # 2. Get the Speaker Sink Name (automatically finds the default speaker)
-            default_sink = subprocess.run(["pactl", "get-default-sink"], capture_output=True, text=True).stdout.strip()
+        self.start_stop_btn.configure(text="Stop Hub")
+        self.status_label.configure(text=f"Hub Active. Playing from {initial_device['description']}", text_color="green")
 
-            # 3. Move all inputs (the phone's audio stream) to the default speaker
-            streams = subprocess.run(["pactl", "list", "short", "sink-inputs"], capture_output=True, text=True).stdout
-            for line in streams.splitlines():
-                stream_id = line.split()[0]
-                subprocess.run(["pactl", "move-sink-input", stream_id, default_sink])
+    def stop_hub(self):
+        """Stops the capture and cleans up."""
+        if self.capture_pipeline:
+            self.capture_pipeline.stop()
+            self.capture_pipeline = None
+        self.null_sink_manager.teardown()
+        self.start_stop_btn.configure(text="Start Hub")
+        self.status_label.configure(text="Status: Hub Stopped.", text_color="gray")
 
-            self.status_label.configure(text="Audio Routed Successfully!", text_color="green")
-        except Exception as e:
-            self.status_label.configure(text="Routing Failed", text_color="red")
+    def on_closing(self):
+        """Ensure cleanup when the window is closed."""
+        self.stop_hub()
+        self.destroy()
 
 if __name__ == "__main__":
     app = MultiPhoneSwitcher()
