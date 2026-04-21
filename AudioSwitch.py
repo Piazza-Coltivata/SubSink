@@ -3,7 +3,7 @@ from tkinter import ttk
 import subprocess
 import threading
 import time
-from audio_utils import list_devices, get_bt_devices, ensure_a2dp_sink
+from audio_utils import list_devices, get_bt_devices, ensure_a2dp_sink, activate_bt_source_cards, deactivate_bt_source_cards, _extract_mac, _normalize_mac
 from capture import CapturePipeline, NullSinkManager, check_active_links
 
 class MultiPhoneSwitcher(tk.Tk):
@@ -96,12 +96,18 @@ class MultiPhoneSwitcher(tk.Tk):
 
         source_name = selected_device.get('source_name')
 
-        # Device is paired but not yet streaming (just connected, profile still
-        # negotiating). Wait briefly for WirePlumber to create the source node.
+        # Device is paired but idle — activate its A2DP source profile (set to 'off'
+        # on last close) then wait for WirePlumber to create the source node.
         if not source_name:
-            self.status_label.config(text=f"Waiting for {choice} to stream...", foreground="yellow")
+            card_name = selected_device.get('name', '')
+            if card_name.startswith('bluez_card.'):
+                subprocess.run(
+                    ["pactl", "set-card-profile", card_name, "a2dp-source"],
+                    capture_output=True, text=True,
+                )
+            self.status_label.config(text=f"Activating {choice}...", foreground="yellow")
             self.update_idletasks()
-            for _ in range(4):
+            for _ in range(5):
                 time.sleep(1)
                 fresh = get_bt_devices()
                 found = next(
@@ -138,17 +144,40 @@ class MultiPhoneSwitcher(tk.Tk):
         self.status_label.config(text=f"Output set to {choice}", foreground="cyan")
 
 
+    def _speaker_macs(self):
+        """Return the set of normalized MACs for all currently listed speaker sinks."""
+        return {
+            _normalize_mac(_extract_mac(s.get('name', '')))
+            for s in self.speaker_sinks
+            if s.get('name', '').startswith('bluez_output.')
+        }
+
     def connect_pair(self):
-        """Refresh lists then route the selected phone to the selected speaker."""
+        """Activate all phone cards, refresh lists, then route selected phone to speaker."""
+        activate_bt_source_cards(exclude_macs=self._speaker_macs())
+        self.after(1500, self._connect_pair_after_wake)
+        self.status_label.config(text="Waking up Bluetooth sources...", foreground="yellow")
+
+    def _connect_pair_after_wake(self):
         self.refresh_lists()
         self.start_hub()
 
     def _try_auto_start(self):
-        """Auto-start the hub on launch if devices and a speaker are available."""
+        """Activate all phone BT cards then auto-start the hub after a short delay."""
+        # Speaker sinks may already be populated from __init__ refresh_lists().
+        activate_bt_source_cards(exclude_macs=self._speaker_macs())
+        self.status_label.config(text="Waking up Bluetooth sources...", foreground="yellow")
+        self.after(2000, self._auto_start_after_wake)
+
+    def _auto_start_after_wake(self):
+        self.refresh_lists()
         if self.bt_devices and self.speaker_sinks:
             self.start_hub()
         else:
-            self.status_label.config(text="No devices found. Connect a phone and refresh.", foreground="orange")
+            self.status_label.config(
+                text="No devices found. Connect a phone and press Connect Pair.",
+                foreground="orange",
+            )
 
     def start_hub(self):
         """Starts the exclusive capture mode."""
@@ -177,7 +206,7 @@ class MultiPhoneSwitcher(tk.Tk):
                 self.status_label.config(text=f"Activating {initial_device['description']}...", foreground="yellow")
                 self.update_idletasks()
                 subprocess.run(
-                    ["pactl", "set-card-profile", card_name, "a2dp_source"],
+                    ["pactl", "set-card-profile", card_name, "a2dp-source"],
                     capture_output=True, text=True,
                 )
                 for _ in range(5):
@@ -282,10 +311,16 @@ class MultiPhoneSwitcher(tk.Tk):
         self.status_label.config(text="Status: Hub Paused.", foreground="gray")
 
     def on_closing(self):
-        """Full cleanup on window close: unmute sink, remove links, stop watcher."""
+        """Full cleanup on window close: remove links, stop watcher.
+        All phone BT cards are set to 'off' via _list_bt_cards() (catches
+        even idle cards not in self.bt_devices) so WirePlumber cannot
+        auto-route them after the app exits.
+        """
         self.null_sink_manager.teardown()
+        # Kill all phone card profiles BEFORE removing links so WirePlumber
+        # has no source node to route when teardown() fires.
+        deactivate_bt_source_cards(exclude_macs=self._speaker_macs())
         if self.capture_pipeline:
-            # Restore sink so system audio works normally after the app exits.
             subprocess.run(
                 ["pactl", "set-sink-mute", self.capture_pipeline.sink_name, "0"],
                 capture_output=True, text=True,

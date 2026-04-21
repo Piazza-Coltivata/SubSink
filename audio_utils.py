@@ -299,6 +299,56 @@ def get_bt_devices():
 
     return processed_devices
 
+def activate_bt_source_cards(exclude_macs=None):
+    """
+    Set all BT phone cards to 'a2dp-source' profile, skipping any whose MAC
+    is in exclude_macs (typically the speaker). Called on startup to wake up
+    phones that were set to 'off' on the last close, and before hub start.
+    Returns the count of cards successfully activated.
+    """
+    if exclude_macs is None:
+        exclude_macs = set()
+    exclude_macs = {_normalize_mac(m) for m in exclude_macs}
+
+    activated = 0
+    for card in _list_bt_cards():
+        card_name = card.get("name", "")
+        card_mac = _normalize_mac(
+            card.get("properties", {}).get("device.string", "")
+        ) or _extract_mac(card_name)
+        if card_mac in exclude_macs:
+            print(f"ACTIVATE: Skipping {card_name} (speaker)")
+            continue
+        result = _pactl("set-card-profile", card_name, "a2dp-source")
+        if result and result.returncode == 0:
+            print(f"ACTIVATE: {card_name} -> a2dp-source")
+            activated += 1
+        else:
+            print(f"ACTIVATE: {card_name} could not be set to a2dp-source (may be unsupported or already active)")
+    return activated
+
+
+def deactivate_bt_source_cards(exclude_macs=None):
+    """
+    Set all BT phone cards to 'off' profile, skipping the speaker.
+    Called on app close so WirePlumber cannot auto-route phones after exit.
+    Uses _list_bt_cards() directly so it catches cards not currently streaming.
+    """
+    if exclude_macs is None:
+        exclude_macs = set()
+    exclude_macs = {_normalize_mac(m) for m in exclude_macs}
+
+    for card in _list_bt_cards():
+        card_name = card.get("name", "")
+        card_mac = _normalize_mac(
+            card.get("properties", {}).get("device.string", "")
+        ) or _extract_mac(card_name)
+        if card_mac in exclude_macs:
+            continue
+        _pactl("set-card-profile", card_name, "off")
+        print(f"DEACTIVATE: {card_name} -> off")
+
+
 def debug_print_all_audio():
     print("\n=== DEBUG: pactl list sources short ===")
     subprocess.run(["pactl", "list", "sources", "short"])
