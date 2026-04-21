@@ -89,14 +89,7 @@ class MultiPhoneSwitcher(tk.Tk):
             selected_device = next((dev for dev in self.bt_devices if dev['description'] == choice), None)
             if selected_device and selected_device.get('source_name'):
                 if self.capture_pipeline.switch_source(selected_device['source_name']):
-                    all_source_names = [
-                        dev.get('source_name') for dev in self.bt_devices
-                        if dev.get('source_name')
-                    ]
-                    self.null_sink_manager.silence_sources(
-                        all_source_names,
-                        selected_device.get('source_name'),
-                    )
+                    self.null_sink_manager.set_active_source(selected_device['source_name'])
                     self.status_label.config(text=f"Switched to {choice}", foreground="green")
                 else:
                     error = self.capture_pipeline.last_error or f"Could not switch to {choice}."
@@ -163,13 +156,9 @@ class MultiPhoneSwitcher(tk.Tk):
         self.capture_pipeline = pipeline
         null_sink_ready = self.null_sink_manager.setup()
         if null_sink_ready:
-            all_source_names = [
-                dev.get('source_name') for dev in self.bt_devices
-                if dev.get('source_name')
-            ]
-            self.null_sink_manager.silence_sources(
-                all_source_names,
+            self.null_sink_manager.start_watcher(
                 initial_device.get('source_name'),
+                initial_sink.get('name'),
             )
 
         self.start_stop_btn.config(text="Stop Hub")
@@ -177,7 +166,20 @@ class MultiPhoneSwitcher(tk.Tk):
             text=f"Hub Active. Playing from {initial_device['description']}",
             foreground="green",
         )
+        self._schedule_hub_refresh()
     
+    def _schedule_hub_refresh(self):
+        """Refresh the source dropdown every 5 s while the hub is running."""
+        if not (self.capture_pipeline and self.capture_pipeline.is_running()):
+            return
+        new_devices = get_bt_devices()
+        new_names = [dev['description'] for dev in new_devices]
+        current_values = list(self.device_menu['values'])
+        if new_names != current_values:
+            self.bt_devices = new_devices
+            self.device_menu['values'] = new_names
+        self.after(5000, self._schedule_hub_refresh)
+
     def stop_hub(self):
         """Stops the capture and cleans up."""
         if self.capture_pipeline:

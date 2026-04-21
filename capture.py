@@ -222,32 +222,64 @@ class NullSinkManager:
 
     def __init__(self):
         self._module_id = None
-        self._monitor_thread = None
-        self._monitoring = False
-        self.stop_event = threading.Event()
-        self._preserved_tokens = set()
+        self._active_source_name = None
+        self._active_sink_name = None
+        self._watching = False
+        self._watcher_thread = None
 
-    def set_active_source(self, source_name=None, device_mac=None):
-        """Remember identifiers for the Bluetooth stream that should keep playing."""
-        tokens = set()
-        if source_name:
-            lowered = source_name.lower()
-            tokens.add(lowered)
-            tokens.add(lowered.replace(":", "_"))
-            tokens.add(lowered.replace("_", ":"))
-        if device_mac:
-            lowered_mac = device_mac.lower()
-            tokens.add(lowered_mac)
-            tokens.add(lowered_mac.replace(":", "_"))
-            tokens.add(lowered_mac.replace(":", "-"))
-        self._preserved_tokens = {token for token in tokens if token}
+    def set_active_source(self, source_name):
+        """Update which source should be left playing; watcher picks this up immediately."""
+        self._active_source_name = source_name
 
-    def _should_preserve_block(self, block):
-        """True when the sink-input block belongs to the selected Bluetooth source."""
-        if not self._preserved_tokens:
-            return False
-        block_text = block.lower()
-        return any(token in block_text for token in self._preserved_tokens)
+    def start_watcher(self, active_source_name, active_sink_name):
+        """Start a background thread that continuously silences non-active BT sources."""
+        self._active_source_name = active_source_name
+        self._active_sink_name = active_sink_name
+        self._watching = True
+        self._watcher_thread = threading.Thread(
+            target=self._watcher_loop, daemon=True, name="NullSinkWatcher"
+        )
+        self._watcher_thread.start()
+
+    def stop_watcher(self):
+        self._watching = False
+        if self._watcher_thread:
+            self._watcher_thread.join(timeout=3)
+            self._watcher_thread = None
+
+    def _watcher_loop(self):
+        """Every 2 s, discover all live BT input nodes and silence the non-active ones."""
+        while self._watching:
+            if self._module_id:  # only act when null sink is live
+                try:
+                    result = subprocess.run(
+                        ["pw-link", "-iol"],
+                        capture_output=True, text=True, check=True,
+                    )
+                    node_ports = {}
+                    for raw_line in result.stdout.splitlines():
+                        line = raw_line.strip()
+                        if not line or line.startswith("|") or " (" in line or ":" not in line:
+                            continue
+                        node_name, port_name = line.rsplit(":", 1)
+                        node_ports.setdefault(node_name, set()).add(port_name)
+
+                    bt_sources = [
+                        name for name, ports in node_ports.items()
+                        if name.startswith(("bluez_input.", "bluez_source."))
+                        and any(
+                            p.startswith(("output_", "monitor_", "capture_"))
+                            for p in ports
+                        )
+                    ]
+                    self.silence_sources(
+                        bt_sources,
+                        self._active_source_name,
+                        self._active_sink_name,
+                    )
+                except Exception:
+                    pass
+            time.sleep(2)
 
     def setup(self):
         """Creates the null sink module if not already present."""
@@ -266,7 +298,8 @@ class NullSinkManager:
         return False
 
     def teardown(self):
-        """Removes the null sink."""
+        """Stops the watcher and removes the null sink."""
+        self.stop_watcher()
         if self._module_id:
             subprocess.run(["pactl", "unload-module", self._module_id],
                            capture_output=True, text=True)
@@ -284,14 +317,19 @@ class NullSinkManager:
                                capture_output=True, text=True)
                 print(f"Found and removed stale null sink (module {mod_id}).")
 
-    def silence_sources(self, source_names, active_source_name):
+    def silence_sources(self, source_names, active_source_name, active_sink_name=None):
         """
         Route non-active BT sources to the null sink using pw-link at the
-        PipeWire graph level, and disconnect them from all other sinks.
-        The active source is left untouched.
+        PipeWire graph level.
+        The active source and any source sharing a MAC with the active sink are left untouched.
         """
         if not self._module_id:
             return
+
+        import audio_utils as _au
+
+        # Normalize the sink MAC so we can compare against source MACs.
+        sink_mac = _au._extract_mac(active_sink_name) if active_sink_name else ""
 
         try:
             result = subprocess.run(["pw-link", "-iol"],
@@ -312,6 +350,11 @@ class NullSinkManager:
 
         for source_name in source_names:
             if source_name == active_source_name:
+                continue
+            # Skip sources that belong to the same physical device as the active sink
+            # (e.g. speaker's HFP mic); silencing it would trigger an HFP profile
+            # switch that kills the A2DP playback session.
+            if sink_mac and _au._extract_mac(source_name) == sink_mac:
                 continue
             for left_s, right_s in (("output_FL", "output_FR"),
                                     ("monitor_FL", "monitor_FR"),
