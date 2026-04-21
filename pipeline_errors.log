@@ -2,8 +2,16 @@
 --- Activating BT Source Cards ---
 ACTIVATE: Skipping bluez_card.74_DF_3A_3E_2D_2D (identified as speaker)
 Attempted to activate card: bluez_card.10_A2_D3_EE_BB_2A (MAC: 10:A2:D3:EE:BB:2A)
-  Command: pactl set-card-profile bluez_card.10_A2_D3_EE_BB_2A a2dp-source
-  Return Code: 1
-  Stdout: 
-  Stderr: Failure: No such entity
+ACTIVATE: bluez_card.10_A2_D3_EE_BB_2A
+  Active Profile: off
+  Available Profiles: off [yes], audio-gateway [yes]
+  Selected Target Profile: [none]
+  Result: no matching a2dp-source profile was found.
+
+Attempted to activate card: bluez_card.98_FE_3E_1F_29_B6 (MAC: 98:FE:3E:1F:29:B6)
+ACTIVATE: bluez_card.98_FE_3E_1F_29_B6
+  Active Profile: off
+  Available Profiles: off [yes], audio-gateway [yes]
+  Selected Target Profile: [none]
+  Result: no matching a2dp-source profile was found.
 
