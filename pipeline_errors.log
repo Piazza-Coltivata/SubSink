@@ -1,2 +1,37 @@
+
+--- Available PipeWire Ports (pw-link -iol) ---
+Midi-Bridge:Midi Through Port-0 (capture)
+Midi-Bridge:Midi Through Port-0 (playback)
+bluez_midi.server:out
+bluez_midi.server:in
+alsa_output.platform-107c701400.hdmi.hdmi-stereo:monitor_FL
+alsa_output.platform-107c701400.hdmi.hdmi-stereo:monitor_FR
+alsa_output.platform-107c701400.hdmi.hdmi-stereo:playback_FL
+alsa_output.platform-107c701400.hdmi.hdmi-stereo:playback_FR
+bluez_input.74:DF:3A:3E:2D:2D:capture_MONO
+bluez_capture_internal.74:DF:3A:3E:2D:2D:monitor_MONO
+bluez_capture_internal.74:DF:3A:3E:2D:2D:input_MONO
+bluez_output.74_DF_3A_3E_2D_2D.1:monitor_FL
+bluez_output.74_DF_3A_3E_2D_2D.1:monitor_FR
+bluez_output.74_DF_3A_3E_2D_2D.1:playback_FL
+  |<- bluez_input.10_A2_D3_EE_BB_2A.2:output_FL
+bluez_output.74_DF_3A_3E_2D_2D.1:playback_FR
+  |<- bluez_input.10_A2_D3_EE_BB_2A.2:output_FR
+bluez_input.10_A2_D3_EE_BB_2A.2:output_FL
+  |-> bluez_output.74_DF_3A_3E_2D_2D.1:playback_FL
+bluez_input.10_A2_D3_EE_BB_2A.2:output_FR
+  |-> bluez_output.74_DF_3A_3E_2D_2D.1:playback_FR
+party_mode_null_sink:monitor_FL
+party_mode_null_sink:monitor_FR
+party_mode_null_sink:playback_FL
+party_mode_null_sink:playback_FR
+
+--- End of Ports ---
+Attempting to link bluez_output.74_DF_3A_3E_2D_2D.1.monitor:monitor_FL -> bluez_output.74_DF_3A_3E_2D_2D.1:playback_FL
 failed to link ports: No such file or directory
+Attempting to link bluez_output.74_DF_3A_3E_2D_2D.1.monitor:monitor_FR -> bluez_output.74_DF_3A_3E_2D_2D.1:playback_FR
+failed to link ports: No such file or directory
+Attempting to unlink bluez_output.74_DF_3A_3E_2D_2D.1.monitor:monitor_FL -> bluez_output.74_DF_3A_3E_2D_2D.1:playback_FL
+failed to unlink ports: No such file or directory
+Attempting to unlink bluez_output.74_DF_3A_3E_2D_2D.1.monitor:monitor_FR -> bluez_output.74_DF_3A_3E_2D_2D.1:playback_FR
 failed to unlink ports: No such file or directory
