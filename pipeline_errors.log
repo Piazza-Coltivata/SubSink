@@ -1,17 +1,1170 @@
 --- New Session ---
---- Activating BT Source Cards ---
-ACTIVATE: Skipping bluez_card.74_DF_3A_3E_2D_2D (identified as speaker)
-Attempted to activate card: bluez_card.10_A2_D3_EE_BB_2A (MAC: 10:A2:D3:EE:BB:2A)
-ACTIVATE: bluez_card.10_A2_D3_EE_BB_2A
-  Active Profile: off
-  Available Profiles: off [yes], audio-gateway [yes]
-  Selected Target Profile: [none]
-  Result: no matching a2dp-source profile was found.
 
-Attempted to activate card: bluez_card.98_FE_3E_1F_29_B6 (MAC: 98:FE:3E:1F:29:B6)
-ACTIVATE: bluez_card.98_FE_3E_1F_29_B6
-  Active Profile: off
-  Available Profiles: off [yes], audio-gateway [yes]
-  Selected Target Profile: [none]
-  Result: no matching a2dp-source profile was found.
+=== CONNECT_PAIR_REQUEST @ 2026-04-21 12:06:56 ===
+Selected source: LAPTOP-RQK3KD02 (98:FE:3E:1F:29:B6) [idle]
+Selected sink: SKDY Kilo
+Capture pipeline: [none]
+Known BT devices:
+  - LAPTOP-RQK3KD02 (98:FE:3E:1F:29:B6) [idle] | card=bluez_card.98_FE_3E_1F_29_B6 | source=None | mac=98:FE:3E:1F:29:B6 | card_present=True | profile_ready=True
+  - Paulot’s iPhone (10:A2:D3:EE:BB:2A) [idle] | card=bluez_card.10_A2_D3_EE_BB_2A | source=None | mac=10:A2:D3:EE:BB:2A | card_present=True | profile_ready=True
+Bluetooth cards:
+  Name: bluez_card.74_DF_3A_3E_2D_2D
+  device.alias = "SKDY Kilo"
+  device.description = "SKDY Kilo"
+  Active Profile: a2dp-sink
+  Name: bluez_card.98_FE_3E_1F_29_B6
+  device.alias = "LAPTOP-RQK3KD02"
+  device.description = "LAPTOP-RQK3KD02"
+  Active Profile: audio-gateway
+  Name: bluez_card.10_A2_D3_EE_BB_2A
+  device.alias = "Paulot’s iPhone"
+  device.description = "Paulot’s iPhone"
+  Active Profile: audio-gateway
+--- pactl list sources short ---
+53	alsa_output.platform-107c701400.hdmi.hdmi-stereo.monitor	PipeWire	s32le 2ch 48000Hz	SUSPENDED
+84	bluez_output.74_DF_3A_3E_2D_2D.1.monitor	PipeWire	s16le 2ch 48000Hz	SUSPENDED
+85	bluez_input.74:DF:3A:3E:2D:2D	PipeWire	float32le 1ch 48000Hz	SUSPENDED
+--- pactl list sinks short ---
+53	alsa_output.platform-107c701400.hdmi.hdmi-stereo	PipeWire	s32le 2ch 48000Hz	SUSPENDED
+84	bluez_output.74_DF_3A_3E_2D_2D.1	PipeWire	s16le 2ch 48000Hz	SUSPENDED
+--- pw-link -iol ---
+Midi-Bridge:Midi Through Port-0 (capture)
+Midi-Bridge:Midi Through Port-0 (playback)
+alsa_output.platform-107c701400.hdmi.hdmi-stereo:monitor_FL
+alsa_output.platform-107c701400.hdmi.hdmi-stereo:monitor_FR
+alsa_output.platform-107c701400.hdmi.hdmi-stereo:playback_FL
+alsa_output.platform-107c701400.hdmi.hdmi-stereo:playback_FR
+bluez_midi.server:out
+bluez_midi.server:in
+bluez_output.74_DF_3A_3E_2D_2D.1:monitor_FL
+bluez_output.74_DF_3A_3E_2D_2D.1:monitor_FR
+bluez_output.74_DF_3A_3E_2D_2D.1:playback_FL
+bluez_output.74_DF_3A_3E_2D_2D.1:playback_FR
+bluez_input.74:DF:3A:3E:2D:2D:capture_MONO
+bluez_capture_internal.74:DF:3A:3E:2D:2D:monitor_MONO
+bluez_capture_internal.74:DF:3A:3E:2D:2D:input_MONO
 
+=== START_HUB_REQUEST source=LAPTOP-RQK3KD02 (98:FE:3E:1F:29:B6) [idle] sink=SKDY Kilo @ 2026-04-21 12:06:56 ===
+Selected source: LAPTOP-RQK3KD02 (98:FE:3E:1F:29:B6) [idle]
+Selected sink: SKDY Kilo
+Capture pipeline: [none]
+Known BT devices:
+  - LAPTOP-RQK3KD02 (98:FE:3E:1F:29:B6) [idle] | card=bluez_card.98_FE_3E_1F_29_B6 | source=None | mac=98:FE:3E:1F:29:B6 | card_present=True | profile_ready=True
+  - Paulot’s iPhone (10:A2:D3:EE:BB:2A) [idle] | card=bluez_card.10_A2_D3_EE_BB_2A | source=None | mac=10:A2:D3:EE:BB:2A | card_present=True | profile_ready=True
+Bluetooth cards:
+  Name: bluez_card.74_DF_3A_3E_2D_2D
+  device.alias = "SKDY Kilo"
+  device.description = "SKDY Kilo"
+  Active Profile: a2dp-sink
+  Name: bluez_card.98_FE_3E_1F_29_B6
+  device.alias = "LAPTOP-RQK3KD02"
+  device.description = "LAPTOP-RQK3KD02"
+  Active Profile: audio-gateway
+  Name: bluez_card.10_A2_D3_EE_BB_2A
+  device.alias = "Paulot’s iPhone"
+  device.description = "Paulot’s iPhone"
+  Active Profile: audio-gateway
+--- pactl list sources short ---
+53	alsa_output.platform-107c701400.hdmi.hdmi-stereo.monitor	PipeWire	s32le 2ch 48000Hz	SUSPENDED
+84	bluez_output.74_DF_3A_3E_2D_2D.1.monitor	PipeWire	s16le 2ch 48000Hz	SUSPENDED
+85	bluez_input.74:DF:3A:3E:2D:2D	PipeWire	float32le 1ch 48000Hz	SUSPENDED
+--- pactl list sinks short ---
+53	alsa_output.platform-107c701400.hdmi.hdmi-stereo	PipeWire	s32le 2ch 48000Hz	SUSPENDED
+84	bluez_output.74_DF_3A_3E_2D_2D.1	PipeWire	s16le 2ch 48000Hz	SUSPENDED
+--- pw-link -iol ---
+Midi-Bridge:Midi Through Port-0 (capture)
+Midi-Bridge:Midi Through Port-0 (playback)
+alsa_output.platform-107c701400.hdmi.hdmi-stereo:monitor_FL
+alsa_output.platform-107c701400.hdmi.hdmi-stereo:monitor_FR
+alsa_output.platform-107c701400.hdmi.hdmi-stereo:playback_FL
+alsa_output.platform-107c701400.hdmi.hdmi-stereo:playback_FR
+bluez_midi.server:out
+bluez_midi.server:in
+bluez_output.74_DF_3A_3E_2D_2D.1:monitor_FL
+bluez_output.74_DF_3A_3E_2D_2D.1:monitor_FR
+bluez_output.74_DF_3A_3E_2D_2D.1:playback_FL
+bluez_output.74_DF_3A_3E_2D_2D.1:playback_FR
+bluez_input.74:DF:3A:3E:2D:2D:capture_MONO
+bluez_capture_internal.74:DF:3A:3E:2D:2D:monitor_MONO
+bluez_capture_internal.74:DF:3A:3E:2D:2D:input_MONO
+ENSURE_A2DP_SOURCE: bluez_card.98_FE_3E_1F_29_B6
+  Active Profile: audio-gateway
+  Available Profiles: off [yes], audio-gateway [yes]
+  Selected Target Profile: audio-gateway
+  Result: already active.
+
+WATCHER_PROTECTED_DEVICE: generation=0 old=[none] new=98:FE:3E:1F:29:B6 active_source=[none]
+WATCHER_START: generation=1 active_source=[none] active_sink=bluez_output.74_DF_3A_3E_2D_2D.1
+WATCHER_LOOP_START: generation=1 active_source=[none] active_sink=bluez_output.74_DF_3A_3E_2D_2D.1
+
+=== START_HUB_WAITING_FOR_SOURCE LAPTOP-RQK3KD02 (98:FE:3E:1F:29:B6) [idle] @ 2026-04-21 12:06:56 ===
+Selected source: LAPTOP-RQK3KD02 (98:FE:3E:1F:29:B6) [idle]
+Selected sink: SKDY Kilo
+Capture pipeline: [none]
+Known BT devices:
+  - LAPTOP-RQK3KD02 (98:FE:3E:1F:29:B6) [idle] | card=bluez_card.98_FE_3E_1F_29_B6 | source=None | mac=98:FE:3E:1F:29:B6 | card_present=True | profile_ready=True
+  - Paulot’s iPhone (10:A2:D3:EE:BB:2A) [idle] | card=bluez_card.10_A2_D3_EE_BB_2A | source=None | mac=10:A2:D3:EE:BB:2A | card_present=True | profile_ready=True
+Bluetooth cards:
+  Name: bluez_card.74_DF_3A_3E_2D_2D
+  device.alias = "SKDY Kilo"
+  device.description = "SKDY Kilo"
+  Active Profile: a2dp-sink
+  Name: bluez_card.98_FE_3E_1F_29_B6
+  device.alias = "LAPTOP-RQK3KD02"
+  device.description = "LAPTOP-RQK3KD02"
+  Active Profile: audio-gateway
+  Name: bluez_card.10_A2_D3_EE_BB_2A
+  device.alias = "Paulot’s iPhone"
+  device.description = "Paulot’s iPhone"
+  Active Profile: audio-gateway
+--- pactl list sources short ---
+53	alsa_output.platform-107c701400.hdmi.hdmi-stereo.monitor	PipeWire	s32le 2ch 48000Hz	SUSPENDED
+84	bluez_output.74_DF_3A_3E_2D_2D.1.monitor	PipeWire	s16le 2ch 48000Hz	SUSPENDED
+85	bluez_input.74:DF:3A:3E:2D:2D	PipeWire	float32le 1ch 48000Hz	SUSPENDED
+--- pactl list sinks short ---
+53	alsa_output.platform-107c701400.hdmi.hdmi-stereo	PipeWire	s32le 2ch 48000Hz	SUSPENDED
+84	bluez_output.74_DF_3A_3E_2D_2D.1	PipeWire	s16le 2ch 48000Hz	SUSPENDED
+--- pw-link -iol ---
+Midi-Bridge:Midi Through Port-0 (capture)
+Midi-Bridge:Midi Through Port-0 (playback)
+alsa_output.platform-107c701400.hdmi.hdmi-stereo:monitor_FL
+alsa_output.platform-107c701400.hdmi.hdmi-stereo:monitor_FR
+alsa_output.platform-107c701400.hdmi.hdmi-stereo:playback_FL
+alsa_output.platform-107c701400.hdmi.hdmi-stereo:playback_FR
+bluez_midi.server:out
+bluez_midi.server:in
+bluez_output.74_DF_3A_3E_2D_2D.1:monitor_FL
+bluez_output.74_DF_3A_3E_2D_2D.1:monitor_FR
+bluez_output.74_DF_3A_3E_2D_2D.1:playback_FL
+bluez_output.74_DF_3A_3E_2D_2D.1:playback_FR
+bluez_input.74:DF:3A:3E:2D:2D:capture_MONO
+bluez_capture_internal.74:DF:3A:3E:2D:2D:monitor_MONO
+bluez_capture_internal.74:DF:3A:3E:2D:2D:input_MONO
+PENDING_ROUTE_SOURCE_RECOVERY: mode=start device=LAPTOP-RQK3KD02 (98:FE:3E:1F:29:B6) [idle] mac=98:FE:3E:1F:29:B6 elapsed=3.3s card_present=True profile_ready=True
+RECOVER_BT_AUDIO: mac=98:FE:3E:1F:29:B6 reason=no live PipeWire source; attempting reconnect.
+  Command: bluetoothctl disconnect 98:FE:3E:1F:29:B6
+  Return Code: 0
+  Stdout: Attempting to disconnect from 98:FE:3E:1F:29:B6
+[[0;91mDEL[0m] Player /org/bluez/hci1/dev_98_FE_3E_1F_29_B6/player0 [default]
+[[0;91mDEL[0m] Transport /org/bluez/hci1/dev_98_FE_3E_1F_29_B6/fd1 
+[[0;91mDEL[0m] Endpoint /org/bluez/hci1/dev_98_FE_3E_1F_29_B6/sep52 
+[[0;91mDEL[0m] Endpoint /org/bluez/hci1/dev_98_FE_3E_1F_29_B6/sep54 
+[[0;91mDEL[0m] Endpoint /org/bluez/hci1/dev_98_FE_3E_1F_29_B6/sep55 
+[[0;93mCHG[0m] Device 98:FE:3E:1F:29:B6 Connected: no
+Disconnection successful
+  Stderr: 
+  Command: bluetoothctl connect 98:FE:3E:1F:29:B6
+  Return Code: 0
+  Stdout: Attempting to connect to 98:FE:3E:1F:29:B6
+[[0;93mCHG[0m] Device 98:FE:3E:1F:29:B6 Connected: yes
+[[0;92mNEW[0m] Endpoint /org/bluez/hci1/dev_98_FE_3E_1F_29_B6/sep52 
+[[0;92mNEW[0m] Endpoint /org/bluez/hci1/dev_98_FE_3E_1F_29_B6/sep54 
+[[0;92mNEW[0m] Endpoint /org/bluez/hci1/dev_98_FE_3E_1F_29_B6/sep55 
+Connection successful
+  Stderr: 
+  Result: still missing
+
+DEVICE_STATE_CHANGE @ 2026-04-21 12:07:08: mac=98:FE:3E:1F:29:B6 description=LAPTOP-RQK3KD02 (98:FE:3E:1F:29:B6) [connected] card_present=True->False profile_ready=True->False source_present=False->False
+PENDING_ROUTE_STILL_IDLE: mode=start device=LAPTOP-RQK3KD02 (98:FE:3E:1F:29:B6) [connected] elapsed=12.6s
+
+=== PENDING_ROUTE_STILL_IDLE LAPTOP-RQK3KD02 (98:FE:3E:1F:29:B6) [connected] elapsed=12.6s @ 2026-04-21 12:07:09 ===
+Selected source: LAPTOP-RQK3KD02 (98:FE:3E:1F:29:B6) [connected]
+Selected sink: SKDY Kilo
+Capture pipeline: [none]
+Known BT devices:
+  - Paulot’s iPhone (10:A2:D3:EE:BB:2A) [idle] | card=bluez_card.10_A2_D3_EE_BB_2A | source=None | mac=10:A2:D3:EE:BB:2A | card_present=True | profile_ready=True
+  - LAPTOP-RQK3KD02 (98:FE:3E:1F:29:B6) [connected] | card=bluez_card.98_FE_3E_1F_29_B6 | source=None | mac=98:FE:3E:1F:29:B6 | card_present=False | profile_ready=False
+Bluetooth cards:
+  Name: bluez_card.74_DF_3A_3E_2D_2D
+  device.alias = "SKDY Kilo"
+  device.description = "SKDY Kilo"
+  Active Profile: a2dp-sink
+  Name: bluez_card.10_A2_D3_EE_BB_2A
+  device.alias = "Paulot’s iPhone"
+  device.description = "Paulot’s iPhone"
+  Active Profile: audio-gateway
+--- pactl list sources short ---
+53	alsa_output.platform-107c701400.hdmi.hdmi-stereo.monitor	PipeWire	s32le 2ch 48000Hz	SUSPENDED
+84	bluez_output.74_DF_3A_3E_2D_2D.1.monitor	PipeWire	s16le 2ch 48000Hz	SUSPENDED
+85	bluez_input.74:DF:3A:3E:2D:2D	PipeWire	float32le 1ch 48000Hz	SUSPENDED
+--- pactl list sinks short ---
+53	alsa_output.platform-107c701400.hdmi.hdmi-stereo	PipeWire	s32le 2ch 48000Hz	SUSPENDED
+84	bluez_output.74_DF_3A_3E_2D_2D.1	PipeWire	s16le 2ch 48000Hz	SUSPENDED
+--- pw-link -iol ---
+Midi-Bridge:Midi Through Port-0 (capture)
+Midi-Bridge:Midi Through Port-0 (playback)
+alsa_output.platform-107c701400.hdmi.hdmi-stereo:monitor_FL
+alsa_output.platform-107c701400.hdmi.hdmi-stereo:monitor_FR
+alsa_output.platform-107c701400.hdmi.hdmi-stereo:playback_FL
+alsa_output.platform-107c701400.hdmi.hdmi-stereo:playback_FR
+bluez_midi.server:out
+bluez_midi.server:in
+bluez_output.74_DF_3A_3E_2D_2D.1:monitor_FL
+bluez_output.74_DF_3A_3E_2D_2D.1:monitor_FR
+bluez_output.74_DF_3A_3E_2D_2D.1:playback_FL
+bluez_output.74_DF_3A_3E_2D_2D.1:playback_FR
+bluez_input.74:DF:3A:3E:2D:2D:capture_MONO
+bluez_capture_internal.74:DF:3A:3E:2D:2D:monitor_MONO
+bluez_capture_internal.74:DF:3A:3E:2D:2D:input_MONO
+DEVICE_STATE_CHANGE @ 2026-04-21 12:07:18: mac=98:FE:3E:1F:29:B6 description=LAPTOP-RQK3KD02 (98:FE:3E:1F:29:B6) [idle] card_present=False->True profile_ready=False->True source_present=False->False
+DEVICE_STATE_CHANGE @ 2026-04-21 12:07:19: mac=98:FE:3E:1F:29:B6 description=LAPTOP-RQK3KD02 (98:FE:3E:1F:29:B6) card_present=True->True profile_ready=True->True source_present=False->True
+PENDING_ROUTE_READY: mode=start device=LAPTOP-RQK3KD02 (98:FE:3E:1F:29:B6) source=bluez_input.98_FE_3E_1F_29_B6.2 sink=bluez_output.74_DF_3A_3E_2D_2D.1
+WATCHER_PROTECTED_DEVICE: generation=1 old=98:FE:3E:1F:29:B6 new=[none] active_source=[none]
+
+=== START_HUB_REQUEST source=LAPTOP-RQK3KD02 (98:FE:3E:1F:29:B6) sink=SKDY Kilo @ 2026-04-21 12:07:21 ===
+Selected source: LAPTOP-RQK3KD02 (98:FE:3E:1F:29:B6)
+Selected sink: SKDY Kilo
+Capture pipeline: [none]
+Known BT devices:
+  - LAPTOP-RQK3KD02 (98:FE:3E:1F:29:B6) | card=bluez_input.98_FE_3E_1F_29_B6.2 | source=bluez_input.98_FE_3E_1F_29_B6.2 | mac=98:FE:3E:1F:29:B6 | card_present=True | profile_ready=True
+  - Paulot’s iPhone (10:A2:D3:EE:BB:2A) [idle] | card=bluez_card.10_A2_D3_EE_BB_2A | source=None | mac=10:A2:D3:EE:BB:2A | card_present=True | profile_ready=True
+Bluetooth cards:
+  Name: bluez_card.74_DF_3A_3E_2D_2D
+  device.alias = "SKDY Kilo"
+  device.description = "SKDY Kilo"
+  Active Profile: a2dp-sink
+  Name: bluez_card.10_A2_D3_EE_BB_2A
+  device.alias = "Paulot’s iPhone"
+  device.description = "Paulot’s iPhone"
+  Active Profile: audio-gateway
+  Name: bluez_card.98_FE_3E_1F_29_B6
+  device.alias = "LAPTOP-RQK3KD02"
+  device.description = "LAPTOP-RQK3KD02"
+  Active Profile: audio-gateway
+--- pactl list sources short ---
+53	alsa_output.platform-107c701400.hdmi.hdmi-stereo.monitor	PipeWire	s32le 2ch 48000Hz	SUSPENDED
+84	bluez_output.74_DF_3A_3E_2D_2D.1.monitor	PipeWire	s16le 2ch 48000Hz	SUSPENDED
+85	bluez_input.74:DF:3A:3E:2D:2D	PipeWire	float32le 1ch 48000Hz	SUSPENDED
+--- pactl list sinks short ---
+53	alsa_output.platform-107c701400.hdmi.hdmi-stereo	PipeWire	s32le 2ch 48000Hz	SUSPENDED
+84	bluez_output.74_DF_3A_3E_2D_2D.1	PipeWire	s16le 2ch 48000Hz	SUSPENDED
+--- pw-link -iol ---
+Midi-Bridge:Midi Through Port-0 (capture)
+Midi-Bridge:Midi Through Port-0 (playback)
+alsa_output.platform-107c701400.hdmi.hdmi-stereo:monitor_FL
+alsa_output.platform-107c701400.hdmi.hdmi-stereo:monitor_FR
+alsa_output.platform-107c701400.hdmi.hdmi-stereo:playback_FL
+alsa_output.platform-107c701400.hdmi.hdmi-stereo:playback_FR
+bluez_midi.server:out
+bluez_midi.server:in
+bluez_output.74_DF_3A_3E_2D_2D.1:monitor_FL
+bluez_output.74_DF_3A_3E_2D_2D.1:monitor_FR
+bluez_output.74_DF_3A_3E_2D_2D.1:playback_FL
+bluez_output.74_DF_3A_3E_2D_2D.1:playback_FR
+bluez_input.74:DF:3A:3E:2D:2D:capture_MONO
+bluez_capture_internal.74:DF:3A:3E:2D:2D:monitor_MONO
+bluez_capture_internal.74:DF:3A:3E:2D:2D:input_MONO
+bluez_input.98_FE_3E_1F_29_B6.2:output_FL
+bluez_input.98_FE_3E_1F_29_B6.2:output_FR
+WATCHER_ACTIVE_SOURCE: generation=1 old=[none] new=bluez_input.98_FE_3E_1F_29_B6.2 sink=bluez_output.74_DF_3A_3E_2D_2D.1 watching=True
+ROUTER: Attempting to link bluez_input.98_FE_3E_1F_29_B6.2:output_FL -> bluez_output.74_DF_3A_3E_2D_2D.1:playback_FL
+ROUTER: Attempting to link bluez_input.98_FE_3E_1F_29_B6.2:output_FR -> bluez_output.74_DF_3A_3E_2D_2D.1:playback_FR
+ROUTER: Attempting to unmute bluez_input.98_FE_3E_1F_29_B6.2 via wpctl id 88
+W 12:07:21.944096             mod.rt ../src/modules/module-rt.c:330:translate_error: RTKit error: org.freedesktop.DBus.Error.ServiceUnknown
+W 12:07:21.944131             mod.rt ../src/modules/module-rt.c:995:do_rtkit_setup: RTKit does not give us MaxRealtimePriority, using 1
+W 12:07:21.944320             mod.rt ../src/modules/module-rt.c:330:translate_error: RTKit error: org.freedesktop.DBus.Error.ServiceUnknown
+W 12:07:21.944325             mod.rt ../src/modules/module-rt.c:1000:do_rtkit_setup: RTKit does not give us MinNiceLevel, using 0
+WATCHER_CHANGES: generation=1 active_source=bluez_input.98_FE_3E_1F_29_B6.2 active_sink=bluez_output.74_DF_3A_3E_2D_2D.1 protected_device=[none] changes={'speaker_links': [('bluez_input.98_FE_3E_1F_29_B6.2:output_FL', 'bluez_output.74_DF_3A_3E_2D_2D.1:playback_FL', 'ok'), ('bluez_input.98_FE_3E_1F_29_B6.2:output_FR', 'bluez_output.74_DF_3A_3E_2D_2D.1:playback_FR', 'ok')], 'mute_changes': [('bluez_input.98_FE_3E_1F_29_B6.2', 'unmute', 'ok')], 'removed_links': []}
+
+--- Available PipeWire Ports (pw-link -iol) ---
+Midi-Bridge:Midi Through Port-0 (capture)
+Midi-Bridge:Midi Through Port-0 (playback)
+alsa_output.platform-107c701400.hdmi.hdmi-stereo:monitor_FL
+alsa_output.platform-107c701400.hdmi.hdmi-stereo:monitor_FR
+alsa_output.platform-107c701400.hdmi.hdmi-stereo:playback_FL
+alsa_output.platform-107c701400.hdmi.hdmi-stereo:playback_FR
+bluez_midi.server:out
+bluez_midi.server:in
+bluez_output.74_DF_3A_3E_2D_2D.1:monitor_FL
+bluez_output.74_DF_3A_3E_2D_2D.1:monitor_FR
+bluez_output.74_DF_3A_3E_2D_2D.1:playback_FL
+  |<- bluez_input.98_FE_3E_1F_29_B6.2:output_FL
+bluez_output.74_DF_3A_3E_2D_2D.1:playback_FR
+  |<- bluez_input.98_FE_3E_1F_29_B6.2:output_FR
+bluez_input.74:DF:3A:3E:2D:2D:capture_MONO
+bluez_capture_internal.74:DF:3A:3E:2D:2D:monitor_MONO
+bluez_capture_internal.74:DF:3A:3E:2D:2D:input_MONO
+bluez_input.98_FE_3E_1F_29_B6.2:output_FL
+  |-> bluez_output.74_DF_3A_3E_2D_2D.1:playback_FL
+bluez_input.98_FE_3E_1F_29_B6.2:output_FR
+  |-> bluez_output.74_DF_3A_3E_2D_2D.1:playback_FR
+
+--- End of Ports ---
+Attempting to link bluez_input.98_FE_3E_1F_29_B6.2:output_FL -> bluez_output.74_DF_3A_3E_2D_2D.1:playback_FL
+failed to link ports: File exists
+Attempting to link bluez_input.98_FE_3E_1F_29_B6.2:output_FR -> bluez_output.74_DF_3A_3E_2D_2D.1:playback_FR
+failed to link ports: File exists
+EXCLUSIVE: active_source=bluez_input.98_FE_3E_1F_29_B6.2 active_sink=bluez_output.74_DF_3A_3E_2D_2D.1 removed_links={'speaker_links': [('bluez_input.98_FE_3E_1F_29_B6.2:output_FL', 'bluez_output.74_DF_3A_3E_2D_2D.1:playback_FL', 'exists'), ('bluez_input.98_FE_3E_1F_29_B6.2:output_FR', 'bluez_output.74_DF_3A_3E_2D_2D.1:playback_FR', 'exists')], 'mute_changes': [], 'removed_links': []}
+WATCHER_REUSE: generation=1 active_source=bluez_input.98_FE_3E_1F_29_B6.2 active_sink=bluez_output.74_DF_3A_3E_2D_2D.1
+
+=== START_HUB_SUCCESS LAPTOP-RQK3KD02 (98:FE:3E:1F:29:B6) @ 2026-04-21 12:07:22 ===
+Selected source: LAPTOP-RQK3KD02 (98:FE:3E:1F:29:B6)
+Selected sink: SKDY Kilo
+Capture pipeline: running=True source=bluez_input.98_FE_3E_1F_29_B6.2 sink=bluez_output.74_DF_3A_3E_2D_2D.1
+Known BT devices:
+  - LAPTOP-RQK3KD02 (98:FE:3E:1F:29:B6) | card=bluez_input.98_FE_3E_1F_29_B6.2 | source=bluez_input.98_FE_3E_1F_29_B6.2 | mac=98:FE:3E:1F:29:B6 | card_present=True | profile_ready=True
+  - Paulot’s iPhone (10:A2:D3:EE:BB:2A) [idle] | card=bluez_card.10_A2_D3_EE_BB_2A | source=None | mac=10:A2:D3:EE:BB:2A | card_present=True | profile_ready=True
+Bluetooth cards:
+  Name: bluez_card.74_DF_3A_3E_2D_2D
+  device.alias = "SKDY Kilo"
+  device.description = "SKDY Kilo"
+  Active Profile: a2dp-sink
+  Name: bluez_card.10_A2_D3_EE_BB_2A
+  device.alias = "Paulot’s iPhone"
+  device.description = "Paulot’s iPhone"
+  Active Profile: audio-gateway
+  Name: bluez_card.98_FE_3E_1F_29_B6
+  device.alias = "LAPTOP-RQK3KD02"
+  device.description = "LAPTOP-RQK3KD02"
+  Active Profile: audio-gateway
+--- pactl list sources short ---
+53	alsa_output.platform-107c701400.hdmi.hdmi-stereo.monitor	PipeWire	s32le 2ch 48000Hz	SUSPENDED
+84	bluez_output.74_DF_3A_3E_2D_2D.1.monitor	PipeWire	s16le 2ch 48000Hz	RUNNING
+85	bluez_input.74:DF:3A:3E:2D:2D	PipeWire	float32le 1ch 48000Hz	SUSPENDED
+--- pactl list sinks short ---
+53	alsa_output.platform-107c701400.hdmi.hdmi-stereo	PipeWire	s32le 2ch 48000Hz	SUSPENDED
+84	bluez_output.74_DF_3A_3E_2D_2D.1	PipeWire	s16le 2ch 48000Hz	RUNNING
+--- pw-link -iol ---
+Midi-Bridge:Midi Through Port-0 (capture)
+Midi-Bridge:Midi Through Port-0 (playback)
+alsa_output.platform-107c701400.hdmi.hdmi-stereo:monitor_FL
+alsa_output.platform-107c701400.hdmi.hdmi-stereo:monitor_FR
+alsa_output.platform-107c701400.hdmi.hdmi-stereo:playback_FL
+alsa_output.platform-107c701400.hdmi.hdmi-stereo:playback_FR
+bluez_midi.server:out
+bluez_midi.server:in
+bluez_output.74_DF_3A_3E_2D_2D.1:monitor_FL
+bluez_output.74_DF_3A_3E_2D_2D.1:monitor_FR
+bluez_output.74_DF_3A_3E_2D_2D.1:playback_FL
+  |<- bluez_input.98_FE_3E_1F_29_B6.2:output_FL
+bluez_output.74_DF_3A_3E_2D_2D.1:playback_FR
+  |<- bluez_input.98_FE_3E_1F_29_B6.2:output_FR
+bluez_input.74:DF:3A:3E:2D:2D:capture_MONO
+bluez_capture_internal.74:DF:3A:3E:2D:2D:monitor_MONO
+bluez_capture_internal.74:DF:3A:3E:2D:2D:input_MONO
+bluez_input.98_FE_3E_1F_29_B6.2:output_FL
+  |-> bluez_output.74_DF_3A_3E_2D_2D.1:playback_FL
+bluez_input.98_FE_3E_1F_29_B6.2:output_FR
+  |-> bluez_output.74_DF_3A_3E_2D_2D.1:playback_FR
+
+=== CONNECT_PAIR_SWITCH_REQUEST @ 2026-04-21 12:07:52 ===
+Selected source: Paulot’s iPhone (10:A2:D3:EE:BB:2A) [idle]
+Selected sink: SKDY Kilo
+Capture pipeline: running=True source=bluez_input.98_FE_3E_1F_29_B6.2 sink=bluez_output.74_DF_3A_3E_2D_2D.1
+Known BT devices:
+  - LAPTOP-RQK3KD02 (98:FE:3E:1F:29:B6) | card=bluez_input.98_FE_3E_1F_29_B6.2 | source=bluez_input.98_FE_3E_1F_29_B6.2 | mac=98:FE:3E:1F:29:B6 | card_present=True | profile_ready=True
+  - Paulot’s iPhone (10:A2:D3:EE:BB:2A) [idle] | card=bluez_card.10_A2_D3_EE_BB_2A | source=None | mac=10:A2:D3:EE:BB:2A | card_present=True | profile_ready=True
+Bluetooth cards:
+  Name: bluez_card.74_DF_3A_3E_2D_2D
+  device.alias = "SKDY Kilo"
+  device.description = "SKDY Kilo"
+  Active Profile: a2dp-sink
+  Name: bluez_card.10_A2_D3_EE_BB_2A
+  device.alias = "Paulot’s iPhone"
+  device.description = "Paulot’s iPhone"
+  Active Profile: audio-gateway
+  Name: bluez_card.98_FE_3E_1F_29_B6
+  device.alias = "LAPTOP-RQK3KD02"
+  device.description = "LAPTOP-RQK3KD02"
+  Active Profile: audio-gateway
+--- pactl list sources short ---
+53	alsa_output.platform-107c701400.hdmi.hdmi-stereo.monitor	PipeWire	s32le 2ch 48000Hz	SUSPENDED
+84	bluez_output.74_DF_3A_3E_2D_2D.1.monitor	PipeWire	s16le 2ch 48000Hz	RUNNING
+85	bluez_input.74:DF:3A:3E:2D:2D	PipeWire	float32le 1ch 48000Hz	SUSPENDED
+--- pactl list sinks short ---
+53	alsa_output.platform-107c701400.hdmi.hdmi-stereo	PipeWire	s32le 2ch 48000Hz	SUSPENDED
+84	bluez_output.74_DF_3A_3E_2D_2D.1	PipeWire	s16le 2ch 48000Hz	RUNNING
+--- pw-link -iol ---
+Midi-Bridge:Midi Through Port-0 (capture)
+Midi-Bridge:Midi Through Port-0 (playback)
+alsa_output.platform-107c701400.hdmi.hdmi-stereo:monitor_FL
+alsa_output.platform-107c701400.hdmi.hdmi-stereo:monitor_FR
+alsa_output.platform-107c701400.hdmi.hdmi-stereo:playback_FL
+alsa_output.platform-107c701400.hdmi.hdmi-stereo:playback_FR
+bluez_midi.server:out
+bluez_midi.server:in
+bluez_output.74_DF_3A_3E_2D_2D.1:monitor_FL
+bluez_output.74_DF_3A_3E_2D_2D.1:monitor_FR
+bluez_output.74_DF_3A_3E_2D_2D.1:playback_FL
+  |<- bluez_input.98_FE_3E_1F_29_B6.2:output_FL
+bluez_output.74_DF_3A_3E_2D_2D.1:playback_FR
+  |<- bluez_input.98_FE_3E_1F_29_B6.2:output_FR
+bluez_input.74:DF:3A:3E:2D:2D:capture_MONO
+bluez_capture_internal.74:DF:3A:3E:2D:2D:monitor_MONO
+bluez_capture_internal.74:DF:3A:3E:2D:2D:input_MONO
+bluez_input.98_FE_3E_1F_29_B6.2:output_FL
+  |-> bluez_output.74_DF_3A_3E_2D_2D.1:playback_FL
+bluez_input.98_FE_3E_1F_29_B6.2:output_FR
+  |-> bluez_output.74_DF_3A_3E_2D_2D.1:playback_FR
+
+=== SWITCH_REQUEST Paulot’s iPhone (10:A2:D3:EE:BB:2A) [idle] @ 2026-04-21 12:07:52 ===
+Selected source: Paulot’s iPhone (10:A2:D3:EE:BB:2A) [idle]
+Selected sink: SKDY Kilo
+Capture pipeline: running=True source=bluez_input.98_FE_3E_1F_29_B6.2 sink=bluez_output.74_DF_3A_3E_2D_2D.1
+Known BT devices:
+  - LAPTOP-RQK3KD02 (98:FE:3E:1F:29:B6) | card=bluez_input.98_FE_3E_1F_29_B6.2 | source=bluez_input.98_FE_3E_1F_29_B6.2 | mac=98:FE:3E:1F:29:B6 | card_present=True | profile_ready=True
+  - Paulot’s iPhone (10:A2:D3:EE:BB:2A) [idle] | card=bluez_card.10_A2_D3_EE_BB_2A | source=None | mac=10:A2:D3:EE:BB:2A | card_present=True | profile_ready=True
+Bluetooth cards:
+  Name: bluez_card.74_DF_3A_3E_2D_2D
+  device.alias = "SKDY Kilo"
+  device.description = "SKDY Kilo"
+  Active Profile: a2dp-sink
+  Name: bluez_card.10_A2_D3_EE_BB_2A
+  device.alias = "Paulot’s iPhone"
+  device.description = "Paulot’s iPhone"
+  Active Profile: audio-gateway
+  Name: bluez_card.98_FE_3E_1F_29_B6
+  device.alias = "LAPTOP-RQK3KD02"
+  device.description = "LAPTOP-RQK3KD02"
+  Active Profile: audio-gateway
+--- pactl list sources short ---
+53	alsa_output.platform-107c701400.hdmi.hdmi-stereo.monitor	PipeWire	s32le 2ch 48000Hz	SUSPENDED
+84	bluez_output.74_DF_3A_3E_2D_2D.1.monitor	PipeWire	s16le 2ch 48000Hz	RUNNING
+85	bluez_input.74:DF:3A:3E:2D:2D	PipeWire	float32le 1ch 48000Hz	SUSPENDED
+--- pactl list sinks short ---
+53	alsa_output.platform-107c701400.hdmi.hdmi-stereo	PipeWire	s32le 2ch 48000Hz	SUSPENDED
+84	bluez_output.74_DF_3A_3E_2D_2D.1	PipeWire	s16le 2ch 48000Hz	RUNNING
+--- pw-link -iol ---
+Midi-Bridge:Midi Through Port-0 (capture)
+Midi-Bridge:Midi Through Port-0 (playback)
+alsa_output.platform-107c701400.hdmi.hdmi-stereo:monitor_FL
+alsa_output.platform-107c701400.hdmi.hdmi-stereo:monitor_FR
+alsa_output.platform-107c701400.hdmi.hdmi-stereo:playback_FL
+alsa_output.platform-107c701400.hdmi.hdmi-stereo:playback_FR
+bluez_midi.server:out
+bluez_midi.server:in
+bluez_output.74_DF_3A_3E_2D_2D.1:monitor_FL
+bluez_output.74_DF_3A_3E_2D_2D.1:monitor_FR
+bluez_output.74_DF_3A_3E_2D_2D.1:playback_FL
+  |<- bluez_input.98_FE_3E_1F_29_B6.2:output_FL
+bluez_output.74_DF_3A_3E_2D_2D.1:playback_FR
+  |<- bluez_input.98_FE_3E_1F_29_B6.2:output_FR
+bluez_input.74:DF:3A:3E:2D:2D:capture_MONO
+bluez_capture_internal.74:DF:3A:3E:2D:2D:monitor_MONO
+bluez_capture_internal.74:DF:3A:3E:2D:2D:input_MONO
+bluez_input.98_FE_3E_1F_29_B6.2:output_FL
+  |-> bluez_output.74_DF_3A_3E_2D_2D.1:playback_FL
+bluez_input.98_FE_3E_1F_29_B6.2:output_FR
+  |-> bluez_output.74_DF_3A_3E_2D_2D.1:playback_FR
+ENSURE_A2DP_SOURCE: bluez_card.10_A2_D3_EE_BB_2A
+  Active Profile: audio-gateway
+  Available Profiles: off [yes], audio-gateway [yes]
+  Selected Target Profile: audio-gateway
+  Result: already active.
+
+WATCHER_PROTECTED_DEVICE: generation=1 old=[none] new=10:A2:D3:EE:BB:2A active_source=bluez_input.98_FE_3E_1F_29_B6.2
+WATCHER_STOP: previous_generation=1 next_generation=2 thread_alive=True
+WATCHER_LOOP_EXIT: generation=1 watching=False current_generation=2 active_source=bluez_input.98_FE_3E_1F_29_B6.2 active_sink=bluez_output.74_DF_3A_3E_2D_2D.1
+WATCHER_STOPPED: generation=1 thread_alive=False
+
+=== SWITCH_WAITING_FOR_SOURCE Paulot’s iPhone (10:A2:D3:EE:BB:2A) [idle] @ 2026-04-21 12:07:53 ===
+Selected source: Paulot’s iPhone (10:A2:D3:EE:BB:2A) [idle]
+Selected sink: SKDY Kilo
+Capture pipeline: running=True source=bluez_input.98_FE_3E_1F_29_B6.2 sink=bluez_output.74_DF_3A_3E_2D_2D.1
+Known BT devices:
+  - LAPTOP-RQK3KD02 (98:FE:3E:1F:29:B6) | card=bluez_input.98_FE_3E_1F_29_B6.2 | source=bluez_input.98_FE_3E_1F_29_B6.2 | mac=98:FE:3E:1F:29:B6 | card_present=True | profile_ready=True
+  - Paulot’s iPhone (10:A2:D3:EE:BB:2A) [idle] | card=bluez_card.10_A2_D3_EE_BB_2A | source=None | mac=10:A2:D3:EE:BB:2A | card_present=True | profile_ready=True
+Bluetooth cards:
+  Name: bluez_card.74_DF_3A_3E_2D_2D
+  device.alias = "SKDY Kilo"
+  device.description = "SKDY Kilo"
+  Active Profile: a2dp-sink
+  Name: bluez_card.10_A2_D3_EE_BB_2A
+  device.alias = "Paulot’s iPhone"
+  device.description = "Paulot’s iPhone"
+  Active Profile: audio-gateway
+  Name: bluez_card.98_FE_3E_1F_29_B6
+  device.alias = "LAPTOP-RQK3KD02"
+  device.description = "LAPTOP-RQK3KD02"
+  Active Profile: audio-gateway
+--- pactl list sources short ---
+53	alsa_output.platform-107c701400.hdmi.hdmi-stereo.monitor	PipeWire	s32le 2ch 48000Hz	SUSPENDED
+84	bluez_output.74_DF_3A_3E_2D_2D.1.monitor	PipeWire	s16le 2ch 48000Hz	RUNNING
+85	bluez_input.74:DF:3A:3E:2D:2D	PipeWire	float32le 1ch 48000Hz	SUSPENDED
+--- pactl list sinks short ---
+53	alsa_output.platform-107c701400.hdmi.hdmi-stereo	PipeWire	s32le 2ch 48000Hz	SUSPENDED
+84	bluez_output.74_DF_3A_3E_2D_2D.1	PipeWire	s16le 2ch 48000Hz	RUNNING
+--- pw-link -iol ---
+Midi-Bridge:Midi Through Port-0 (capture)
+Midi-Bridge:Midi Through Port-0 (playback)
+alsa_output.platform-107c701400.hdmi.hdmi-stereo:monitor_FL
+alsa_output.platform-107c701400.hdmi.hdmi-stereo:monitor_FR
+alsa_output.platform-107c701400.hdmi.hdmi-stereo:playback_FL
+alsa_output.platform-107c701400.hdmi.hdmi-stereo:playback_FR
+bluez_midi.server:out
+bluez_midi.server:in
+bluez_output.74_DF_3A_3E_2D_2D.1:monitor_FL
+bluez_output.74_DF_3A_3E_2D_2D.1:monitor_FR
+bluez_output.74_DF_3A_3E_2D_2D.1:playback_FL
+  |<- bluez_input.98_FE_3E_1F_29_B6.2:output_FL
+bluez_output.74_DF_3A_3E_2D_2D.1:playback_FR
+  |<- bluez_input.98_FE_3E_1F_29_B6.2:output_FR
+bluez_input.74:DF:3A:3E:2D:2D:capture_MONO
+bluez_capture_internal.74:DF:3A:3E:2D:2D:monitor_MONO
+bluez_capture_internal.74:DF:3A:3E:2D:2D:input_MONO
+bluez_input.98_FE_3E_1F_29_B6.2:output_FL
+  |-> bluez_output.74_DF_3A_3E_2D_2D.1:playback_FL
+bluez_input.98_FE_3E_1F_29_B6.2:output_FR
+  |-> bluez_output.74_DF_3A_3E_2D_2D.1:playback_FR
+DEVICE_STATE_CHANGE @ 2026-04-21 12:07:55: mac=10:A2:D3:EE:BB:2A description=Paulot’s iPhone (10:A2:D3:EE:BB:2A) card_present=True->True profile_ready=True->True source_present=False->True
+PENDING_ROUTE_READY: mode=switch device=Paulot’s iPhone (10:A2:D3:EE:BB:2A) source=bluez_input.10_A2_D3_EE_BB_2A.2 sink=bluez_output.74_DF_3A_3E_2D_2D.1
+WATCHER_PROTECTED_DEVICE: generation=2 old=10:A2:D3:EE:BB:2A new=[none] active_source=bluez_input.98_FE_3E_1F_29_B6.2
+
+=== SWITCH_REQUEST Paulot’s iPhone (10:A2:D3:EE:BB:2A) @ 2026-04-21 12:07:57 ===
+Selected source: Paulot’s iPhone (10:A2:D3:EE:BB:2A)
+Selected sink: SKDY Kilo
+Capture pipeline: running=True source=bluez_input.98_FE_3E_1F_29_B6.2 sink=bluez_output.74_DF_3A_3E_2D_2D.1
+Known BT devices:
+  - LAPTOP-RQK3KD02 (98:FE:3E:1F:29:B6) | card=bluez_input.98_FE_3E_1F_29_B6.2 | source=bluez_input.98_FE_3E_1F_29_B6.2 | mac=98:FE:3E:1F:29:B6 | card_present=True | profile_ready=True
+  - Paulot’s iPhone (10:A2:D3:EE:BB:2A) | card=bluez_input.10_A2_D3_EE_BB_2A.2 | source=bluez_input.10_A2_D3_EE_BB_2A.2 | mac=10:A2:D3:EE:BB:2A | card_present=True | profile_ready=True
+Bluetooth cards:
+  Name: bluez_card.74_DF_3A_3E_2D_2D
+  device.alias = "SKDY Kilo"
+  device.description = "SKDY Kilo"
+  Active Profile: a2dp-sink
+  Name: bluez_card.10_A2_D3_EE_BB_2A
+  device.alias = "Paulot’s iPhone"
+  device.description = "Paulot’s iPhone"
+  Active Profile: audio-gateway
+  Name: bluez_card.98_FE_3E_1F_29_B6
+  device.alias = "LAPTOP-RQK3KD02"
+  device.description = "LAPTOP-RQK3KD02"
+  Active Profile: audio-gateway
+--- pactl list sources short ---
+53	alsa_output.platform-107c701400.hdmi.hdmi-stereo.monitor	PipeWire	s32le 2ch 48000Hz	SUSPENDED
+84	bluez_output.74_DF_3A_3E_2D_2D.1.monitor	PipeWire	s16le 2ch 48000Hz	RUNNING
+85	bluez_input.74:DF:3A:3E:2D:2D	PipeWire	float32le 1ch 48000Hz	SUSPENDED
+--- pactl list sinks short ---
+53	alsa_output.platform-107c701400.hdmi.hdmi-stereo	PipeWire	s32le 2ch 48000Hz	SUSPENDED
+84	bluez_output.74_DF_3A_3E_2D_2D.1	PipeWire	s16le 2ch 48000Hz	RUNNING
+--- pw-link -iol ---
+Midi-Bridge:Midi Through Port-0 (capture)
+Midi-Bridge:Midi Through Port-0 (playback)
+alsa_output.platform-107c701400.hdmi.hdmi-stereo:monitor_FL
+alsa_output.platform-107c701400.hdmi.hdmi-stereo:monitor_FR
+alsa_output.platform-107c701400.hdmi.hdmi-stereo:playback_FL
+alsa_output.platform-107c701400.hdmi.hdmi-stereo:playback_FR
+bluez_midi.server:out
+bluez_midi.server:in
+bluez_output.74_DF_3A_3E_2D_2D.1:monitor_FL
+bluez_output.74_DF_3A_3E_2D_2D.1:monitor_FR
+bluez_output.74_DF_3A_3E_2D_2D.1:playback_FL
+  |<- bluez_input.98_FE_3E_1F_29_B6.2:output_FL
+bluez_output.74_DF_3A_3E_2D_2D.1:playback_FR
+  |<- bluez_input.98_FE_3E_1F_29_B6.2:output_FR
+bluez_input.74:DF:3A:3E:2D:2D:capture_MONO
+bluez_capture_internal.74:DF:3A:3E:2D:2D:monitor_MONO
+bluez_capture_internal.74:DF:3A:3E:2D:2D:input_MONO
+bluez_input.98_FE_3E_1F_29_B6.2:output_FL
+  |-> bluez_output.74_DF_3A_3E_2D_2D.1:playback_FL
+bluez_input.98_FE_3E_1F_29_B6.2:output_FR
+  |-> bluez_output.74_DF_3A_3E_2D_2D.1:playback_FR
+bluez_input.10_A2_D3_EE_BB_2A.2:output_FL
+bluez_input.10_A2_D3_EE_BB_2A.2:output_FR
+WATCHER_HOLD_SOURCE: generation=2 source=bluez_input.98_FE_3E_1F_29_B6.2 source_mac=98:FE:3E:1F:29:B6 active_source=bluez_input.98_FE_3E_1F_29_B6.2
+ROUTER: Attempting to mute bluez_input.98_FE_3E_1F_29_B6.2 via wpctl id 88
+W 12:07:57.844800             mod.rt ../src/modules/module-rt.c:330:translate_error: RTKit error: org.freedesktop.DBus.Error.ServiceUnknown
+W 12:07:57.844839             mod.rt ../src/modules/module-rt.c:995:do_rtkit_setup: RTKit does not give us MaxRealtimePriority, using 1
+W 12:07:57.844995             mod.rt ../src/modules/module-rt.c:330:translate_error: RTKit error: org.freedesktop.DBus.Error.ServiceUnknown
+W 12:07:57.845004             mod.rt ../src/modules/module-rt.c:1000:do_rtkit_setup: RTKit does not give us MinNiceLevel, using 0
+W 12:07:57.845147             mod.rt ../src/modules/module-rt.c:330:translate_error: RTKit error: org.freedesktop.DBus.Error.ServiceUnknown
+W 12:07:57.845179             mod.rt ../src/modules/module-rt.c:1005:do_rtkit_setup: RTKit does not give us RTTimeUSecMax, using -1
+WATCHER_ACTIVE_SOURCE: generation=2 old=bluez_input.98_FE_3E_1F_29_B6.2 new=bluez_input.10_A2_D3_EE_BB_2A.2 sink=bluez_output.74_DF_3A_3E_2D_2D.1 watching=False
+
+--- Available PipeWire Ports (pw-link -iol) ---
+Midi-Bridge:Midi Through Port-0 (capture)
+Midi-Bridge:Midi Through Port-0 (playback)
+alsa_output.platform-107c701400.hdmi.hdmi-stereo:monitor_FL
+alsa_output.platform-107c701400.hdmi.hdmi-stereo:monitor_FR
+alsa_output.platform-107c701400.hdmi.hdmi-stereo:playback_FL
+alsa_output.platform-107c701400.hdmi.hdmi-stereo:playback_FR
+bluez_midi.server:out
+bluez_midi.server:in
+bluez_output.74_DF_3A_3E_2D_2D.1:monitor_FL
+bluez_output.74_DF_3A_3E_2D_2D.1:monitor_FR
+bluez_output.74_DF_3A_3E_2D_2D.1:playback_FL
+  |<- bluez_input.98_FE_3E_1F_29_B6.2:output_FL
+bluez_output.74_DF_3A_3E_2D_2D.1:playback_FR
+  |<- bluez_input.98_FE_3E_1F_29_B6.2:output_FR
+bluez_input.74:DF:3A:3E:2D:2D:capture_MONO
+bluez_capture_internal.74:DF:3A:3E:2D:2D:monitor_MONO
+bluez_capture_internal.74:DF:3A:3E:2D:2D:input_MONO
+bluez_input.98_FE_3E_1F_29_B6.2:output_FL
+  |-> bluez_output.74_DF_3A_3E_2D_2D.1:playback_FL
+bluez_input.98_FE_3E_1F_29_B6.2:output_FR
+  |-> bluez_output.74_DF_3A_3E_2D_2D.1:playback_FR
+bluez_input.10_A2_D3_EE_BB_2A.2:output_FL
+bluez_input.10_A2_D3_EE_BB_2A.2:output_FR
+
+--- End of Ports ---
+Attempting to link bluez_input.10_A2_D3_EE_BB_2A.2:output_FL -> bluez_output.74_DF_3A_3E_2D_2D.1:playback_FL
+Attempting to link bluez_input.10_A2_D3_EE_BB_2A.2:output_FR -> bluez_output.74_DF_3A_3E_2D_2D.1:playback_FR
+Attempting to unlink bluez_input.98_FE_3E_1F_29_B6.2:output_FL -> bluez_output.74_DF_3A_3E_2D_2D.1:playback_FL
+Attempting to unlink bluez_input.98_FE_3E_1F_29_B6.2:output_FR -> bluez_output.74_DF_3A_3E_2D_2D.1:playback_FR
+ROUTER: Attempting to unmute bluez_input.10_A2_D3_EE_BB_2A.2 via wpctl id 91
+W 12:07:57.940097             mod.rt ../src/modules/module-rt.c:330:translate_error: RTKit error: org.freedesktop.DBus.Error.ServiceUnknown
+W 12:07:57.940132             mod.rt ../src/modules/module-rt.c:995:do_rtkit_setup: RTKit does not give us MaxRealtimePriority, using 1
+W 12:07:57.940286             mod.rt ../src/modules/module-rt.c:330:translate_error: RTKit error: org.freedesktop.DBus.Error.ServiceUnknown
+W 12:07:57.940292             mod.rt ../src/modules/module-rt.c:1000:do_rtkit_setup: RTKit does not give us MinNiceLevel, using 0
+W 12:07:57.940433             mod.rt ../src/modules/module-rt.c:330:translate_error: RTKit error: org.freedesktop.DBus.Error.ServiceUnknown
+W 12:07:57.940438             mod.rt ../src/modules/module-rt.c:1005:do_rtkit_setup: RTKit does not give us RTTimeUSecMax, using -1
+EXCLUSIVE: active_source=bluez_input.10_A2_D3_EE_BB_2A.2 active_sink=bluez_output.74_DF_3A_3E_2D_2D.1 removed_links={'speaker_links': [('bluez_input.10_A2_D3_EE_BB_2A.2:output_FL', 'bluez_output.74_DF_3A_3E_2D_2D.1:playback_FL', 'exists'), ('bluez_input.10_A2_D3_EE_BB_2A.2:output_FR', 'bluez_output.74_DF_3A_3E_2D_2D.1:playback_FR', 'exists')], 'mute_changes': [('bluez_input.10_A2_D3_EE_BB_2A.2', 'unmute', 'ok')], 'removed_links': []}
+WATCHER_START: generation=3 active_source=bluez_input.10_A2_D3_EE_BB_2A.2 active_sink=bluez_output.74_DF_3A_3E_2D_2D.1
+WATCHER_LOOP_START: generation=3 active_source=bluez_input.10_A2_D3_EE_BB_2A.2 active_sink=bluez_output.74_DF_3A_3E_2D_2D.1
+
+=== SWITCH_SUCCESS Paulot’s iPhone (10:A2:D3:EE:BB:2A) @ 2026-04-21 12:07:58 ===
+Selected source: Paulot’s iPhone (10:A2:D3:EE:BB:2A)
+Selected sink: SKDY Kilo
+Capture pipeline: running=True source=bluez_input.10_A2_D3_EE_BB_2A.2 sink=bluez_output.74_DF_3A_3E_2D_2D.1
+Known BT devices:
+  - LAPTOP-RQK3KD02 (98:FE:3E:1F:29:B6) | card=bluez_input.98_FE_3E_1F_29_B6.2 | source=bluez_input.98_FE_3E_1F_29_B6.2 | mac=98:FE:3E:1F:29:B6 | card_present=True | profile_ready=True
+  - Paulot’s iPhone (10:A2:D3:EE:BB:2A) | card=bluez_input.10_A2_D3_EE_BB_2A.2 | source=bluez_input.10_A2_D3_EE_BB_2A.2 | mac=10:A2:D3:EE:BB:2A | card_present=True | profile_ready=True
+Bluetooth cards:
+  Name: bluez_card.74_DF_3A_3E_2D_2D
+  device.alias = "SKDY Kilo"
+  device.description = "SKDY Kilo"
+  Active Profile: a2dp-sink
+  Name: bluez_card.10_A2_D3_EE_BB_2A
+  device.alias = "Paulot’s iPhone"
+  device.description = "Paulot’s iPhone"
+  Active Profile: audio-gateway
+  Name: bluez_card.98_FE_3E_1F_29_B6
+  device.alias = "LAPTOP-RQK3KD02"
+  device.description = "LAPTOP-RQK3KD02"
+  Active Profile: audio-gateway
+--- pactl list sources short ---
+53	alsa_output.platform-107c701400.hdmi.hdmi-stereo.monitor	PipeWire	s32le 2ch 48000Hz	SUSPENDED
+84	bluez_output.74_DF_3A_3E_2D_2D.1.monitor	PipeWire	s16le 2ch 48000Hz	RUNNING
+85	bluez_input.74:DF:3A:3E:2D:2D	PipeWire	float32le 1ch 48000Hz	SUSPENDED
+--- pactl list sinks short ---
+53	alsa_output.platform-107c701400.hdmi.hdmi-stereo	PipeWire	s32le 2ch 48000Hz	SUSPENDED
+84	bluez_output.74_DF_3A_3E_2D_2D.1	PipeWire	s16le 2ch 48000Hz	RUNNING
+--- pw-link -iol ---
+Midi-Bridge:Midi Through Port-0 (capture)
+Midi-Bridge:Midi Through Port-0 (playback)
+alsa_output.platform-107c701400.hdmi.hdmi-stereo:monitor_FL
+alsa_output.platform-107c701400.hdmi.hdmi-stereo:monitor_FR
+alsa_output.platform-107c701400.hdmi.hdmi-stereo:playback_FL
+alsa_output.platform-107c701400.hdmi.hdmi-stereo:playback_FR
+bluez_midi.server:out
+bluez_midi.server:in
+bluez_output.74_DF_3A_3E_2D_2D.1:monitor_FL
+bluez_output.74_DF_3A_3E_2D_2D.1:monitor_FR
+bluez_output.74_DF_3A_3E_2D_2D.1:playback_FL
+  |<- bluez_input.10_A2_D3_EE_BB_2A.2:output_FL
+bluez_output.74_DF_3A_3E_2D_2D.1:playback_FR
+  |<- bluez_input.10_A2_D3_EE_BB_2A.2:output_FR
+bluez_input.74:DF:3A:3E:2D:2D:capture_MONO
+bluez_capture_internal.74:DF:3A:3E:2D:2D:monitor_MONO
+bluez_capture_internal.74:DF:3A:3E:2D:2D:input_MONO
+bluez_input.98_FE_3E_1F_29_B6.2:output_FL
+bluez_input.98_FE_3E_1F_29_B6.2:output_FR
+bluez_input.10_A2_D3_EE_BB_2A.2:output_FL
+  |-> bluez_output.74_DF_3A_3E_2D_2D.1:playback_FL
+bluez_input.10_A2_D3_EE_BB_2A.2:output_FR
+  |-> bluez_output.74_DF_3A_3E_2D_2D.1:playback_FR
+DEVICE_STATE_CHANGE @ 2026-04-21 12:08:14: mac=10:A2:D3:EE:BB:2A description=Paulot’s iPhone (10:A2:D3:EE:BB:2A) [connected] card_present=True->False profile_ready=True->False source_present=True->False
+
+=== CONNECT_PAIR_SWITCH_REQUEST @ 2026-04-21 12:08:19 ===
+Selected source: LAPTOP-RQK3KD02 (98:FE:3E:1F:29:B6)
+Selected sink: SKDY Kilo
+Capture pipeline: running=True source=bluez_input.10_A2_D3_EE_BB_2A.2 sink=bluez_output.74_DF_3A_3E_2D_2D.1
+Known BT devices:
+  - LAPTOP-RQK3KD02 (98:FE:3E:1F:29:B6) | card=bluez_input.98_FE_3E_1F_29_B6.2 | source=bluez_input.98_FE_3E_1F_29_B6.2 | mac=98:FE:3E:1F:29:B6 | card_present=True | profile_ready=True
+  - Paulot’s iPhone (10:A2:D3:EE:BB:2A) [connected] | card=bluez_card.10_A2_D3_EE_BB_2A | source=None | mac=10:A2:D3:EE:BB:2A | card_present=False | profile_ready=False
+Bluetooth cards:
+  Name: bluez_card.74_DF_3A_3E_2D_2D
+  device.alias = "SKDY Kilo"
+  device.description = "SKDY Kilo"
+  Active Profile: a2dp-sink
+  Name: bluez_card.98_FE_3E_1F_29_B6
+  device.alias = "LAPTOP-RQK3KD02"
+  device.description = "LAPTOP-RQK3KD02"
+  Active Profile: audio-gateway
+--- pactl list sources short ---
+53	alsa_output.platform-107c701400.hdmi.hdmi-stereo.monitor	PipeWire	s32le 2ch 48000Hz	SUSPENDED
+84	bluez_output.74_DF_3A_3E_2D_2D.1.monitor	PipeWire	s16le 2ch 48000Hz	SUSPENDED
+85	bluez_input.74:DF:3A:3E:2D:2D	PipeWire	float32le 1ch 48000Hz	SUSPENDED
+--- pactl list sinks short ---
+53	alsa_output.platform-107c701400.hdmi.hdmi-stereo	PipeWire	s32le 2ch 48000Hz	SUSPENDED
+84	bluez_output.74_DF_3A_3E_2D_2D.1	PipeWire	s16le 2ch 48000Hz	SUSPENDED
+--- pw-link -iol ---
+Midi-Bridge:Midi Through Port-0 (capture)
+Midi-Bridge:Midi Through Port-0 (playback)
+alsa_output.platform-107c701400.hdmi.hdmi-stereo:monitor_FL
+alsa_output.platform-107c701400.hdmi.hdmi-stereo:monitor_FR
+alsa_output.platform-107c701400.hdmi.hdmi-stereo:playback_FL
+alsa_output.platform-107c701400.hdmi.hdmi-stereo:playback_FR
+bluez_midi.server:out
+bluez_midi.server:in
+bluez_output.74_DF_3A_3E_2D_2D.1:monitor_FL
+bluez_output.74_DF_3A_3E_2D_2D.1:monitor_FR
+bluez_output.74_DF_3A_3E_2D_2D.1:playback_FL
+bluez_output.74_DF_3A_3E_2D_2D.1:playback_FR
+bluez_input.74:DF:3A:3E:2D:2D:capture_MONO
+bluez_capture_internal.74:DF:3A:3E:2D:2D:monitor_MONO
+bluez_capture_internal.74:DF:3A:3E:2D:2D:input_MONO
+bluez_input.98_FE_3E_1F_29_B6.2:output_FL
+bluez_input.98_FE_3E_1F_29_B6.2:output_FR
+
+=== SWITCH_REQUEST LAPTOP-RQK3KD02 (98:FE:3E:1F:29:B6) @ 2026-04-21 12:08:19 ===
+Selected source: LAPTOP-RQK3KD02 (98:FE:3E:1F:29:B6)
+Selected sink: SKDY Kilo
+Capture pipeline: running=True source=bluez_input.10_A2_D3_EE_BB_2A.2 sink=bluez_output.74_DF_3A_3E_2D_2D.1
+Known BT devices:
+  - LAPTOP-RQK3KD02 (98:FE:3E:1F:29:B6) | card=bluez_input.98_FE_3E_1F_29_B6.2 | source=bluez_input.98_FE_3E_1F_29_B6.2 | mac=98:FE:3E:1F:29:B6 | card_present=True | profile_ready=True
+  - Paulot’s iPhone (10:A2:D3:EE:BB:2A) [connected] | card=bluez_card.10_A2_D3_EE_BB_2A | source=None | mac=10:A2:D3:EE:BB:2A | card_present=False | profile_ready=False
+Bluetooth cards:
+  Name: bluez_card.74_DF_3A_3E_2D_2D
+  device.alias = "SKDY Kilo"
+  device.description = "SKDY Kilo"
+  Active Profile: a2dp-sink
+  Name: bluez_card.98_FE_3E_1F_29_B6
+  device.alias = "LAPTOP-RQK3KD02"
+  device.description = "LAPTOP-RQK3KD02"
+  Active Profile: audio-gateway
+--- pactl list sources short ---
+53	alsa_output.platform-107c701400.hdmi.hdmi-stereo.monitor	PipeWire	s32le 2ch 48000Hz	SUSPENDED
+84	bluez_output.74_DF_3A_3E_2D_2D.1.monitor	PipeWire	s16le 2ch 48000Hz	SUSPENDED
+85	bluez_input.74:DF:3A:3E:2D:2D	PipeWire	float32le 1ch 48000Hz	SUSPENDED
+--- pactl list sinks short ---
+53	alsa_output.platform-107c701400.hdmi.hdmi-stereo	PipeWire	s32le 2ch 48000Hz	SUSPENDED
+84	bluez_output.74_DF_3A_3E_2D_2D.1	PipeWire	s16le 2ch 48000Hz	SUSPENDED
+--- pw-link -iol ---
+Midi-Bridge:Midi Through Port-0 (capture)
+Midi-Bridge:Midi Through Port-0 (playback)
+alsa_output.platform-107c701400.hdmi.hdmi-stereo:monitor_FL
+alsa_output.platform-107c701400.hdmi.hdmi-stereo:monitor_FR
+alsa_output.platform-107c701400.hdmi.hdmi-stereo:playback_FL
+alsa_output.platform-107c701400.hdmi.hdmi-stereo:playback_FR
+bluez_midi.server:out
+bluez_midi.server:in
+bluez_output.74_DF_3A_3E_2D_2D.1:monitor_FL
+bluez_output.74_DF_3A_3E_2D_2D.1:monitor_FR
+bluez_output.74_DF_3A_3E_2D_2D.1:playback_FL
+bluez_output.74_DF_3A_3E_2D_2D.1:playback_FR
+bluez_input.74:DF:3A:3E:2D:2D:capture_MONO
+bluez_capture_internal.74:DF:3A:3E:2D:2D:monitor_MONO
+bluez_capture_internal.74:DF:3A:3E:2D:2D:input_MONO
+bluez_input.98_FE_3E_1F_29_B6.2:output_FL
+bluez_input.98_FE_3E_1F_29_B6.2:output_FR
+WATCHER_HOLD_SOURCE: generation=3 source=bluez_input.10_A2_D3_EE_BB_2A.2 source_mac=10:A2:D3:EE:BB:2A active_source=bluez_input.10_A2_D3_EE_BB_2A.2
+WATCHER_ACTIVE_SOURCE: generation=3 old=bluez_input.10_A2_D3_EE_BB_2A.2 new=bluez_input.98_FE_3E_1F_29_B6.2 sink=bluez_output.74_DF_3A_3E_2D_2D.1 watching=True
+
+--- Available PipeWire Ports (pw-link -iol) ---
+Midi-Bridge:Midi Through Port-0 (capture)
+Midi-Bridge:Midi Through Port-0 (playback)
+alsa_output.platform-107c701400.hdmi.hdmi-stereo:monitor_FL
+alsa_output.platform-107c701400.hdmi.hdmi-stereo:monitor_FR
+alsa_output.platform-107c701400.hdmi.hdmi-stereo:playback_FL
+alsa_output.platform-107c701400.hdmi.hdmi-stereo:playback_FR
+bluez_midi.server:out
+bluez_midi.server:in
+bluez_output.74_DF_3A_3E_2D_2D.1:monitor_FL
+bluez_output.74_DF_3A_3E_2D_2D.1:monitor_FR
+bluez_output.74_DF_3A_3E_2D_2D.1:playback_FL
+bluez_output.74_DF_3A_3E_2D_2D.1:playback_FR
+bluez_input.74:DF:3A:3E:2D:2D:capture_MONO
+bluez_capture_internal.74:DF:3A:3E:2D:2D:monitor_MONO
+bluez_capture_internal.74:DF:3A:3E:2D:2D:input_MONO
+bluez_input.98_FE_3E_1F_29_B6.2:output_FL
+bluez_input.98_FE_3E_1F_29_B6.2:output_FR
+
+--- End of Ports ---
+Attempting to link bluez_input.98_FE_3E_1F_29_B6.2:output_FL -> bluez_output.74_DF_3A_3E_2D_2D.1:playback_FL
+Attempting to link bluez_input.98_FE_3E_1F_29_B6.2:output_FR -> bluez_output.74_DF_3A_3E_2D_2D.1:playback_FR
+Attempting to unlink bluez_input.10_A2_D3_EE_BB_2A.2:output_FL -> bluez_output.74_DF_3A_3E_2D_2D.1:playback_FL
+failed to unlink ports: No such file or directory
+Attempting to unlink bluez_input.10_A2_D3_EE_BB_2A.2:output_FR -> bluez_output.74_DF_3A_3E_2D_2D.1:playback_FR
+failed to unlink ports: No such file or directory
+ROUTER: Attempting to unmute bluez_input.98_FE_3E_1F_29_B6.2 via wpctl id 88
+W 12:08:19.660136             mod.rt ../src/modules/module-rt.c:330:translate_error: RTKit error: org.freedesktop.DBus.Error.ServiceUnknown
+W 12:08:19.660176             mod.rt ../src/modules/module-rt.c:995:do_rtkit_setup: RTKit does not give us MaxRealtimePriority, using 1
+W 12:08:19.660330             mod.rt ../src/modules/module-rt.c:330:translate_error: RTKit error: org.freedesktop.DBus.Error.ServiceUnknown
+W 12:08:19.660335             mod.rt ../src/modules/module-rt.c:1000:do_rtkit_setup: RTKit does not give us MinNiceLevel, using 0
+W 12:08:19.660469             mod.rt ../src/modules/module-rt.c:330:translate_error: RTKit error: org.freedesktop.DBus.Error.ServiceUnknown
+W 12:08:19.660474             mod.rt ../src/modules/module-rt.c:1005:do_rtkit_setup: RTKit does not give us RTTimeUSecMax, using -1
+EXCLUSIVE: active_source=bluez_input.98_FE_3E_1F_29_B6.2 active_sink=bluez_output.74_DF_3A_3E_2D_2D.1 removed_links={'speaker_links': [('bluez_input.98_FE_3E_1F_29_B6.2:output_FL', 'bluez_output.74_DF_3A_3E_2D_2D.1:playback_FL', 'exists'), ('bluez_input.98_FE_3E_1F_29_B6.2:output_FR', 'bluez_output.74_DF_3A_3E_2D_2D.1:playback_FR', 'exists')], 'mute_changes': [('bluez_input.98_FE_3E_1F_29_B6.2', 'unmute', 'ok')], 'removed_links': []}
+WATCHER_REUSE: generation=3 active_source=bluez_input.98_FE_3E_1F_29_B6.2 active_sink=bluez_output.74_DF_3A_3E_2D_2D.1
+
+=== SWITCH_SUCCESS LAPTOP-RQK3KD02 (98:FE:3E:1F:29:B6) @ 2026-04-21 12:08:19 ===
+Selected source: LAPTOP-RQK3KD02 (98:FE:3E:1F:29:B6)
+Selected sink: SKDY Kilo
+Capture pipeline: running=True source=bluez_input.98_FE_3E_1F_29_B6.2 sink=bluez_output.74_DF_3A_3E_2D_2D.1
+Known BT devices:
+  - LAPTOP-RQK3KD02 (98:FE:3E:1F:29:B6) | card=bluez_input.98_FE_3E_1F_29_B6.2 | source=bluez_input.98_FE_3E_1F_29_B6.2 | mac=98:FE:3E:1F:29:B6 | card_present=True | profile_ready=True
+  - Paulot’s iPhone (10:A2:D3:EE:BB:2A) [connected] | card=bluez_card.10_A2_D3_EE_BB_2A | source=None | mac=10:A2:D3:EE:BB:2A | card_present=False | profile_ready=False
+Bluetooth cards:
+  Name: bluez_card.74_DF_3A_3E_2D_2D
+  device.alias = "SKDY Kilo"
+  device.description = "SKDY Kilo"
+  Active Profile: a2dp-sink
+  Name: bluez_card.98_FE_3E_1F_29_B6
+  device.alias = "LAPTOP-RQK3KD02"
+  device.description = "LAPTOP-RQK3KD02"
+  Active Profile: audio-gateway
+--- pactl list sources short ---
+53	alsa_output.platform-107c701400.hdmi.hdmi-stereo.monitor	PipeWire	s32le 2ch 48000Hz	SUSPENDED
+84	bluez_output.74_DF_3A_3E_2D_2D.1.monitor	PipeWire	s16le 2ch 48000Hz	RUNNING
+85	bluez_input.74:DF:3A:3E:2D:2D	PipeWire	float32le 1ch 48000Hz	SUSPENDED
+--- pactl list sinks short ---
+53	alsa_output.platform-107c701400.hdmi.hdmi-stereo	PipeWire	s32le 2ch 48000Hz	SUSPENDED
+84	bluez_output.74_DF_3A_3E_2D_2D.1	PipeWire	s16le 2ch 48000Hz	RUNNING
+--- pw-link -iol ---
+Midi-Bridge:Midi Through Port-0 (capture)
+Midi-Bridge:Midi Through Port-0 (playback)
+alsa_output.platform-107c701400.hdmi.hdmi-stereo:monitor_FL
+alsa_output.platform-107c701400.hdmi.hdmi-stereo:monitor_FR
+alsa_output.platform-107c701400.hdmi.hdmi-stereo:playback_FL
+alsa_output.platform-107c701400.hdmi.hdmi-stereo:playback_FR
+bluez_midi.server:out
+bluez_midi.server:in
+bluez_output.74_DF_3A_3E_2D_2D.1:monitor_FL
+bluez_output.74_DF_3A_3E_2D_2D.1:monitor_FR
+bluez_output.74_DF_3A_3E_2D_2D.1:playback_FL
+  |<- bluez_input.98_FE_3E_1F_29_B6.2:output_FL
+bluez_output.74_DF_3A_3E_2D_2D.1:playback_FR
+  |<- bluez_input.98_FE_3E_1F_29_B6.2:output_FR
+bluez_input.74:DF:3A:3E:2D:2D:capture_MONO
+bluez_capture_internal.74:DF:3A:3E:2D:2D:monitor_MONO
+bluez_capture_internal.74:DF:3A:3E:2D:2D:input_MONO
+bluez_input.98_FE_3E_1F_29_B6.2:output_FL
+  |-> bluez_output.74_DF_3A_3E_2D_2D.1:playback_FL
+bluez_input.98_FE_3E_1F_29_B6.2:output_FR
+  |-> bluez_output.74_DF_3A_3E_2D_2D.1:playback_FR
+
+=== CONNECT_PAIR_SWITCH_REQUEST @ 2026-04-21 12:08:53 ===
+Selected source: Paulot’s iPhone (10:A2:D3:EE:BB:2A) [connected]
+Selected sink: SKDY Kilo
+Capture pipeline: running=True source=bluez_input.98_FE_3E_1F_29_B6.2 sink=bluez_output.74_DF_3A_3E_2D_2D.1
+Known BT devices:
+  - LAPTOP-RQK3KD02 (98:FE:3E:1F:29:B6) | card=bluez_input.98_FE_3E_1F_29_B6.2 | source=bluez_input.98_FE_3E_1F_29_B6.2 | mac=98:FE:3E:1F:29:B6 | card_present=True | profile_ready=True
+  - Paulot’s iPhone (10:A2:D3:EE:BB:2A) [connected] | card=bluez_card.10_A2_D3_EE_BB_2A | source=None | mac=10:A2:D3:EE:BB:2A | card_present=False | profile_ready=False
+Bluetooth cards:
+  Name: bluez_card.74_DF_3A_3E_2D_2D
+  device.alias = "SKDY Kilo"
+  device.description = "SKDY Kilo"
+  Active Profile: a2dp-sink
+  Name: bluez_card.98_FE_3E_1F_29_B6
+  device.alias = "LAPTOP-RQK3KD02"
+  device.description = "LAPTOP-RQK3KD02"
+  Active Profile: audio-gateway
+--- pactl list sources short ---
+53	alsa_output.platform-107c701400.hdmi.hdmi-stereo.monitor	PipeWire	s32le 2ch 48000Hz	SUSPENDED
+84	bluez_output.74_DF_3A_3E_2D_2D.1.monitor	PipeWire	s16le 2ch 48000Hz	RUNNING
+85	bluez_input.74:DF:3A:3E:2D:2D	PipeWire	float32le 1ch 48000Hz	SUSPENDED
+--- pactl list sinks short ---
+53	alsa_output.platform-107c701400.hdmi.hdmi-stereo	PipeWire	s32le 2ch 48000Hz	SUSPENDED
+84	bluez_output.74_DF_3A_3E_2D_2D.1	PipeWire	s16le 2ch 48000Hz	RUNNING
+--- pw-link -iol ---
+Midi-Bridge:Midi Through Port-0 (capture)
+Midi-Bridge:Midi Through Port-0 (playback)
+alsa_output.platform-107c701400.hdmi.hdmi-stereo:monitor_FL
+alsa_output.platform-107c701400.hdmi.hdmi-stereo:monitor_FR
+alsa_output.platform-107c701400.hdmi.hdmi-stereo:playback_FL
+alsa_output.platform-107c701400.hdmi.hdmi-stereo:playback_FR
+bluez_midi.server:out
+bluez_midi.server:in
+bluez_output.74_DF_3A_3E_2D_2D.1:monitor_FL
+bluez_output.74_DF_3A_3E_2D_2D.1:monitor_FR
+bluez_output.74_DF_3A_3E_2D_2D.1:playback_FL
+  |<- bluez_input.98_FE_3E_1F_29_B6.2:output_FL
+bluez_output.74_DF_3A_3E_2D_2D.1:playback_FR
+  |<- bluez_input.98_FE_3E_1F_29_B6.2:output_FR
+bluez_input.74:DF:3A:3E:2D:2D:capture_MONO
+bluez_capture_internal.74:DF:3A:3E:2D:2D:monitor_MONO
+bluez_capture_internal.74:DF:3A:3E:2D:2D:input_MONO
+bluez_input.98_FE_3E_1F_29_B6.2:output_FL
+  |-> bluez_output.74_DF_3A_3E_2D_2D.1:playback_FL
+bluez_input.98_FE_3E_1F_29_B6.2:output_FR
+  |-> bluez_output.74_DF_3A_3E_2D_2D.1:playback_FR
+
+=== SWITCH_REQUEST Paulot’s iPhone (10:A2:D3:EE:BB:2A) [connected] @ 2026-04-21 12:08:53 ===
+Selected source: Paulot’s iPhone (10:A2:D3:EE:BB:2A) [connected]
+Selected sink: SKDY Kilo
+Capture pipeline: running=True source=bluez_input.98_FE_3E_1F_29_B6.2 sink=bluez_output.74_DF_3A_3E_2D_2D.1
+Known BT devices:
+  - LAPTOP-RQK3KD02 (98:FE:3E:1F:29:B6) | card=bluez_input.98_FE_3E_1F_29_B6.2 | source=bluez_input.98_FE_3E_1F_29_B6.2 | mac=98:FE:3E:1F:29:B6 | card_present=True | profile_ready=True
+  - Paulot’s iPhone (10:A2:D3:EE:BB:2A) [connected] | card=bluez_card.10_A2_D3_EE_BB_2A | source=None | mac=10:A2:D3:EE:BB:2A | card_present=False | profile_ready=False
+Bluetooth cards:
+  Name: bluez_card.74_DF_3A_3E_2D_2D
+  device.alias = "SKDY Kilo"
+  device.description = "SKDY Kilo"
+  Active Profile: a2dp-sink
+  Name: bluez_card.98_FE_3E_1F_29_B6
+  device.alias = "LAPTOP-RQK3KD02"
+  device.description = "LAPTOP-RQK3KD02"
+  Active Profile: audio-gateway
+--- pactl list sources short ---
+53	alsa_output.platform-107c701400.hdmi.hdmi-stereo.monitor	PipeWire	s32le 2ch 48000Hz	SUSPENDED
+84	bluez_output.74_DF_3A_3E_2D_2D.1.monitor	PipeWire	s16le 2ch 48000Hz	RUNNING
+85	bluez_input.74:DF:3A:3E:2D:2D	PipeWire	float32le 1ch 48000Hz	SUSPENDED
+--- pactl list sinks short ---
+53	alsa_output.platform-107c701400.hdmi.hdmi-stereo	PipeWire	s32le 2ch 48000Hz	SUSPENDED
+84	bluez_output.74_DF_3A_3E_2D_2D.1	PipeWire	s16le 2ch 48000Hz	RUNNING
+--- pw-link -iol ---
+Midi-Bridge:Midi Through Port-0 (capture)
+Midi-Bridge:Midi Through Port-0 (playback)
+alsa_output.platform-107c701400.hdmi.hdmi-stereo:monitor_FL
+alsa_output.platform-107c701400.hdmi.hdmi-stereo:monitor_FR
+alsa_output.platform-107c701400.hdmi.hdmi-stereo:playback_FL
+alsa_output.platform-107c701400.hdmi.hdmi-stereo:playback_FR
+bluez_midi.server:out
+bluez_midi.server:in
+bluez_output.74_DF_3A_3E_2D_2D.1:monitor_FL
+bluez_output.74_DF_3A_3E_2D_2D.1:monitor_FR
+bluez_output.74_DF_3A_3E_2D_2D.1:playback_FL
+  |<- bluez_input.98_FE_3E_1F_29_B6.2:output_FL
+bluez_output.74_DF_3A_3E_2D_2D.1:playback_FR
+  |<- bluez_input.98_FE_3E_1F_29_B6.2:output_FR
+bluez_input.74:DF:3A:3E:2D:2D:capture_MONO
+bluez_capture_internal.74:DF:3A:3E:2D:2D:monitor_MONO
+bluez_capture_internal.74:DF:3A:3E:2D:2D:input_MONO
+bluez_input.98_FE_3E_1F_29_B6.2:output_FL
+  |-> bluez_output.74_DF_3A_3E_2D_2D.1:playback_FL
+bluez_input.98_FE_3E_1F_29_B6.2:output_FR
+  |-> bluez_output.74_DF_3A_3E_2D_2D.1:playback_FR
+RECOVER_BT_AUDIO: mac=10:A2:D3:EE:BB:2A reason=no PipeWire card/source; attempting reconnect.
+  Command: bluetoothctl disconnect 10:A2:D3:EE:BB:2A
+  Return Code: 0
+  Stdout: Attempting to disconnect from 10:A2:D3:EE:BB:2A
+[[0;93mCHG[0m] Device 10:A2:D3:EE:BB:2A Connected: no
+Disconnection successful
+  Stderr: 
+  Command: bluetoothctl connect 10:A2:D3:EE:BB:2A
+  Return Code: 0
+  Stdout: Attempting to connect to 10:A2:D3:EE:BB:2A
+[[0;93mCHG[0m] Device 10:A2:D3:EE:BB:2A Connected: yes
+[[0;93mCHG[0m] Device 10:A2:D3:EE:BB:2A Name: 4
+[[0;93mCHG[0m] Device 10:A2:D3:EE:BB:2A Alias: 4
+Connection successful
+  Stderr: 
+  Result: still missing
+
+DEVICE_STATE_CHANGE @ 2026-04-21 12:09:03: mac=10:A2:D3:EE:BB:2A description=Paulot’s iPhone (10:A2:D3:EE:BB:2A) [connected] removed_from_device_list=True
+WATCHER_PROTECTED_DEVICE: generation=3 old=[none] new=10:A2:D3:EE:BB:2A active_source=bluez_input.98_FE_3E_1F_29_B6.2
+WATCHER_STOP: previous_generation=3 next_generation=4 thread_alive=True
+WATCHER_LOOP_EXIT: generation=3 watching=False current_generation=4 active_source=bluez_input.98_FE_3E_1F_29_B6.2 active_sink=bluez_output.74_DF_3A_3E_2D_2D.1
+WATCHER_STOPPED: generation=3 thread_alive=False
+
+=== SWITCH_WAITING_FOR_SOURCE Paulot’s iPhone (10:A2:D3:EE:BB:2A) [connected] @ 2026-04-21 12:09:03 ===
+Selected source: LAPTOP-RQK3KD02 (98:FE:3E:1F:29:B6)
+Selected sink: SKDY Kilo
+Capture pipeline: running=True source=bluez_input.98_FE_3E_1F_29_B6.2 sink=bluez_output.74_DF_3A_3E_2D_2D.1
+Known BT devices:
+  - LAPTOP-RQK3KD02 (98:FE:3E:1F:29:B6) | card=bluez_input.98_FE_3E_1F_29_B6.2 | source=bluez_input.98_FE_3E_1F_29_B6.2 | mac=98:FE:3E:1F:29:B6 | card_present=True | profile_ready=True
+Bluetooth cards:
+  Name: bluez_card.74_DF_3A_3E_2D_2D
+  device.alias = "SKDY Kilo"
+  device.description = "SKDY Kilo"
+  Active Profile: a2dp-sink
+  Name: bluez_card.98_FE_3E_1F_29_B6
+  device.alias = "LAPTOP-RQK3KD02"
+  device.description = "LAPTOP-RQK3KD02"
+  Active Profile: audio-gateway
+--- pactl list sources short ---
+53	alsa_output.platform-107c701400.hdmi.hdmi-stereo.monitor	PipeWire	s32le 2ch 48000Hz	SUSPENDED
+84	bluez_output.74_DF_3A_3E_2D_2D.1.monitor	PipeWire	s16le 2ch 48000Hz	RUNNING
+85	bluez_input.74:DF:3A:3E:2D:2D	PipeWire	float32le 1ch 48000Hz	SUSPENDED
+--- pactl list sinks short ---
+53	alsa_output.platform-107c701400.hdmi.hdmi-stereo	PipeWire	s32le 2ch 48000Hz	SUSPENDED
+84	bluez_output.74_DF_3A_3E_2D_2D.1	PipeWire	s16le 2ch 48000Hz	RUNNING
+--- pw-link -iol ---
+Midi-Bridge:Midi Through Port-0 (capture)
+Midi-Bridge:Midi Through Port-0 (playback)
+alsa_output.platform-107c701400.hdmi.hdmi-stereo:monitor_FL
+alsa_output.platform-107c701400.hdmi.hdmi-stereo:monitor_FR
+alsa_output.platform-107c701400.hdmi.hdmi-stereo:playback_FL
+alsa_output.platform-107c701400.hdmi.hdmi-stereo:playback_FR
+bluez_midi.server:out
+bluez_midi.server:in
+bluez_output.74_DF_3A_3E_2D_2D.1:monitor_FL
+bluez_output.74_DF_3A_3E_2D_2D.1:monitor_FR
+bluez_output.74_DF_3A_3E_2D_2D.1:playback_FL
+  |<- bluez_input.98_FE_3E_1F_29_B6.2:output_FL
+bluez_output.74_DF_3A_3E_2D_2D.1:playback_FR
+  |<- bluez_input.98_FE_3E_1F_29_B6.2:output_FR
+bluez_input.74:DF:3A:3E:2D:2D:capture_MONO
+bluez_capture_internal.74:DF:3A:3E:2D:2D:monitor_MONO
+bluez_capture_internal.74:DF:3A:3E:2D:2D:input_MONO
+bluez_input.98_FE_3E_1F_29_B6.2:output_FL
+  |-> bluez_output.74_DF_3A_3E_2D_2D.1:playback_FL
+bluez_input.98_FE_3E_1F_29_B6.2:output_FR
+  |-> bluez_output.74_DF_3A_3E_2D_2D.1:playback_FR
+PENDING_ROUTE_SOURCE_RECOVERY: mode=switch device=Paulot’s iPhone (10:A2:D3:EE:BB:2A) [connected] mac=10:A2:D3:EE:BB:2A elapsed=3.4s card_present=False profile_ready=False
+RECOVER_BT_AUDIO: mac=10:A2:D3:EE:BB:2A reason=no live PipeWire source; attempting reconnect.
+  Command: bluetoothctl disconnect 10:A2:D3:EE:BB:2A
+  Return Code: 0
+  Stdout: Attempting to disconnect from 10:A2:D3:EE:BB:2A
+[[0;91mDEL[0m] Transport /org/bluez/hci1/dev_10_A2_D3_EE_BB_2A/sep1/fd4 
+[[0;91mDEL[0m] Endpoint /org/bluez/hci1/dev_10_A2_D3_EE_BB_2A/sep1 
+[[0;91mDEL[0m] Endpoint /org/bluez/hci1/dev_10_A2_D3_EE_BB_2A/sep2 
+[[0;91mDEL[0m] Endpoint /org/bluez/hci1/dev_10_A2_D3_EE_BB_2A/sep3 
+[[0;91mDEL[0m] Endpoint /org/bluez/hci1/dev_10_A2_D3_EE_BB_2A/sep4 
+[[0;91mDEL[0m] Endpoint /org/bluez/hci1/dev_10_A2_D3_EE_BB_2A/sep5 
+[[0;91mDEL[0m] Endpoint /org/bluez/hci1/dev_10_A2_D3_EE_BB_2A/sep6 
+[[0;93mCHG[0m] Device 10:A2:D3:EE:BB:2A Connected: no
+Disconnection successful
+  Stderr: 
+  Command: bluetoothctl connect 10:A2:D3:EE:BB:2A
+  Return Code: 0
+  Stdout: Attempting to connect to 10:A2:D3:EE:BB:2A
+[[0;93mCHG[0m] Transport /org/bluez/hci1/dev_98_FE_3E_1F_29_B6/fd3 State: idle
+[[0;93mCHG[0m] Device 10:A2:D3:EE:BB:2A Connected: yes
+[[0;92mNEW[0m] Endpoint /org/bluez/hci1/dev_10_A2_D3_EE_BB_2A/sep1 
+[[0;92mNEW[0m] Endpoint /org/bluez/hci1/dev_10_A2_D3_EE_BB_2A/sep2 
+[[0;92mNEW[0m] Endpoint /org/bluez/hci1/dev_10_A2_D3_EE_BB_2A/sep3 
+[[0;92mNEW[0m] Endpoint /org/bluez/hci1/dev_10_A2_D3_EE_BB_2A/sep4 
+[[0;92mNEW[0m] Endpoint /org/bluez/hci1/dev_10_A2_D3_EE_BB_2A/sep5 
+[[0;92mNEW[0m] Endpoint /org/bluez/hci1/dev_10_A2_D3_EE_BB_2A/sep6 
+[[0;92mNEW[0m] Transport /org/bluez/hci1/dev_10_A2_D3_EE_BB_2A/sep1/fd5 
+Connection successful
+  Stderr: 
+  Result: recovered
+
+DEVICE_STATE_CHANGE @ 2026-04-21 12:09:17: mac=10:A2:D3:EE:BB:2A description=Paulot’s iPhone (10:A2:D3:EE:BB:2A) card_present=False->True profile_ready=False->True source_present=False->True
+DEVICE_STATE_CHANGE @ 2026-04-21 12:09:17: mac=98:FE:3E:1F:29:B6 description=LAPTOP-RQK3KD02 (98:FE:3E:1F:29:B6) [idle] card_present=True->True profile_ready=True->True source_present=True->False
+PENDING_ROUTE_READY: mode=switch device=Paulot’s iPhone (10:A2:D3:EE:BB:2A) source=bluez_input.10_A2_D3_EE_BB_2A.2 sink=bluez_output.74_DF_3A_3E_2D_2D.1
+WATCHER_PROTECTED_DEVICE: generation=4 old=10:A2:D3:EE:BB:2A new=[none] active_source=bluez_input.98_FE_3E_1F_29_B6.2
+
+=== SWITCH_REQUEST Paulot’s iPhone (10:A2:D3:EE:BB:2A) @ 2026-04-21 12:09:19 ===
+Selected source: Paulot’s iPhone (10:A2:D3:EE:BB:2A)
+Selected sink: SKDY Kilo
+Capture pipeline: running=True source=bluez_input.98_FE_3E_1F_29_B6.2 sink=bluez_output.74_DF_3A_3E_2D_2D.1
+Known BT devices:
+  - Paulot’s iPhone (10:A2:D3:EE:BB:2A) | card=bluez_input.10_A2_D3_EE_BB_2A.2 | source=bluez_input.10_A2_D3_EE_BB_2A.2 | mac=10:A2:D3:EE:BB:2A | card_present=True | profile_ready=True
+  - LAPTOP-RQK3KD02 (98:FE:3E:1F:29:B6) [idle] | card=bluez_card.98_FE_3E_1F_29_B6 | source=None | mac=98:FE:3E:1F:29:B6 | card_present=True | profile_ready=True
+Bluetooth cards:
+  Name: bluez_card.74_DF_3A_3E_2D_2D
+  device.alias = "SKDY Kilo"
+  device.description = "SKDY Kilo"
+  Active Profile: a2dp-sink
+  Name: bluez_card.98_FE_3E_1F_29_B6
+  device.alias = "LAPTOP-RQK3KD02"
+  device.description = "LAPTOP-RQK3KD02"
+  Active Profile: audio-gateway
+  Name: bluez_card.10_A2_D3_EE_BB_2A
+  device.alias = "Paulot’s iPhone"
+  device.description = "Paulot’s iPhone"
+  Active Profile: audio-gateway
+--- pactl list sources short ---
+53	alsa_output.platform-107c701400.hdmi.hdmi-stereo.monitor	PipeWire	s32le 2ch 48000Hz	SUSPENDED
+84	bluez_output.74_DF_3A_3E_2D_2D.1.monitor	PipeWire	s16le 2ch 48000Hz	SUSPENDED
+85	bluez_input.74:DF:3A:3E:2D:2D	PipeWire	float32le 1ch 48000Hz	SUSPENDED
+--- pactl list sinks short ---
+53	alsa_output.platform-107c701400.hdmi.hdmi-stereo	PipeWire	s32le 2ch 48000Hz	SUSPENDED
+84	bluez_output.74_DF_3A_3E_2D_2D.1	PipeWire	s16le 2ch 48000Hz	SUSPENDED
+--- pw-link -iol ---
+Midi-Bridge:Midi Through Port-0 (capture)
+Midi-Bridge:Midi Through Port-0 (playback)
+alsa_output.platform-107c701400.hdmi.hdmi-stereo:monitor_FL
+alsa_output.platform-107c701400.hdmi.hdmi-stereo:monitor_FR
+alsa_output.platform-107c701400.hdmi.hdmi-stereo:playback_FL
+alsa_output.platform-107c701400.hdmi.hdmi-stereo:playback_FR
+bluez_midi.server:out
+bluez_midi.server:in
+bluez_output.74_DF_3A_3E_2D_2D.1:monitor_FL
+bluez_output.74_DF_3A_3E_2D_2D.1:monitor_FR
+bluez_output.74_DF_3A_3E_2D_2D.1:playback_FL
+bluez_output.74_DF_3A_3E_2D_2D.1:playback_FR
+bluez_input.74:DF:3A:3E:2D:2D:capture_MONO
+bluez_capture_internal.74:DF:3A:3E:2D:2D:monitor_MONO
+bluez_capture_internal.74:DF:3A:3E:2D:2D:input_MONO
+bluez_input.10_A2_D3_EE_BB_2A.2:output_FL
+bluez_input.10_A2_D3_EE_BB_2A.2:output_FR
+WATCHER_HOLD_SOURCE: generation=4 source=bluez_input.98_FE_3E_1F_29_B6.2 source_mac=98:FE:3E:1F:29:B6 active_source=bluez_input.98_FE_3E_1F_29_B6.2
+WATCHER_ACTIVE_SOURCE: generation=4 old=bluez_input.98_FE_3E_1F_29_B6.2 new=bluez_input.10_A2_D3_EE_BB_2A.2 sink=bluez_output.74_DF_3A_3E_2D_2D.1 watching=False
+
+--- Available PipeWire Ports (pw-link -iol) ---
+Midi-Bridge:Midi Through Port-0 (capture)
+Midi-Bridge:Midi Through Port-0 (playback)
+alsa_output.platform-107c701400.hdmi.hdmi-stereo:monitor_FL
+alsa_output.platform-107c701400.hdmi.hdmi-stereo:monitor_FR
+alsa_output.platform-107c701400.hdmi.hdmi-stereo:playback_FL
+alsa_output.platform-107c701400.hdmi.hdmi-stereo:playback_FR
+bluez_midi.server:out
+bluez_midi.server:in
+bluez_output.74_DF_3A_3E_2D_2D.1:monitor_FL
+bluez_output.74_DF_3A_3E_2D_2D.1:monitor_FR
+bluez_output.74_DF_3A_3E_2D_2D.1:playback_FL
+bluez_output.74_DF_3A_3E_2D_2D.1:playback_FR
+bluez_input.74:DF:3A:3E:2D:2D:capture_MONO
+bluez_capture_internal.74:DF:3A:3E:2D:2D:monitor_MONO
+bluez_capture_internal.74:DF:3A:3E:2D:2D:input_MONO
+bluez_input.10_A2_D3_EE_BB_2A.2:output_FL
+bluez_input.10_A2_D3_EE_BB_2A.2:output_FR
+
+--- End of Ports ---
+Attempting to link bluez_input.10_A2_D3_EE_BB_2A.2:output_FL -> bluez_output.74_DF_3A_3E_2D_2D.1:playback_FL
+Attempting to link bluez_input.10_A2_D3_EE_BB_2A.2:output_FR -> bluez_output.74_DF_3A_3E_2D_2D.1:playback_FR
+Attempting to unlink bluez_input.98_FE_3E_1F_29_B6.2:output_FL -> bluez_output.74_DF_3A_3E_2D_2D.1:playback_FL
+failed to unlink ports: No such file or directory
+Attempting to unlink bluez_input.98_FE_3E_1F_29_B6.2:output_FR -> bluez_output.74_DF_3A_3E_2D_2D.1:playback_FR
+failed to unlink ports: No such file or directory
+ROUTER: Attempting to unmute bluez_input.10_A2_D3_EE_BB_2A.2 via wpctl id 89
+W 12:09:19.431573             mod.rt ../src/modules/module-rt.c:330:translate_error: RTKit error: org.freedesktop.DBus.Error.ServiceUnknown
+W 12:09:19.431609             mod.rt ../src/modules/module-rt.c:995:do_rtkit_setup: RTKit does not give us MaxRealtimePriority, using 1
+W 12:09:19.431807             mod.rt ../src/modules/module-rt.c:330:translate_error: RTKit error: org.freedesktop.DBus.Error.ServiceUnknown
+W 12:09:19.431812             mod.rt ../src/modules/module-rt.c:1000:do_rtkit_setup: RTKit does not give us MinNiceLevel, using 0
+EXCLUSIVE: active_source=bluez_input.10_A2_D3_EE_BB_2A.2 active_sink=bluez_output.74_DF_3A_3E_2D_2D.1 removed_links={'speaker_links': [('bluez_input.10_A2_D3_EE_BB_2A.2:output_FL', 'bluez_output.74_DF_3A_3E_2D_2D.1:playback_FL', 'exists'), ('bluez_input.10_A2_D3_EE_BB_2A.2:output_FR', 'bluez_output.74_DF_3A_3E_2D_2D.1:playback_FR', 'exists')], 'mute_changes': [('bluez_input.10_A2_D3_EE_BB_2A.2', 'unmute', 'ok')], 'removed_links': []}
+WATCHER_START: generation=5 active_source=bluez_input.10_A2_D3_EE_BB_2A.2 active_sink=bluez_output.74_DF_3A_3E_2D_2D.1
+WATCHER_LOOP_START: generation=5 active_source=bluez_input.10_A2_D3_EE_BB_2A.2 active_sink=bluez_output.74_DF_3A_3E_2D_2D.1
+
+=== SWITCH_SUCCESS Paulot’s iPhone (10:A2:D3:EE:BB:2A) @ 2026-04-21 12:09:19 ===
+Selected source: Paulot’s iPhone (10:A2:D3:EE:BB:2A)
+Selected sink: SKDY Kilo
+Capture pipeline: running=True source=bluez_input.10_A2_D3_EE_BB_2A.2 sink=bluez_output.74_DF_3A_3E_2D_2D.1
+Known BT devices:
+  - Paulot’s iPhone (10:A2:D3:EE:BB:2A) | card=bluez_input.10_A2_D3_EE_BB_2A.2 | source=bluez_input.10_A2_D3_EE_BB_2A.2 | mac=10:A2:D3:EE:BB:2A | card_present=True | profile_ready=True
+  - LAPTOP-RQK3KD02 (98:FE:3E:1F:29:B6) [idle] | card=bluez_card.98_FE_3E_1F_29_B6 | source=None | mac=98:FE:3E:1F:29:B6 | card_present=True | profile_ready=True
+Bluetooth cards:
+  Name: bluez_card.74_DF_3A_3E_2D_2D
+  device.alias = "SKDY Kilo"
+  device.description = "SKDY Kilo"
+  Active Profile: a2dp-sink
+  Name: bluez_card.98_FE_3E_1F_29_B6
+  device.alias = "LAPTOP-RQK3KD02"
+  device.description = "LAPTOP-RQK3KD02"
+  Active Profile: audio-gateway
+  Name: bluez_card.10_A2_D3_EE_BB_2A
+  device.alias = "Paulot’s iPhone"
+  device.description = "Paulot’s iPhone"
+  Active Profile: audio-gateway
+--- pactl list sources short ---
+53	alsa_output.platform-107c701400.hdmi.hdmi-stereo.monitor	PipeWire	s32le 2ch 48000Hz	SUSPENDED
+84	bluez_output.74_DF_3A_3E_2D_2D.1.monitor	PipeWire	s16le 2ch 48000Hz	RUNNING
+85	bluez_input.74:DF:3A:3E:2D:2D	PipeWire	float32le 1ch 48000Hz	SUSPENDED
+--- pactl list sinks short ---
+53	alsa_output.platform-107c701400.hdmi.hdmi-stereo	PipeWire	s32le 2ch 48000Hz	SUSPENDED
+84	bluez_output.74_DF_3A_3E_2D_2D.1	PipeWire	s16le 2ch 48000Hz	RUNNING
+--- pw-link -iol ---
+Midi-Bridge:Midi Through Port-0 (capture)
+Midi-Bridge:Midi Through Port-0 (playback)
+alsa_output.platform-107c701400.hdmi.hdmi-stereo:monitor_FL
+alsa_output.platform-107c701400.hdmi.hdmi-stereo:monitor_FR
+alsa_output.platform-107c701400.hdmi.hdmi-stereo:playback_FL
+alsa_output.platform-107c701400.hdmi.hdmi-stereo:playback_FR
+bluez_midi.server:out
+bluez_midi.server:in
+bluez_output.74_DF_3A_3E_2D_2D.1:monitor_FL
+bluez_output.74_DF_3A_3E_2D_2D.1:monitor_FR
+bluez_output.74_DF_3A_3E_2D_2D.1:playback_FL
+  |<- bluez_input.10_A2_D3_EE_BB_2A.2:output_FL
+bluez_output.74_DF_3A_3E_2D_2D.1:playback_FR
+  |<- bluez_input.10_A2_D3_EE_BB_2A.2:output_FR
+bluez_input.74:DF:3A:3E:2D:2D:capture_MONO
+bluez_capture_internal.74:DF:3A:3E:2D:2D:monitor_MONO
+bluez_capture_internal.74:DF:3A:3E:2D:2D:input_MONO
+bluez_input.10_A2_D3_EE_BB_2A.2:output_FL
+  |-> bluez_output.74_DF_3A_3E_2D_2D.1:playback_FL
+bluez_input.10_A2_D3_EE_BB_2A.2:output_FR
+  |-> bluez_output.74_DF_3A_3E_2D_2D.1:playback_FR
+DEVICE_STATE_CHANGE @ 2026-04-21 12:09:30: mac=10:A2:D3:EE:BB:2A description=Paulot’s iPhone (10:A2:D3:EE:BB:2A) [idle] card_present=True->True profile_ready=True->True source_present=True->False
+WATCHER_STOP: previous_generation=5 next_generation=6 thread_alive=True
+WATCHER_LOOP_EXIT: generation=5 watching=False current_generation=6 active_source=bluez_input.10_A2_D3_EE_BB_2A.2 active_sink=bluez_output.74_DF_3A_3E_2D_2D.1
+WATCHER_STOPPED: generation=5 thread_alive=False
+Attempting to unlink bluez_input.10_A2_D3_EE_BB_2A.2:output_FL -> bluez_output.74_DF_3A_3E_2D_2D.1:playback_FL
+failed to unlink ports: No such file or directory
+Attempting to unlink bluez_input.10_A2_D3_EE_BB_2A.2:output_FR -> bluez_output.74_DF_3A_3E_2D_2D.1:playback_FR
+failed to unlink ports: No such file or directory
+WATCHER_STOP: previous_generation=6 next_generation=7 thread_alive=False

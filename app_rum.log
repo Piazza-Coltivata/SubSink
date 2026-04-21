@@ -1,0 +1,688 @@
+DEBUG: Running command -> pactl list sources
+DEBUG: Running command -> pactl list sinks
+DEBUG: Running command -> pactl list cards
+BT_CARDS: all cards found: ['alsa_card.platform-107c701400.hdmi', 'alsa_card.platform-107c706400.hdmi', 'bluez_card.74_DF_3A_3E_2D_2D', 'bluez_card.10_A2_D3_EE_BB_2A']
+BT_DISCOVERY: sink MACs (excluded from sources): {'74:DF:3A:3E:2D:2D'}
+BT_DISCOVERY: active input nodes: []
+BT_DISCOVERY: cards by MAC: ['74:DF:3A:3E:2D:2D', '10:A2:D3:EE:BB:2A']
+BT_DISCOVERY: final device list: ['Paulot’s iPhone (10:A2:D3:EE:BB:2A) [idle]']
+DEBUG: Running command -> pactl list sinks
+DEBUG: Running command -> pactl list sources
+DEBUG: Running command -> pactl list sinks
+DEBUG: Running command -> pactl list cards
+BT_CARDS: all cards found: ['alsa_card.platform-107c701400.hdmi', 'alsa_card.platform-107c706400.hdmi', 'bluez_card.74_DF_3A_3E_2D_2D', 'bluez_card.10_A2_D3_EE_BB_2A']
+BT_DISCOVERY: sink MACs (excluded from sources): {'74:DF:3A:3E:2D:2D'}
+BT_DISCOVERY: active input nodes: []
+BT_DISCOVERY: cards by MAC: ['74:DF:3A:3E:2D:2D', '10:A2:D3:EE:BB:2A']
+BT_DISCOVERY: final device list: ['Paulot’s iPhone (10:A2:D3:EE:BB:2A) [idle]']
+DEBUG: Running command -> pactl list sinks
+DEBUG: Running command -> pactl list sources
+DEBUG: Running command -> pactl list sinks
+DEBUG: Running command -> pactl list cards
+BT_CARDS: all cards found: ['alsa_card.platform-107c701400.hdmi', 'alsa_card.platform-107c706400.hdmi', 'bluez_card.74_DF_3A_3E_2D_2D', 'bluez_card.10_A2_D3_EE_BB_2A']
+BT_DISCOVERY: sink MACs (excluded from sources): {'74:DF:3A:3E:2D:2D'}
+BT_DISCOVERY: active input nodes: []
+BT_DISCOVERY: cards by MAC: ['74:DF:3A:3E:2D:2D', '10:A2:D3:EE:BB:2A']
+BT_DISCOVERY: final device list: ['Paulot’s iPhone (10:A2:D3:EE:BB:2A) [idle]']
+DEBUG: Running command -> pactl list sinks
+DEBUG: Running command -> pactl list sources
+DEBUG: Running command -> pactl list sinks
+DEBUG: Running command -> pactl list cards
+BT_CARDS: all cards found: ['alsa_card.platform-107c701400.hdmi', 'alsa_card.platform-107c706400.hdmi', 'bluez_card.74_DF_3A_3E_2D_2D', 'bluez_card.10_A2_D3_EE_BB_2A']
+BT_DISCOVERY: sink MACs (excluded from sources): {'74:DF:3A:3E:2D:2D'}
+BT_DISCOVERY: active input nodes: []
+BT_DISCOVERY: cards by MAC: ['74:DF:3A:3E:2D:2D', '10:A2:D3:EE:BB:2A']
+BT_DISCOVERY: final device list: ['Paulot’s iPhone (10:A2:D3:EE:BB:2A) [idle]']
+DEBUG: Running command -> pactl list sinks
+HUB_DEBUG: Source selected in dropdown: 'Paulot’s iPhone (10:A2:D3:EE:BB:2A) [idle]'
+HUB_DEBUG: Sink selected in dropdown: 'SKDY Kilo'
+HUB_DEBUG: Found device object: {'name': 'bluez_card.10_A2_D3_EE_BB_2A', 'description': 'Paulot’s iPhone (10:A2:D3:EE:BB:2A) [idle]', 'device_mac': '10:A2:D3:EE:BB:2A', 'is_active_source': False, 'source_name': None, 'monitor_source_name': None, 'properties': {'api.bluez5.address': '10:A2:D3:EE:BB:2A', 'api.bluez5.class': '0x7a020c', 'api.bluez5.connection': 'connected', 'api.bluez5.device': '', 'api.bluez5.icon': 'phone', 'api.bluez5.path': '/org/bluez/hci1/dev_10_A2_D3_EE_BB_2A', 'bluez5.auto-connect': '[ hfp_hf hsp_hs a2dp_sink hfp_ag hsp_ag a2dp_source ]', 'bluez5.profile': 'off', 'device.alias': 'Paulot’s iPhone', 'device.api': 'bluez5', 'device.bus': 'bluetooth', 'device.description': 'Paulot’s iPhone', 'device.form_factor': 'phone', 'device.icon_name': 'audio-card-bluetooth', 'device.name': 'bluez_card.10_A2_D3_EE_BB_2A', 'device.product.id': '0x761e', 'device.string': '10:A2:D3:EE:BB:2A', 'device.vendor.id': 'bluetooth:004c', 'media.class': 'Audio/Device', 'spa.object.id': '2', 'factory.id': '15', 'client.id': '47', 'object.id': '97', 'object.serial': '9125'}}
+HUB_DEBUG: Found sink object: {'index': '2110', 'name': 'bluez_output.74_DF_3A_3E_2D_2D.1', 'description': 'SKDY Kilo'}
+DEBUG: Running command -> pactl list cards
+BT_CARDS: all cards found: ['alsa_card.platform-107c701400.hdmi', 'alsa_card.platform-107c706400.hdmi', 'bluez_card.74_DF_3A_3E_2D_2D', 'bluez_card.10_A2_D3_EE_BB_2A']
+ENSURE_A2DP_SOURCE: Successfully set bluez_card.10_A2_D3_EE_BB_2A to audio-gateway.
+DEBUG: Running command -> pactl list sources
+DEBUG: Running command -> pactl list sinks
+DEBUG: Running command -> pactl list cards
+BT_CARDS: all cards found: ['alsa_card.platform-107c701400.hdmi', 'alsa_card.platform-107c706400.hdmi', 'bluez_card.74_DF_3A_3E_2D_2D', 'bluez_card.10_A2_D3_EE_BB_2A']
+BT_DISCOVERY: sink MACs (excluded from sources): {'74:DF:3A:3E:2D:2D'}
+BT_DISCOVERY: active input nodes: []
+BT_DISCOVERY: cards by MAC: ['74:DF:3A:3E:2D:2D', '10:A2:D3:EE:BB:2A']
+BT_DISCOVERY: final device list: ['Paulot’s iPhone (10:A2:D3:EE:BB:2A) [idle]']
+DEBUG: Running command -> pactl list sources
+DEBUG: Running command -> pactl list sinks
+DEBUG: Running command -> pactl list cards
+BT_CARDS: all cards found: ['alsa_card.platform-107c701400.hdmi', 'alsa_card.platform-107c706400.hdmi', 'bluez_card.74_DF_3A_3E_2D_2D', 'bluez_card.10_A2_D3_EE_BB_2A']
+BT_DISCOVERY: sink MACs (excluded from sources): {'74:DF:3A:3E:2D:2D'}
+BT_DISCOVERY: active input nodes: []
+BT_DISCOVERY: cards by MAC: ['74:DF:3A:3E:2D:2D', '10:A2:D3:EE:BB:2A']
+BT_DISCOVERY: final device list: ['Paulot’s iPhone (10:A2:D3:EE:BB:2A) [idle]']
+DEBUG: Running command -> pactl list sources
+DEBUG: Running command -> pactl list sinks
+DEBUG: Running command -> pactl list cards
+BT_CARDS: all cards found: ['alsa_card.platform-107c701400.hdmi', 'alsa_card.platform-107c706400.hdmi', 'bluez_card.74_DF_3A_3E_2D_2D', 'bluez_card.10_A2_D3_EE_BB_2A']
+BT_DISCOVERY: sink MACs (excluded from sources): {'74:DF:3A:3E:2D:2D'}
+BT_DISCOVERY: active input nodes: []
+BT_DISCOVERY: cards by MAC: ['74:DF:3A:3E:2D:2D', '10:A2:D3:EE:BB:2A']
+BT_DISCOVERY: final device list: ['Paulot’s iPhone (10:A2:D3:EE:BB:2A) [idle]']
+DEBUG: Running command -> pactl list sources
+DEBUG: Running command -> pactl list sinks
+DEBUG: Running command -> pactl list cards
+BT_CARDS: all cards found: ['alsa_card.platform-107c701400.hdmi', 'alsa_card.platform-107c706400.hdmi', 'bluez_card.74_DF_3A_3E_2D_2D', 'bluez_card.10_A2_D3_EE_BB_2A']
+BT_DISCOVERY: sink MACs (excluded from sources): {'74:DF:3A:3E:2D:2D'}
+BT_DISCOVERY: active input nodes: []
+BT_DISCOVERY: cards by MAC: ['74:DF:3A:3E:2D:2D', '10:A2:D3:EE:BB:2A']
+BT_DISCOVERY: final device list: ['Paulot’s iPhone (10:A2:D3:EE:BB:2A) [idle]']
+DEBUG: Running command -> pactl list sources
+DEBUG: Running command -> pactl list sinks
+DEBUG: Running command -> pactl list cards
+BT_CARDS: all cards found: ['alsa_card.platform-107c701400.hdmi', 'alsa_card.platform-107c706400.hdmi', 'bluez_card.74_DF_3A_3E_2D_2D']
+BT_DISCOVERY: sink MACs (excluded from sources): {'74:DF:3A:3E:2D:2D'}
+BT_DISCOVERY: active input nodes: []
+BT_DISCOVERY: cards by MAC: ['74:DF:3A:3E:2D:2D']
+BT_DISCOVERY: final device list: []
+HUB_DEBUG: ERROR - Device 'Paulot’s iPhone (10:A2:D3:EE:BB:2A) [idle]' has no active source node.
+DEBUG: Running command -> pactl list sources
+DEBUG: Running command -> pactl list sinks
+DEBUG: Running command -> pactl list cards
+BT_CARDS: all cards found: ['alsa_card.platform-107c701400.hdmi', 'alsa_card.platform-107c706400.hdmi', 'bluez_card.74_DF_3A_3E_2D_2D', 'bluez_card.98_FE_3E_1F_29_B6', 'bluez_card.10_A2_D3_EE_BB_2A']
+BT_DISCOVERY: sink MACs (excluded from sources): {'74:DF:3A:3E:2D:2D'}
+BT_DISCOVERY: active input nodes: ['bluez_input.10_A2_D3_EE_BB_2A.2']
+BT_DISCOVERY: cards by MAC: ['74:DF:3A:3E:2D:2D', '98:FE:3E:1F:29:B6', '10:A2:D3:EE:BB:2A']
+BT_DISCOVERY: final device list: ['Paulot’s iPhone (10:A2:D3:EE:BB:2A)', 'LAPTOP-RQK3KD02 (98:FE:3E:1F:29:B6) [idle]']
+DEBUG: Running command -> pactl list sinks
+DEBUG: Running command -> pactl list sources
+DEBUG: Running command -> pactl list sinks
+DEBUG: Running command -> pactl list cards
+BT_CARDS: all cards found: ['alsa_card.platform-107c701400.hdmi', 'alsa_card.platform-107c706400.hdmi', 'bluez_card.74_DF_3A_3E_2D_2D', 'bluez_card.98_FE_3E_1F_29_B6', 'bluez_card.10_A2_D3_EE_BB_2A']
+BT_DISCOVERY: sink MACs (excluded from sources): {'74:DF:3A:3E:2D:2D'}
+BT_DISCOVERY: active input nodes: ['bluez_input.10_A2_D3_EE_BB_2A.2', 'bluez_input.98_FE_3E_1F_29_B6.2']
+BT_DISCOVERY: cards by MAC: ['74:DF:3A:3E:2D:2D', '98:FE:3E:1F:29:B6', '10:A2:D3:EE:BB:2A']
+BT_DISCOVERY: final device list: ['LAPTOP-RQK3KD02 (98:FE:3E:1F:29:B6)', 'Paulot’s iPhone (10:A2:D3:EE:BB:2A)']
+DEBUG: Running command -> pactl list sinks
+DEBUG: Running command -> pactl list sources
+DEBUG: Running command -> pactl list sinks
+DEBUG: Running command -> pactl list cards
+BT_CARDS: all cards found: ['alsa_card.platform-107c701400.hdmi', 'alsa_card.platform-107c706400.hdmi', 'bluez_card.74_DF_3A_3E_2D_2D', 'bluez_card.98_FE_3E_1F_29_B6', 'bluez_card.10_A2_D3_EE_BB_2A']
+BT_DISCOVERY: sink MACs (excluded from sources): {'74:DF:3A:3E:2D:2D'}
+BT_DISCOVERY: active input nodes: ['bluez_input.10_A2_D3_EE_BB_2A.2', 'bluez_input.98_FE_3E_1F_29_B6.2']
+BT_DISCOVERY: cards by MAC: ['74:DF:3A:3E:2D:2D', '98:FE:3E:1F:29:B6', '10:A2:D3:EE:BB:2A']
+BT_DISCOVERY: final device list: ['LAPTOP-RQK3KD02 (98:FE:3E:1F:29:B6)', 'Paulot’s iPhone (10:A2:D3:EE:BB:2A)']
+DEBUG: Running command -> pactl list sinks
+HUB_DEBUG: Source selected in dropdown: 'LAPTOP-RQK3KD02 (98:FE:3E:1F:29:B6)'
+HUB_DEBUG: Sink selected in dropdown: 'SKDY Kilo'
+HUB_DEBUG: Found device object: {'name': 'bluez_input.98_FE_3E_1F_29_B6.2', 'description': 'LAPTOP-RQK3KD02 (98:FE:3E:1F:29:B6)', 'device_mac': '98:FE:3E:1F:29:B6', 'is_active_source': True, 'source_name': 'bluez_input.98_FE_3E_1F_29_B6.2', 'monitor_source_name': 'bluez_input.98_FE_3E_1F_29_B6.2'}
+HUB_DEBUG: Found sink object: {'index': '2110', 'name': 'bluez_output.74_DF_3A_3E_2D_2D.1', 'description': 'SKDY Kilo'}
+HUB_DEBUG: Starting capture with SOURCE: 'bluez_input.98_FE_3E_1F_29_B6.2' and SINK: 'bluez_output.74_DF_3A_3E_2D_2D.1'
+DEBUG: Running command -> pactl list cards
+BT_CARDS: all cards found: ['alsa_card.platform-107c701400.hdmi', 'alsa_card.platform-107c706400.hdmi', 'bluez_card.74_DF_3A_3E_2D_2D', 'bluez_card.98_FE_3E_1F_29_B6', 'bluez_card.10_A2_D3_EE_BB_2A']
+ENSURE_A2DP_SINK: bluez_card.74_DF_3A_3E_2D_2D already using a2dp-sink.
+DEBUG: Attempting to link bluez_input.98_FE_3E_1F_29_B6.2:output_FL -> bluez_output.74_DF_3A_3E_2D_2D.1:playback_FL
+DEBUG: Attempting to link bluez_input.98_FE_3E_1F_29_B6.2:output_FR -> bluez_output.74_DF_3A_3E_2D_2D.1:playback_FR
+WATCHER: Breaking link bluez_input.10_A2_D3_EE_BB_2A.2:output_FL -> bluez_output.74_DF_3A_3E_2D_2D.1:playback_FL
+WATCHER: Breaking link bluez_input.10_A2_D3_EE_BB_2A.2:output_FR -> bluez_output.74_DF_3A_3E_2D_2D.1:playback_FR
+LINKS: Current connections to bluez_output.74_DF_3A_3E_2D_2D.1:
+  bluez_output.74_DF_3A_3E_2D_2D.1:playback_FL
+    |<- bluez_input.98_FE_3E_1F_29_B6.2:output_FL
+  bluez_output.74_DF_3A_3E_2D_2D.1:playback_FR
+    |<- bluez_input.98_FE_3E_1F_29_B6.2:output_FR
+LINKS: Current connections to bluez_output.74_DF_3A_3E_2D_2D.1:
+  bluez_output.74_DF_3A_3E_2D_2D.1:playback_FL
+    |<- bluez_input.98_FE_3E_1F_29_B6.2:output_FL
+  bluez_output.74_DF_3A_3E_2D_2D.1:playback_FR
+    |<- bluez_input.98_FE_3E_1F_29_B6.2:output_FR
+DEBUG: Running command -> pactl list sources
+DEBUG: Running command -> pactl list sinks
+DEBUG: Running command -> pactl list cards
+BT_CARDS: all cards found: ['alsa_card.platform-107c701400.hdmi', 'alsa_card.platform-107c706400.hdmi', 'bluez_card.74_DF_3A_3E_2D_2D', 'bluez_card.98_FE_3E_1F_29_B6', 'bluez_card.10_A2_D3_EE_BB_2A']
+BT_DISCOVERY: sink MACs (excluded from sources): {'74:DF:3A:3E:2D:2D'}
+BT_DISCOVERY: active input nodes: ['bluez_input.10_A2_D3_EE_BB_2A.2', 'bluez_input.98_FE_3E_1F_29_B6.2']
+BT_DISCOVERY: cards by MAC: ['74:DF:3A:3E:2D:2D', '98:FE:3E:1F:29:B6', '10:A2:D3:EE:BB:2A']
+BT_DISCOVERY: final device list: ['LAPTOP-RQK3KD02 (98:FE:3E:1F:29:B6)', 'Paulot’s iPhone (10:A2:D3:EE:BB:2A)']
+LINKS: Current connections to bluez_output.74_DF_3A_3E_2D_2D.1:
+  bluez_output.74_DF_3A_3E_2D_2D.1:playback_FL
+  bluez_output.74_DF_3A_3E_2D_2D.1:playback_FR
+LINKS: Current connections to bluez_output.74_DF_3A_3E_2D_2D.1:
+  bluez_output.74_DF_3A_3E_2D_2D.1:playback_FL
+  bluez_output.74_DF_3A_3E_2D_2D.1:playback_FR
+DEBUG: Running command -> pactl list sources
+DEBUG: Running command -> pactl list sinks
+DEBUG: Running command -> pactl list cards
+BT_CARDS: all cards found: ['alsa_card.platform-107c701400.hdmi', 'alsa_card.platform-107c706400.hdmi', 'bluez_card.74_DF_3A_3E_2D_2D', 'bluez_card.98_FE_3E_1F_29_B6', 'bluez_card.10_A2_D3_EE_BB_2A']
+BT_DISCOVERY: sink MACs (excluded from sources): {'74:DF:3A:3E:2D:2D'}
+BT_DISCOVERY: active input nodes: ['bluez_input.10_A2_D3_EE_BB_2A.2']
+BT_DISCOVERY: cards by MAC: ['74:DF:3A:3E:2D:2D', '98:FE:3E:1F:29:B6', '10:A2:D3:EE:BB:2A']
+BT_DISCOVERY: final device list: ['Paulot’s iPhone (10:A2:D3:EE:BB:2A)', 'LAPTOP-RQK3KD02 (98:FE:3E:1F:29:B6) [idle]']
+LINKS: Current connections to bluez_output.74_DF_3A_3E_2D_2D.1:
+  bluez_output.74_DF_3A_3E_2D_2D.1:playback_FL
+  bluez_output.74_DF_3A_3E_2D_2D.1:playback_FR
+LINKS: Current connections to bluez_output.74_DF_3A_3E_2D_2D.1:
+  bluez_output.74_DF_3A_3E_2D_2D.1:playback_FL
+  bluez_output.74_DF_3A_3E_2D_2D.1:playback_FR
+LINKS: Current connections to bluez_output.74_DF_3A_3E_2D_2D.1:
+  bluez_output.74_DF_3A_3E_2D_2D.1:playback_FL
+  bluez_output.74_DF_3A_3E_2D_2D.1:playback_FR
+DEBUG: Running command -> pactl list sources
+DEBUG: Running command -> pactl list sinks
+DEBUG: Running command -> pactl list cards
+BT_CARDS: all cards found: ['alsa_card.platform-107c701400.hdmi', 'alsa_card.platform-107c706400.hdmi', 'bluez_card.74_DF_3A_3E_2D_2D', 'bluez_card.98_FE_3E_1F_29_B6', 'bluez_card.10_A2_D3_EE_BB_2A']
+BT_DISCOVERY: sink MACs (excluded from sources): {'74:DF:3A:3E:2D:2D'}
+BT_DISCOVERY: active input nodes: ['bluez_input.10_A2_D3_EE_BB_2A.2']
+BT_DISCOVERY: cards by MAC: ['74:DF:3A:3E:2D:2D', '98:FE:3E:1F:29:B6', '10:A2:D3:EE:BB:2A']
+BT_DISCOVERY: final device list: ['Paulot’s iPhone (10:A2:D3:EE:BB:2A)', 'LAPTOP-RQK3KD02 (98:FE:3E:1F:29:B6) [idle]']
+LINKS: Current connections to bluez_output.74_DF_3A_3E_2D_2D.1:
+  bluez_output.74_DF_3A_3E_2D_2D.1:playback_FL
+  bluez_output.74_DF_3A_3E_2D_2D.1:playback_FR
+LINKS: Current connections to bluez_output.74_DF_3A_3E_2D_2D.1:
+  bluez_output.74_DF_3A_3E_2D_2D.1:playback_FL
+  bluez_output.74_DF_3A_3E_2D_2D.1:playback_FR
+DEBUG: Running command -> pactl list sources
+DEBUG: Running command -> pactl list sinks
+DEBUG: Running command -> pactl list cards
+BT_CARDS: all cards found: ['alsa_card.platform-107c701400.hdmi', 'alsa_card.platform-107c706400.hdmi', 'bluez_card.74_DF_3A_3E_2D_2D', 'bluez_card.98_FE_3E_1F_29_B6', 'bluez_card.10_A2_D3_EE_BB_2A']
+BT_DISCOVERY: sink MACs (excluded from sources): {'74:DF:3A:3E:2D:2D'}
+BT_DISCOVERY: active input nodes: ['bluez_input.10_A2_D3_EE_BB_2A.2']
+BT_DISCOVERY: cards by MAC: ['74:DF:3A:3E:2D:2D', '98:FE:3E:1F:29:B6', '10:A2:D3:EE:BB:2A']
+BT_DISCOVERY: final device list: ['Paulot’s iPhone (10:A2:D3:EE:BB:2A)', 'LAPTOP-RQK3KD02 (98:FE:3E:1F:29:B6) [idle]']
+LINKS: Current connections to bluez_output.74_DF_3A_3E_2D_2D.1:
+  bluez_output.74_DF_3A_3E_2D_2D.1:playback_FL
+  bluez_output.74_DF_3A_3E_2D_2D.1:playback_FR
+LINKS: Current connections to bluez_output.74_DF_3A_3E_2D_2D.1:
+  bluez_output.74_DF_3A_3E_2D_2D.1:playback_FL
+  bluez_output.74_DF_3A_3E_2D_2D.1:playback_FR
+LINKS: Current connections to bluez_output.74_DF_3A_3E_2D_2D.1:
+  bluez_output.74_DF_3A_3E_2D_2D.1:playback_FL
+  bluez_output.74_DF_3A_3E_2D_2D.1:playback_FR
+DEBUG: Running command -> pactl list sources
+DEBUG: Running command -> pactl list sinks
+DEBUG: Running command -> pactl list cards
+BT_CARDS: all cards found: ['alsa_card.platform-107c701400.hdmi', 'alsa_card.platform-107c706400.hdmi', 'bluez_card.74_DF_3A_3E_2D_2D', 'bluez_card.98_FE_3E_1F_29_B6', 'bluez_card.10_A2_D3_EE_BB_2A']
+BT_DISCOVERY: sink MACs (excluded from sources): {'74:DF:3A:3E:2D:2D'}
+BT_DISCOVERY: active input nodes: ['bluez_input.10_A2_D3_EE_BB_2A.2']
+BT_DISCOVERY: cards by MAC: ['74:DF:3A:3E:2D:2D', '98:FE:3E:1F:29:B6', '10:A2:D3:EE:BB:2A']
+BT_DISCOVERY: final device list: ['Paulot’s iPhone (10:A2:D3:EE:BB:2A)', 'LAPTOP-RQK3KD02 (98:FE:3E:1F:29:B6) [idle]']
+LINKS: Current connections to bluez_output.74_DF_3A_3E_2D_2D.1:
+  bluez_output.74_DF_3A_3E_2D_2D.1:playback_FL
+  bluez_output.74_DF_3A_3E_2D_2D.1:playback_FR
+LINKS: Current connections to bluez_output.74_DF_3A_3E_2D_2D.1:
+  bluez_output.74_DF_3A_3E_2D_2D.1:playback_FL
+  bluez_output.74_DF_3A_3E_2D_2D.1:playback_FR
+DEBUG: Running command -> pactl list sources
+DEBUG: Running command -> pactl list sinks
+DEBUG: Running command -> pactl list cards
+BT_CARDS: all cards found: ['alsa_card.platform-107c701400.hdmi', 'alsa_card.platform-107c706400.hdmi', 'bluez_card.74_DF_3A_3E_2D_2D', 'bluez_card.10_A2_D3_EE_BB_2A']
+BT_DISCOVERY: sink MACs (excluded from sources): {'74:DF:3A:3E:2D:2D'}
+BT_DISCOVERY: active input nodes: ['bluez_input.10_A2_D3_EE_BB_2A.2']
+BT_DISCOVERY: cards by MAC: ['74:DF:3A:3E:2D:2D', '10:A2:D3:EE:BB:2A']
+BT_DISCOVERY: final device list: ['Paulot’s iPhone (10:A2:D3:EE:BB:2A)']
+LINKS: Current connections to bluez_output.74_DF_3A_3E_2D_2D.1:
+  bluez_output.74_DF_3A_3E_2D_2D.1:playback_FL
+  bluez_output.74_DF_3A_3E_2D_2D.1:playback_FR
+LINKS: Current connections to bluez_output.74_DF_3A_3E_2D_2D.1:
+  bluez_output.74_DF_3A_3E_2D_2D.1:playback_FL
+  bluez_output.74_DF_3A_3E_2D_2D.1:playback_FR
+LINKS: Current connections to bluez_output.74_DF_3A_3E_2D_2D.1:
+  bluez_output.74_DF_3A_3E_2D_2D.1:playback_FL
+  bluez_output.74_DF_3A_3E_2D_2D.1:playback_FR
+DEBUG: Running command -> pactl list sources
+DEBUG: Running command -> pactl list sinks
+DEBUG: Running command -> pactl list cards
+BT_CARDS: all cards found: ['alsa_card.platform-107c701400.hdmi', 'alsa_card.platform-107c706400.hdmi', 'bluez_card.74_DF_3A_3E_2D_2D', 'bluez_card.10_A2_D3_EE_BB_2A']
+BT_DISCOVERY: sink MACs (excluded from sources): {'74:DF:3A:3E:2D:2D'}
+BT_DISCOVERY: active input nodes: ['bluez_input.10_A2_D3_EE_BB_2A.2']
+BT_DISCOVERY: cards by MAC: ['74:DF:3A:3E:2D:2D', '10:A2:D3:EE:BB:2A']
+BT_DISCOVERY: final device list: ['Paulot’s iPhone (10:A2:D3:EE:BB:2A)']
+LINKS: Current connections to bluez_output.74_DF_3A_3E_2D_2D.1:
+  bluez_output.74_DF_3A_3E_2D_2D.1:playback_FL
+  bluez_output.74_DF_3A_3E_2D_2D.1:playback_FR
+LINKS: Current connections to bluez_output.74_DF_3A_3E_2D_2D.1:
+  bluez_output.74_DF_3A_3E_2D_2D.1:playback_FL
+    |<- bluez_input.98_FE_3E_1F_29_B6.2:output_FL
+  bluez_output.74_DF_3A_3E_2D_2D.1:playback_FR
+    |<- bluez_input.98_FE_3E_1F_29_B6.2:output_FR
+DEBUG: Running command -> pactl list sources
+DEBUG: Running command -> pactl list sinks
+DEBUG: Running command -> pactl list cards
+BT_CARDS: all cards found: ['alsa_card.platform-107c701400.hdmi', 'alsa_card.platform-107c706400.hdmi', 'bluez_card.74_DF_3A_3E_2D_2D', 'bluez_card.10_A2_D3_EE_BB_2A', 'bluez_card.98_FE_3E_1F_29_B6']
+BT_DISCOVERY: sink MACs (excluded from sources): {'74:DF:3A:3E:2D:2D'}
+BT_DISCOVERY: active input nodes: ['bluez_input.10_A2_D3_EE_BB_2A.2', 'bluez_input.98_FE_3E_1F_29_B6.2']
+BT_DISCOVERY: cards by MAC: ['74:DF:3A:3E:2D:2D', '10:A2:D3:EE:BB:2A', '98:FE:3E:1F:29:B6']
+BT_DISCOVERY: final device list: ['LAPTOP-RQK3KD02 (98:FE:3E:1F:29:B6)', 'Paulot’s iPhone (10:A2:D3:EE:BB:2A)']
+LINKS: Current connections to bluez_output.74_DF_3A_3E_2D_2D.1:
+  bluez_output.74_DF_3A_3E_2D_2D.1:playback_FL
+    |<- bluez_input.98_FE_3E_1F_29_B6.2:output_FL
+  bluez_output.74_DF_3A_3E_2D_2D.1:playback_FR
+    |<- bluez_input.98_FE_3E_1F_29_B6.2:output_FR
+LINKS: Current connections to bluez_output.74_DF_3A_3E_2D_2D.1:
+  bluez_output.74_DF_3A_3E_2D_2D.1:playback_FL
+    |<- bluez_input.98_FE_3E_1F_29_B6.2:output_FL
+  bluez_output.74_DF_3A_3E_2D_2D.1:playback_FR
+    |<- bluez_input.98_FE_3E_1F_29_B6.2:output_FR
+DEBUG: Running command -> pactl list sources
+DEBUG: Running command -> pactl list sinks
+DEBUG: Running command -> pactl list cards
+BT_CARDS: all cards found: ['alsa_card.platform-107c701400.hdmi', 'alsa_card.platform-107c706400.hdmi', 'bluez_card.74_DF_3A_3E_2D_2D', 'bluez_card.10_A2_D3_EE_BB_2A', 'bluez_card.98_FE_3E_1F_29_B6']
+BT_DISCOVERY: sink MACs (excluded from sources): {'74:DF:3A:3E:2D:2D'}
+BT_DISCOVERY: active input nodes: ['bluez_input.10_A2_D3_EE_BB_2A.2', 'bluez_input.98_FE_3E_1F_29_B6.2']
+BT_DISCOVERY: cards by MAC: ['74:DF:3A:3E:2D:2D', '10:A2:D3:EE:BB:2A', '98:FE:3E:1F:29:B6']
+BT_DISCOVERY: final device list: ['LAPTOP-RQK3KD02 (98:FE:3E:1F:29:B6)', 'Paulot’s iPhone (10:A2:D3:EE:BB:2A)']
+DEBUG: Running command -> pactl list sinks
+DEBUG: Running command -> pactl list sources
+DEBUG: Running command -> pactl list sinks
+DEBUG: Running command -> pactl list cards
+BT_CARDS: all cards found: ['alsa_card.platform-107c701400.hdmi', 'alsa_card.platform-107c706400.hdmi', 'bluez_card.74_DF_3A_3E_2D_2D', 'bluez_card.10_A2_D3_EE_BB_2A', 'bluez_card.98_FE_3E_1F_29_B6']
+BT_DISCOVERY: sink MACs (excluded from sources): {'74:DF:3A:3E:2D:2D'}
+BT_DISCOVERY: active input nodes: ['bluez_input.10_A2_D3_EE_BB_2A.2', 'bluez_input.98_FE_3E_1F_29_B6.2']
+BT_DISCOVERY: cards by MAC: ['74:DF:3A:3E:2D:2D', '10:A2:D3:EE:BB:2A', '98:FE:3E:1F:29:B6']
+BT_DISCOVERY: final device list: ['LAPTOP-RQK3KD02 (98:FE:3E:1F:29:B6)', 'Paulot’s iPhone (10:A2:D3:EE:BB:2A)']
+DEBUG: Running command -> pactl list sinks
+HUB_DEBUG: Source selected in dropdown: 'LAPTOP-RQK3KD02 (98:FE:3E:1F:29:B6)'
+HUB_DEBUG: Sink selected in dropdown: 'SKDY Kilo'
+HUB_DEBUG: Found device object: {'name': 'bluez_input.98_FE_3E_1F_29_B6.2', 'description': 'LAPTOP-RQK3KD02 (98:FE:3E:1F:29:B6)', 'device_mac': '98:FE:3E:1F:29:B6', 'is_active_source': True, 'source_name': 'bluez_input.98_FE_3E_1F_29_B6.2', 'monitor_source_name': 'bluez_input.98_FE_3E_1F_29_B6.2'}
+HUB_DEBUG: Found sink object: {'index': '2110', 'name': 'bluez_output.74_DF_3A_3E_2D_2D.1', 'description': 'SKDY Kilo'}
+HUB_DEBUG: Starting capture with SOURCE: 'bluez_input.98_FE_3E_1F_29_B6.2' and SINK: 'bluez_output.74_DF_3A_3E_2D_2D.1'
+DEBUG: Running command -> pactl list cards
+BT_CARDS: all cards found: ['alsa_card.platform-107c701400.hdmi', 'alsa_card.platform-107c706400.hdmi', 'bluez_card.74_DF_3A_3E_2D_2D', 'bluez_card.10_A2_D3_EE_BB_2A', 'bluez_card.98_FE_3E_1F_29_B6']
+ENSURE_A2DP_SINK: bluez_card.74_DF_3A_3E_2D_2D already using a2dp-sink.
+DEBUG: Attempting to unlink bluez_input.98_FE_3E_1F_29_B6.2:output_FL -> bluez_output.74_DF_3A_3E_2D_2D.1:playback_FL
+DEBUG: Attempting to unlink bluez_input.98_FE_3E_1F_29_B6.2:output_FR -> bluez_output.74_DF_3A_3E_2D_2D.1:playback_FR
+PipeWire links removed.
+DEBUG: Attempting to link bluez_input.98_FE_3E_1F_29_B6.2:output_FL -> bluez_output.74_DF_3A_3E_2D_2D.1:playback_FL
+DEBUG: Attempting to link bluez_input.98_FE_3E_1F_29_B6.2:output_FR -> bluez_output.74_DF_3A_3E_2D_2D.1:playback_FR
+LINKS: Current connections to bluez_output.74_DF_3A_3E_2D_2D.1:
+  bluez_output.74_DF_3A_3E_2D_2D.1:playback_FL
+    |<- bluez_input.98_FE_3E_1F_29_B6.2:output_FL
+  bluez_output.74_DF_3A_3E_2D_2D.1:playback_FR
+    |<- bluez_input.98_FE_3E_1F_29_B6.2:output_FR
+DEBUG: Running command -> pactl list sources
+DEBUG: Running command -> pactl list sinks
+DEBUG: Running command -> pactl list cards
+BT_CARDS: all cards found: ['alsa_card.platform-107c701400.hdmi', 'alsa_card.platform-107c706400.hdmi', 'bluez_card.74_DF_3A_3E_2D_2D', 'bluez_card.98_FE_3E_1F_29_B6']
+BT_DISCOVERY: sink MACs (excluded from sources): {'74:DF:3A:3E:2D:2D'}
+BT_DISCOVERY: active input nodes: ['bluez_input.98_FE_3E_1F_29_B6.2']
+BT_DISCOVERY: cards by MAC: ['74:DF:3A:3E:2D:2D', '98:FE:3E:1F:29:B6']
+BT_DISCOVERY: final device list: ['LAPTOP-RQK3KD02 (98:FE:3E:1F:29:B6)']
+LINKS: Current connections to bluez_output.74_DF_3A_3E_2D_2D.1:
+  bluez_output.74_DF_3A_3E_2D_2D.1:playback_FL
+    |<- bluez_input.98_FE_3E_1F_29_B6.2:output_FL
+  bluez_output.74_DF_3A_3E_2D_2D.1:playback_FR
+    |<- bluez_input.98_FE_3E_1F_29_B6.2:output_FR
+DEBUG: Running command -> pactl list sources
+DEBUG: Running command -> pactl list sinks
+DEBUG: Running command -> pactl list cards
+BT_CARDS: all cards found: ['alsa_card.platform-107c701400.hdmi', 'alsa_card.platform-107c706400.hdmi', 'bluez_card.74_DF_3A_3E_2D_2D', 'bluez_card.98_FE_3E_1F_29_B6']
+BT_DISCOVERY: sink MACs (excluded from sources): {'74:DF:3A:3E:2D:2D'}
+BT_DISCOVERY: active input nodes: ['bluez_input.98_FE_3E_1F_29_B6.2']
+BT_DISCOVERY: cards by MAC: ['74:DF:3A:3E:2D:2D', '98:FE:3E:1F:29:B6']
+BT_DISCOVERY: final device list: ['LAPTOP-RQK3KD02 (98:FE:3E:1F:29:B6)']
+LINKS: Current connections to bluez_output.74_DF_3A_3E_2D_2D.1:
+  bluez_output.74_DF_3A_3E_2D_2D.1:playback_FL
+    |<- bluez_input.98_FE_3E_1F_29_B6.2:output_FL
+  bluez_output.74_DF_3A_3E_2D_2D.1:playback_FR
+    |<- bluez_input.98_FE_3E_1F_29_B6.2:output_FR
+LINKS: Current connections to bluez_output.74_DF_3A_3E_2D_2D.1:
+  bluez_output.74_DF_3A_3E_2D_2D.1:playback_FL
+    |<- bluez_input.98_FE_3E_1F_29_B6.2:output_FL
+  bluez_output.74_DF_3A_3E_2D_2D.1:playback_FR
+    |<- bluez_input.98_FE_3E_1F_29_B6.2:output_FR
+DEBUG: Running command -> pactl list sources
+DEBUG: Running command -> pactl list sinks
+DEBUG: Running command -> pactl list cards
+BT_CARDS: all cards found: ['alsa_card.platform-107c701400.hdmi', 'alsa_card.platform-107c706400.hdmi', 'bluez_card.74_DF_3A_3E_2D_2D', 'bluez_card.98_FE_3E_1F_29_B6']
+BT_DISCOVERY: sink MACs (excluded from sources): {'74:DF:3A:3E:2D:2D'}
+BT_DISCOVERY: active input nodes: ['bluez_input.98_FE_3E_1F_29_B6.2']
+BT_DISCOVERY: cards by MAC: ['74:DF:3A:3E:2D:2D', '98:FE:3E:1F:29:B6']
+BT_DISCOVERY: final device list: ['LAPTOP-RQK3KD02 (98:FE:3E:1F:29:B6)']
+DEBUG: Running command -> pactl list sources
+DEBUG: Running command -> pactl list sinks
+DEBUG: Running command -> pactl list cards
+BT_CARDS: all cards found: ['alsa_card.platform-107c701400.hdmi', 'alsa_card.platform-107c706400.hdmi', 'bluez_card.74_DF_3A_3E_2D_2D', 'bluez_card.98_FE_3E_1F_29_B6']
+BT_DISCOVERY: sink MACs (excluded from sources): {'74:DF:3A:3E:2D:2D'}
+BT_DISCOVERY: active input nodes: ['bluez_input.98_FE_3E_1F_29_B6.2']
+BT_DISCOVERY: cards by MAC: ['74:DF:3A:3E:2D:2D', '98:FE:3E:1F:29:B6']
+BT_DISCOVERY: final device list: ['LAPTOP-RQK3KD02 (98:FE:3E:1F:29:B6)']
+LINKS: Current connections to bluez_output.74_DF_3A_3E_2D_2D.1:
+  bluez_output.74_DF_3A_3E_2D_2D.1:playback_FL
+    |<- bluez_input.98_FE_3E_1F_29_B6.2:output_FL
+  bluez_output.74_DF_3A_3E_2D_2D.1:playback_FR
+    |<- bluez_input.98_FE_3E_1F_29_B6.2:output_FR
+LINKS: Current connections to bluez_output.74_DF_3A_3E_2D_2D.1:
+  bluez_output.74_DF_3A_3E_2D_2D.1:playback_FL
+    |<- bluez_input.98_FE_3E_1F_29_B6.2:output_FL
+  bluez_output.74_DF_3A_3E_2D_2D.1:playback_FR
+    |<- bluez_input.98_FE_3E_1F_29_B6.2:output_FR
+DEBUG: Running command -> pactl list sources
+DEBUG: Running command -> pactl list sinks
+DEBUG: Running command -> pactl list cards
+BT_CARDS: all cards found: ['alsa_card.platform-107c701400.hdmi', 'alsa_card.platform-107c706400.hdmi', 'bluez_card.74_DF_3A_3E_2D_2D', 'bluez_card.98_FE_3E_1F_29_B6']
+BT_DISCOVERY: sink MACs (excluded from sources): {'74:DF:3A:3E:2D:2D'}
+BT_DISCOVERY: active input nodes: ['bluez_input.98_FE_3E_1F_29_B6.2']
+BT_DISCOVERY: cards by MAC: ['74:DF:3A:3E:2D:2D', '98:FE:3E:1F:29:B6']
+BT_DISCOVERY: final device list: ['LAPTOP-RQK3KD02 (98:FE:3E:1F:29:B6)']
+LINKS: Current connections to bluez_output.74_DF_3A_3E_2D_2D.1:
+  bluez_output.74_DF_3A_3E_2D_2D.1:playback_FL
+    |<- bluez_input.98_FE_3E_1F_29_B6.2:output_FL
+  bluez_output.74_DF_3A_3E_2D_2D.1:playback_FR
+    |<- bluez_input.98_FE_3E_1F_29_B6.2:output_FR
+DEBUG: Running command -> pactl list sources
+DEBUG: Running command -> pactl list sinks
+DEBUG: Running command -> pactl list cards
+BT_CARDS: all cards found: ['alsa_card.platform-107c701400.hdmi', 'alsa_card.platform-107c706400.hdmi', 'bluez_card.74_DF_3A_3E_2D_2D', 'bluez_card.98_FE_3E_1F_29_B6']
+BT_DISCOVERY: sink MACs (excluded from sources): {'74:DF:3A:3E:2D:2D'}
+BT_DISCOVERY: active input nodes: ['bluez_input.98_FE_3E_1F_29_B6.2']
+BT_DISCOVERY: cards by MAC: ['74:DF:3A:3E:2D:2D', '98:FE:3E:1F:29:B6']
+BT_DISCOVERY: final device list: ['LAPTOP-RQK3KD02 (98:FE:3E:1F:29:B6)']
+LINKS: Current connections to bluez_output.74_DF_3A_3E_2D_2D.1:
+  bluez_output.74_DF_3A_3E_2D_2D.1:playback_FL
+    |<- bluez_input.98_FE_3E_1F_29_B6.2:output_FL
+  bluez_output.74_DF_3A_3E_2D_2D.1:playback_FR
+    |<- bluez_input.98_FE_3E_1F_29_B6.2:output_FR
+LINKS: Current connections to bluez_output.74_DF_3A_3E_2D_2D.1:
+  bluez_output.74_DF_3A_3E_2D_2D.1:playback_FL
+    |<- bluez_input.98_FE_3E_1F_29_B6.2:output_FL
+  bluez_output.74_DF_3A_3E_2D_2D.1:playback_FR
+    |<- bluez_input.98_FE_3E_1F_29_B6.2:output_FR
+DEBUG: Running command -> pactl list sources
+DEBUG: Running command -> pactl list sinks
+DEBUG: Running command -> pactl list cards
+BT_CARDS: all cards found: ['alsa_card.platform-107c701400.hdmi', 'alsa_card.platform-107c706400.hdmi', 'bluez_card.74_DF_3A_3E_2D_2D', 'bluez_card.98_FE_3E_1F_29_B6']
+BT_DISCOVERY: sink MACs (excluded from sources): {'74:DF:3A:3E:2D:2D'}
+BT_DISCOVERY: active input nodes: ['bluez_input.98_FE_3E_1F_29_B6.2']
+BT_DISCOVERY: cards by MAC: ['74:DF:3A:3E:2D:2D', '98:FE:3E:1F:29:B6']
+BT_DISCOVERY: final device list: ['LAPTOP-RQK3KD02 (98:FE:3E:1F:29:B6)']
+DEBUG: Running command -> pactl list sources
+DEBUG: Running command -> pactl list sinks
+DEBUG: Running command -> pactl list cards
+BT_CARDS: all cards found: ['alsa_card.platform-107c701400.hdmi', 'alsa_card.platform-107c706400.hdmi', 'bluez_card.74_DF_3A_3E_2D_2D', 'bluez_card.98_FE_3E_1F_29_B6']
+BT_DISCOVERY: sink MACs (excluded from sources): {'74:DF:3A:3E:2D:2D'}
+BT_DISCOVERY: active input nodes: ['bluez_input.98_FE_3E_1F_29_B6.2']
+BT_DISCOVERY: cards by MAC: ['74:DF:3A:3E:2D:2D', '98:FE:3E:1F:29:B6']
+BT_DISCOVERY: final device list: ['LAPTOP-RQK3KD02 (98:FE:3E:1F:29:B6)']
+LINKS: Current connections to bluez_output.74_DF_3A_3E_2D_2D.1:
+  bluez_output.74_DF_3A_3E_2D_2D.1:playback_FL
+    |<- bluez_input.98_FE_3E_1F_29_B6.2:output_FL
+  bluez_output.74_DF_3A_3E_2D_2D.1:playback_FR
+    |<- bluez_input.98_FE_3E_1F_29_B6.2:output_FR
+LINKS: Current connections to bluez_output.74_DF_3A_3E_2D_2D.1:
+  bluez_output.74_DF_3A_3E_2D_2D.1:playback_FL
+    |<- bluez_input.98_FE_3E_1F_29_B6.2:output_FL
+  bluez_output.74_DF_3A_3E_2D_2D.1:playback_FR
+    |<- bluez_input.98_FE_3E_1F_29_B6.2:output_FR
+DEBUG: Running command -> pactl list sources
+DEBUG: Running command -> pactl list sinks
+DEBUG: Running command -> pactl list cards
+BT_CARDS: all cards found: ['alsa_card.platform-107c701400.hdmi', 'alsa_card.platform-107c706400.hdmi', 'bluez_card.74_DF_3A_3E_2D_2D', 'bluez_card.98_FE_3E_1F_29_B6']
+BT_DISCOVERY: sink MACs (excluded from sources): {'74:DF:3A:3E:2D:2D'}
+BT_DISCOVERY: active input nodes: ['bluez_input.98_FE_3E_1F_29_B6.2']
+BT_DISCOVERY: cards by MAC: ['74:DF:3A:3E:2D:2D', '98:FE:3E:1F:29:B6']
+BT_DISCOVERY: final device list: ['LAPTOP-RQK3KD02 (98:FE:3E:1F:29:B6)']
+LINKS: Current connections to bluez_output.74_DF_3A_3E_2D_2D.1:
+  bluez_output.74_DF_3A_3E_2D_2D.1:playback_FL
+    |<- bluez_input.98_FE_3E_1F_29_B6.2:output_FL
+  bluez_output.74_DF_3A_3E_2D_2D.1:playback_FR
+    |<- bluez_input.98_FE_3E_1F_29_B6.2:output_FR
+DEBUG: Running command -> pactl list sources
+DEBUG: Running command -> pactl list sinks
+DEBUG: Running command -> pactl list cards
+BT_CARDS: all cards found: ['alsa_card.platform-107c701400.hdmi', 'alsa_card.platform-107c706400.hdmi', 'bluez_card.74_DF_3A_3E_2D_2D', 'bluez_card.98_FE_3E_1F_29_B6']
+BT_DISCOVERY: sink MACs (excluded from sources): {'74:DF:3A:3E:2D:2D'}
+BT_DISCOVERY: active input nodes: ['bluez_input.98_FE_3E_1F_29_B6.2']
+BT_DISCOVERY: cards by MAC: ['74:DF:3A:3E:2D:2D', '98:FE:3E:1F:29:B6']
+BT_DISCOVERY: final device list: ['LAPTOP-RQK3KD02 (98:FE:3E:1F:29:B6)']
+LINKS: Current connections to bluez_output.74_DF_3A_3E_2D_2D.1:
+  bluez_output.74_DF_3A_3E_2D_2D.1:playback_FL
+    |<- bluez_input.98_FE_3E_1F_29_B6.2:output_FL
+  bluez_output.74_DF_3A_3E_2D_2D.1:playback_FR
+    |<- bluez_input.98_FE_3E_1F_29_B6.2:output_FR
+LINKS: Current connections to bluez_output.74_DF_3A_3E_2D_2D.1:
+  bluez_output.74_DF_3A_3E_2D_2D.1:playback_FL
+    |<- bluez_input.98_FE_3E_1F_29_B6.2:output_FL
+  bluez_output.74_DF_3A_3E_2D_2D.1:playback_FR
+    |<- bluez_input.98_FE_3E_1F_29_B6.2:output_FR
+DEBUG: Running command -> pactl list sources
+DEBUG: Running command -> pactl list sinks
+DEBUG: Running command -> pactl list cards
+BT_CARDS: all cards found: ['alsa_card.platform-107c701400.hdmi', 'alsa_card.platform-107c706400.hdmi', 'bluez_card.74_DF_3A_3E_2D_2D', 'bluez_card.98_FE_3E_1F_29_B6', 'bluez_card.10_A2_D3_EE_BB_2A']
+BT_DISCOVERY: sink MACs (excluded from sources): {'74:DF:3A:3E:2D:2D'}
+BT_DISCOVERY: active input nodes: ['bluez_input.98_FE_3E_1F_29_B6.2']
+BT_DISCOVERY: cards by MAC: ['74:DF:3A:3E:2D:2D', '98:FE:3E:1F:29:B6', '10:A2:D3:EE:BB:2A']
+BT_DISCOVERY: final device list: ['LAPTOP-RQK3KD02 (98:FE:3E:1F:29:B6)', 'Paulot’s iPhone (10:A2:D3:EE:BB:2A) [idle]']
+DEBUG: Running command -> pactl list sources
+DEBUG: Running command -> pactl list sinks
+DEBUG: Running command -> pactl list cards
+BT_CARDS: all cards found: ['alsa_card.platform-107c701400.hdmi', 'alsa_card.platform-107c706400.hdmi', 'bluez_card.74_DF_3A_3E_2D_2D', 'bluez_card.98_FE_3E_1F_29_B6', 'bluez_card.10_A2_D3_EE_BB_2A']
+BT_DISCOVERY: sink MACs (excluded from sources): {'74:DF:3A:3E:2D:2D'}
+BT_DISCOVERY: active input nodes: ['bluez_input.98_FE_3E_1F_29_B6.2']
+BT_DISCOVERY: cards by MAC: ['74:DF:3A:3E:2D:2D', '98:FE:3E:1F:29:B6', '10:A2:D3:EE:BB:2A']
+BT_DISCOVERY: final device list: ['LAPTOP-RQK3KD02 (98:FE:3E:1F:29:B6)', 'Paulot’s iPhone (10:A2:D3:EE:BB:2A) [idle]']
+LINKS: Current connections to bluez_output.74_DF_3A_3E_2D_2D.1:
+  bluez_output.74_DF_3A_3E_2D_2D.1:playback_FL
+    |<- bluez_input.98_FE_3E_1F_29_B6.2:output_FL
+  bluez_output.74_DF_3A_3E_2D_2D.1:playback_FR
+    |<- bluez_input.98_FE_3E_1F_29_B6.2:output_FR
+LINKS: Current connections to bluez_output.74_DF_3A_3E_2D_2D.1:
+  bluez_output.74_DF_3A_3E_2D_2D.1:playback_FL
+    |<- bluez_input.98_FE_3E_1F_29_B6.2:output_FL
+  bluez_output.74_DF_3A_3E_2D_2D.1:playback_FR
+    |<- bluez_input.98_FE_3E_1F_29_B6.2:output_FR
+DEBUG: Running command -> pactl list sources
+DEBUG: Running command -> pactl list sinks
+DEBUG: Running command -> pactl list cards
+BT_CARDS: all cards found: ['alsa_card.platform-107c701400.hdmi', 'alsa_card.platform-107c706400.hdmi', 'bluez_card.74_DF_3A_3E_2D_2D', 'bluez_card.98_FE_3E_1F_29_B6', 'bluez_card.10_A2_D3_EE_BB_2A']
+BT_DISCOVERY: sink MACs (excluded from sources): {'74:DF:3A:3E:2D:2D'}
+BT_DISCOVERY: active input nodes: ['bluez_input.10_A2_D3_EE_BB_2A.2', 'bluez_input.98_FE_3E_1F_29_B6.2']
+BT_DISCOVERY: cards by MAC: ['74:DF:3A:3E:2D:2D', '98:FE:3E:1F:29:B6', '10:A2:D3:EE:BB:2A']
+BT_DISCOVERY: final device list: ['LAPTOP-RQK3KD02 (98:FE:3E:1F:29:B6)', 'Paulot’s iPhone (10:A2:D3:EE:BB:2A)']
+LINKS: Current connections to bluez_output.74_DF_3A_3E_2D_2D.1:
+  bluez_output.74_DF_3A_3E_2D_2D.1:playback_FL
+    |<- bluez_input.98_FE_3E_1F_29_B6.2:output_FL
+    |<- bluez_input.10_A2_D3_EE_BB_2A.2:output_FL
+  bluez_output.74_DF_3A_3E_2D_2D.1:playback_FR
+    |<- bluez_input.98_FE_3E_1F_29_B6.2:output_FR
+    |<- bluez_input.10_A2_D3_EE_BB_2A.2:output_FR
+DEBUG: Running command -> pactl list sources
+DEBUG: Running command -> pactl list sinks
+DEBUG: Running command -> pactl list cards
+BT_CARDS: all cards found: ['alsa_card.platform-107c701400.hdmi', 'alsa_card.platform-107c706400.hdmi', 'bluez_card.74_DF_3A_3E_2D_2D', 'bluez_card.98_FE_3E_1F_29_B6', 'bluez_card.10_A2_D3_EE_BB_2A']
+BT_DISCOVERY: sink MACs (excluded from sources): {'74:DF:3A:3E:2D:2D'}
+BT_DISCOVERY: active input nodes: ['bluez_input.10_A2_D3_EE_BB_2A.2', 'bluez_input.98_FE_3E_1F_29_B6.2']
+BT_DISCOVERY: cards by MAC: ['74:DF:3A:3E:2D:2D', '98:FE:3E:1F:29:B6', '10:A2:D3:EE:BB:2A']
+BT_DISCOVERY: final device list: ['LAPTOP-RQK3KD02 (98:FE:3E:1F:29:B6)', 'Paulot’s iPhone (10:A2:D3:EE:BB:2A)']
+LINKS: Current connections to bluez_output.74_DF_3A_3E_2D_2D.1:
+  bluez_output.74_DF_3A_3E_2D_2D.1:playback_FL
+    |<- bluez_input.98_FE_3E_1F_29_B6.2:output_FL
+    |<- bluez_input.10_A2_D3_EE_BB_2A.2:output_FL
+  bluez_output.74_DF_3A_3E_2D_2D.1:playback_FR
+    |<- bluez_input.98_FE_3E_1F_29_B6.2:output_FR
+    |<- bluez_input.10_A2_D3_EE_BB_2A.2:output_FR
+LINKS: Current connections to bluez_output.74_DF_3A_3E_2D_2D.1:
+  bluez_output.74_DF_3A_3E_2D_2D.1:playback_FL
+    |<- bluez_input.98_FE_3E_1F_29_B6.2:output_FL
+    |<- bluez_input.10_A2_D3_EE_BB_2A.2:output_FL
+  bluez_output.74_DF_3A_3E_2D_2D.1:playback_FR
+    |<- bluez_input.98_FE_3E_1F_29_B6.2:output_FR
+    |<- bluez_input.10_A2_D3_EE_BB_2A.2:output_FR
+DEBUG: Running command -> pactl list sources
+DEBUG: Running command -> pactl list sinks
+DEBUG: Running command -> pactl list cards
+BT_CARDS: all cards found: ['alsa_card.platform-107c701400.hdmi', 'alsa_card.platform-107c706400.hdmi', 'bluez_card.74_DF_3A_3E_2D_2D', 'bluez_card.98_FE_3E_1F_29_B6', 'bluez_card.10_A2_D3_EE_BB_2A']
+BT_DISCOVERY: sink MACs (excluded from sources): {'74:DF:3A:3E:2D:2D'}
+BT_DISCOVERY: active input nodes: ['bluez_input.10_A2_D3_EE_BB_2A.2', 'bluez_input.98_FE_3E_1F_29_B6.2']
+BT_DISCOVERY: cards by MAC: ['74:DF:3A:3E:2D:2D', '98:FE:3E:1F:29:B6', '10:A2:D3:EE:BB:2A']
+BT_DISCOVERY: final device list: ['LAPTOP-RQK3KD02 (98:FE:3E:1F:29:B6)', 'Paulot’s iPhone (10:A2:D3:EE:BB:2A)']
+DEBUG: Running command -> pactl list sources
+DEBUG: Running command -> pactl list sinks
+DEBUG: Running command -> pactl list cards
+BT_CARDS: all cards found: ['alsa_card.platform-107c701400.hdmi', 'alsa_card.platform-107c706400.hdmi', 'bluez_card.74_DF_3A_3E_2D_2D', 'bluez_card.98_FE_3E_1F_29_B6', 'bluez_card.10_A2_D3_EE_BB_2A']
+BT_DISCOVERY: sink MACs (excluded from sources): {'74:DF:3A:3E:2D:2D'}
+BT_DISCOVERY: active input nodes: ['bluez_input.10_A2_D3_EE_BB_2A.2', 'bluez_input.98_FE_3E_1F_29_B6.2']
+BT_DISCOVERY: cards by MAC: ['74:DF:3A:3E:2D:2D', '98:FE:3E:1F:29:B6', '10:A2:D3:EE:BB:2A']
+BT_DISCOVERY: final device list: ['LAPTOP-RQK3KD02 (98:FE:3E:1F:29:B6)', 'Paulot’s iPhone (10:A2:D3:EE:BB:2A)']
+LINKS: Current connections to bluez_output.74_DF_3A_3E_2D_2D.1:
+  bluez_output.74_DF_3A_3E_2D_2D.1:playback_FL
+    |<- bluez_input.98_FE_3E_1F_29_B6.2:output_FL
+    |<- bluez_input.10_A2_D3_EE_BB_2A.2:output_FL
+  bluez_output.74_DF_3A_3E_2D_2D.1:playback_FR
+    |<- bluez_input.98_FE_3E_1F_29_B6.2:output_FR
+    |<- bluez_input.10_A2_D3_EE_BB_2A.2:output_FR
+WATCHER: Breaking link bluez_input.10_A2_D3_EE_BB_2A.2:output_FL -> bluez_output.74_DF_3A_3E_2D_2D.1:playback_FL
+WATCHER: Breaking link bluez_input.10_A2_D3_EE_BB_2A.2:output_FR -> bluez_output.74_DF_3A_3E_2D_2D.1:playback_FR
+LINKS: Current connections to bluez_output.74_DF_3A_3E_2D_2D.1:
+  bluez_output.74_DF_3A_3E_2D_2D.1:playback_FL
+  bluez_output.74_DF_3A_3E_2D_2D.1:playback_FR
+DEBUG: Running command -> pactl list sources
+DEBUG: Running command -> pactl list sinks
+DEBUG: Running command -> pactl list cards
+BT_CARDS: all cards found: ['alsa_card.platform-107c701400.hdmi', 'alsa_card.platform-107c706400.hdmi', 'bluez_card.74_DF_3A_3E_2D_2D', 'bluez_card.10_A2_D3_EE_BB_2A']
+BT_DISCOVERY: sink MACs (excluded from sources): {'74:DF:3A:3E:2D:2D'}
+BT_DISCOVERY: active input nodes: []
+BT_DISCOVERY: cards by MAC: ['74:DF:3A:3E:2D:2D', '10:A2:D3:EE:BB:2A']
+BT_DISCOVERY: final device list: ['Paulot’s iPhone (10:A2:D3:EE:BB:2A) [idle]']
+LINKS: Current connections to bluez_output.74_DF_3A_3E_2D_2D.1:
+  bluez_output.74_DF_3A_3E_2D_2D.1:playback_FL
+  bluez_output.74_DF_3A_3E_2D_2D.1:playback_FR
+DEBUG: Running command -> pactl list sources
+DEBUG: Running command -> pactl list sinks
+DEBUG: Running command -> pactl list cards
+BT_CARDS: all cards found: ['alsa_card.platform-107c701400.hdmi', 'alsa_card.platform-107c706400.hdmi', 'bluez_card.74_DF_3A_3E_2D_2D', 'bluez_card.10_A2_D3_EE_BB_2A']
+BT_DISCOVERY: sink MACs (excluded from sources): {'74:DF:3A:3E:2D:2D'}
+BT_DISCOVERY: active input nodes: []
+BT_DISCOVERY: cards by MAC: ['74:DF:3A:3E:2D:2D', '10:A2:D3:EE:BB:2A']
+BT_DISCOVERY: final device list: ['Paulot’s iPhone (10:A2:D3:EE:BB:2A) [idle]']
+LINKS: Current connections to bluez_output.74_DF_3A_3E_2D_2D.1:
+  bluez_output.74_DF_3A_3E_2D_2D.1:playback_FL
+  bluez_output.74_DF_3A_3E_2D_2D.1:playback_FR
+LINKS: Current connections to bluez_output.74_DF_3A_3E_2D_2D.1:
+  bluez_output.74_DF_3A_3E_2D_2D.1:playback_FL
+  bluez_output.74_DF_3A_3E_2D_2D.1:playback_FR
+DEBUG: Running command -> pactl list sources
+DEBUG: Running command -> pactl list sinks
+DEBUG: Running command -> pactl list cards
+BT_CARDS: all cards found: ['alsa_card.platform-107c701400.hdmi', 'alsa_card.platform-107c706400.hdmi', 'bluez_card.74_DF_3A_3E_2D_2D', 'bluez_card.10_A2_D3_EE_BB_2A']
+BT_DISCOVERY: sink MACs (excluded from sources): {'74:DF:3A:3E:2D:2D'}
+BT_DISCOVERY: active input nodes: []
+BT_DISCOVERY: cards by MAC: ['74:DF:3A:3E:2D:2D', '10:A2:D3:EE:BB:2A']
+BT_DISCOVERY: final device list: ['Paulot’s iPhone (10:A2:D3:EE:BB:2A) [idle]']
+DEBUG: Running command -> pactl list sources
+DEBUG: Running command -> pactl list sinks
+DEBUG: Running command -> pactl list cards
+BT_CARDS: all cards found: ['alsa_card.platform-107c701400.hdmi', 'alsa_card.platform-107c706400.hdmi', 'bluez_card.74_DF_3A_3E_2D_2D', 'bluez_card.10_A2_D3_EE_BB_2A']
+BT_DISCOVERY: sink MACs (excluded from sources): {'74:DF:3A:3E:2D:2D'}
+BT_DISCOVERY: active input nodes: []
+BT_DISCOVERY: cards by MAC: ['74:DF:3A:3E:2D:2D', '10:A2:D3:EE:BB:2A']
+BT_DISCOVERY: final device list: ['Paulot’s iPhone (10:A2:D3:EE:BB:2A) [idle]']
+LINKS: Current connections to bluez_output.74_DF_3A_3E_2D_2D.1:
+  bluez_output.74_DF_3A_3E_2D_2D.1:playback_FL
+  bluez_output.74_DF_3A_3E_2D_2D.1:playback_FR
+LINKS: Current connections to bluez_output.74_DF_3A_3E_2D_2D.1:
+  bluez_output.74_DF_3A_3E_2D_2D.1:playback_FL
+  bluez_output.74_DF_3A_3E_2D_2D.1:playback_FR
+DEBUG: Running command -> pactl list sources
+DEBUG: Running command -> pactl list sinks
+DEBUG: Running command -> pactl list cards
+BT_CARDS: all cards found: ['alsa_card.platform-107c701400.hdmi', 'alsa_card.platform-107c706400.hdmi', 'bluez_card.74_DF_3A_3E_2D_2D', 'bluez_card.10_A2_D3_EE_BB_2A']
+BT_DISCOVERY: sink MACs (excluded from sources): {'74:DF:3A:3E:2D:2D'}
+BT_DISCOVERY: active input nodes: []
+BT_DISCOVERY: cards by MAC: ['74:DF:3A:3E:2D:2D', '10:A2:D3:EE:BB:2A']
+BT_DISCOVERY: final device list: ['Paulot’s iPhone (10:A2:D3:EE:BB:2A) [idle]']
+LINKS: Current connections to bluez_output.74_DF_3A_3E_2D_2D.1:
+  bluez_output.74_DF_3A_3E_2D_2D.1:playback_FL
+  bluez_output.74_DF_3A_3E_2D_2D.1:playback_FR
+DEBUG: Running command -> pactl list sources
+DEBUG: Running command -> pactl list sinks
+DEBUG: Running command -> pactl list cards
+BT_CARDS: all cards found: ['alsa_card.platform-107c701400.hdmi', 'alsa_card.platform-107c706400.hdmi', 'bluez_card.74_DF_3A_3E_2D_2D', 'bluez_card.10_A2_D3_EE_BB_2A']
+BT_DISCOVERY: sink MACs (excluded from sources): {'74:DF:3A:3E:2D:2D'}
+BT_DISCOVERY: active input nodes: []
+BT_DISCOVERY: cards by MAC: ['74:DF:3A:3E:2D:2D', '10:A2:D3:EE:BB:2A']
+BT_DISCOVERY: final device list: ['Paulot’s iPhone (10:A2:D3:EE:BB:2A) [idle]']
+LINKS: Current connections to bluez_output.74_DF_3A_3E_2D_2D.1:
+  bluez_output.74_DF_3A_3E_2D_2D.1:playback_FL
+  bluez_output.74_DF_3A_3E_2D_2D.1:playback_FR
+LINKS: Current connections to bluez_output.74_DF_3A_3E_2D_2D.1:
+  bluez_output.74_DF_3A_3E_2D_2D.1:playback_FL
+    |<- bluez_input.98_FE_3E_1F_29_B6.2:output_FL
+  bluez_output.74_DF_3A_3E_2D_2D.1:playback_FR
+    |<- bluez_input.98_FE_3E_1F_29_B6.2:output_FR
+DEBUG: Running command -> pactl list sources
+DEBUG: Running command -> pactl list sinks
+DEBUG: Running command -> pactl list cards
+BT_CARDS: all cards found: ['alsa_card.platform-107c701400.hdmi', 'alsa_card.platform-107c706400.hdmi', 'bluez_card.74_DF_3A_3E_2D_2D', 'bluez_card.10_A2_D3_EE_BB_2A', 'bluez_card.98_FE_3E_1F_29_B6']
+BT_DISCOVERY: sink MACs (excluded from sources): {'74:DF:3A:3E:2D:2D'}
+BT_DISCOVERY: active input nodes: ['bluez_input.98_FE_3E_1F_29_B6.2']
+BT_DISCOVERY: cards by MAC: ['74:DF:3A:3E:2D:2D', '10:A2:D3:EE:BB:2A', '98:FE:3E:1F:29:B6']
+BT_DISCOVERY: final device list: ['LAPTOP-RQK3KD02 (98:FE:3E:1F:29:B6)', 'Paulot’s iPhone (10:A2:D3:EE:BB:2A) [idle]']
+DEBUG: Running command -> pactl list sources
+DEBUG: Running command -> pactl list sinks
+DEBUG: Running command -> pactl list cards
+BT_CARDS: all cards found: ['alsa_card.platform-107c701400.hdmi', 'alsa_card.platform-107c706400.hdmi', 'bluez_card.74_DF_3A_3E_2D_2D', 'bluez_card.10_A2_D3_EE_BB_2A', 'bluez_card.98_FE_3E_1F_29_B6']
+BT_DISCOVERY: sink MACs (excluded from sources): {'74:DF:3A:3E:2D:2D'}
+BT_DISCOVERY: active input nodes: ['bluez_input.98_FE_3E_1F_29_B6.2']
+BT_DISCOVERY: cards by MAC: ['74:DF:3A:3E:2D:2D', '10:A2:D3:EE:BB:2A', '98:FE:3E:1F:29:B6']
+BT_DISCOVERY: final device list: ['LAPTOP-RQK3KD02 (98:FE:3E:1F:29:B6)', 'Paulot’s iPhone (10:A2:D3:EE:BB:2A) [idle]']
+LINKS: Current connections to bluez_output.74_DF_3A_3E_2D_2D.1:
+  bluez_output.74_DF_3A_3E_2D_2D.1:playback_FL
+    |<- bluez_input.98_FE_3E_1F_29_B6.2:output_FL
+  bluez_output.74_DF_3A_3E_2D_2D.1:playback_FR
+    |<- bluez_input.98_FE_3E_1F_29_B6.2:output_FR
+LINKS: Current connections to bluez_output.74_DF_3A_3E_2D_2D.1:
+  bluez_output.74_DF_3A_3E_2D_2D.1:playback_FL
+    |<- bluez_input.98_FE_3E_1F_29_B6.2:output_FL
+  bluez_output.74_DF_3A_3E_2D_2D.1:playback_FR
+    |<- bluez_input.98_FE_3E_1F_29_B6.2:output_FR
+DEBUG: Running command -> pactl list sources
+DEBUG: Running command -> pactl list sinks
+DEBUG: Running command -> pactl list cards
+BT_CARDS: all cards found: ['alsa_card.platform-107c701400.hdmi', 'alsa_card.platform-107c706400.hdmi', 'bluez_card.74_DF_3A_3E_2D_2D', 'bluez_card.10_A2_D3_EE_BB_2A', 'bluez_card.98_FE_3E_1F_29_B6']
+BT_DISCOVERY: sink MACs (excluded from sources): {'74:DF:3A:3E:2D:2D'}
+BT_DISCOVERY: active input nodes: ['bluez_input.98_FE_3E_1F_29_B6.2']
+BT_DISCOVERY: cards by MAC: ['74:DF:3A:3E:2D:2D', '10:A2:D3:EE:BB:2A', '98:FE:3E:1F:29:B6']
+BT_DISCOVERY: final device list: ['LAPTOP-RQK3KD02 (98:FE:3E:1F:29:B6)', 'Paulot’s iPhone (10:A2:D3:EE:BB:2A) [idle]']
+LINKS: Current connections to bluez_output.74_DF_3A_3E_2D_2D.1:
+  bluez_output.74_DF_3A_3E_2D_2D.1:playback_FL
+    |<- bluez_input.98_FE_3E_1F_29_B6.2:output_FL
+  bluez_output.74_DF_3A_3E_2D_2D.1:playback_FR
+    |<- bluez_input.98_FE_3E_1F_29_B6.2:output_FR
+DEBUG: Running command -> pactl list sources
+DEBUG: Running command -> pactl list sinks
+DEBUG: Running command -> pactl list cards
+BT_CARDS: all cards found: ['alsa_card.platform-107c701400.hdmi', 'alsa_card.platform-107c706400.hdmi', 'bluez_card.74_DF_3A_3E_2D_2D', 'bluez_card.10_A2_D3_EE_BB_2A', 'bluez_card.98_FE_3E_1F_29_B6']
+BT_DISCOVERY: sink MACs (excluded from sources): {'74:DF:3A:3E:2D:2D'}
+BT_DISCOVERY: active input nodes: ['bluez_input.98_FE_3E_1F_29_B6.2']
+BT_DISCOVERY: cards by MAC: ['74:DF:3A:3E:2D:2D', '10:A2:D3:EE:BB:2A', '98:FE:3E:1F:29:B6']
+BT_DISCOVERY: final device list: ['LAPTOP-RQK3KD02 (98:FE:3E:1F:29:B6)', 'Paulot’s iPhone (10:A2:D3:EE:BB:2A) [idle]']
+LINKS: Current connections to bluez_output.74_DF_3A_3E_2D_2D.1:
+  bluez_output.74_DF_3A_3E_2D_2D.1:playback_FL
+    |<- bluez_input.98_FE_3E_1F_29_B6.2:output_FL
+  bluez_output.74_DF_3A_3E_2D_2D.1:playback_FR
+    |<- bluez_input.98_FE_3E_1F_29_B6.2:output_FR
+LINKS: Current connections to bluez_output.74_DF_3A_3E_2D_2D.1:
+  bluez_output.74_DF_3A_3E_2D_2D.1:playback_FL
+    |<- bluez_input.98_FE_3E_1F_29_B6.2:output_FL
+  bluez_output.74_DF_3A_3E_2D_2D.1:playback_FR
+    |<- bluez_input.98_FE_3E_1F_29_B6.2:output_FR
+DEBUG: Running command -> pactl list sources
+DEBUG: Running command -> pactl list sinks
+DEBUG: Running command -> pactl list cards
+BT_CARDS: all cards found: ['alsa_card.platform-107c701400.hdmi', 'alsa_card.platform-107c706400.hdmi', 'bluez_card.74_DF_3A_3E_2D_2D', 'bluez_card.10_A2_D3_EE_BB_2A', 'bluez_card.98_FE_3E_1F_29_B6']
+BT_DISCOVERY: sink MACs (excluded from sources): {'74:DF:3A:3E:2D:2D'}
+BT_DISCOVERY: active input nodes: ['bluez_input.98_FE_3E_1F_29_B6.2']
+BT_DISCOVERY: cards by MAC: ['74:DF:3A:3E:2D:2D', '10:A2:D3:EE:BB:2A', '98:FE:3E:1F:29:B6']
+BT_DISCOVERY: final device list: ['LAPTOP-RQK3KD02 (98:FE:3E:1F:29:B6)', 'Paulot’s iPhone (10:A2:D3:EE:BB:2A) [idle]']
+DEBUG: Running command -> pactl list sources
+DEBUG: Running command -> pactl list sinks
+DEBUG: Running command -> pactl list cards
+BT_CARDS: all cards found: ['alsa_card.platform-107c701400.hdmi', 'alsa_card.platform-107c706400.hdmi', 'bluez_card.74_DF_3A_3E_2D_2D', 'bluez_card.10_A2_D3_EE_BB_2A', 'bluez_card.98_FE_3E_1F_29_B6']
+BT_DISCOVERY: sink MACs (excluded from sources): {'74:DF:3A:3E:2D:2D'}
+BT_DISCOVERY: active input nodes: ['bluez_input.98_FE_3E_1F_29_B6.2']
+BT_DISCOVERY: cards by MAC: ['74:DF:3A:3E:2D:2D', '10:A2:D3:EE:BB:2A', '98:FE:3E:1F:29:B6']
+BT_DISCOVERY: final device list: ['LAPTOP-RQK3KD02 (98:FE:3E:1F:29:B6)', 'Paulot’s iPhone (10:A2:D3:EE:BB:2A) [idle]']
+DEBUG: Running command -> pactl list cards
+BT_CARDS: all cards found: ['alsa_card.platform-107c701400.hdmi', 'alsa_card.platform-107c706400.hdmi', 'bluez_card.74_DF_3A_3E_2D_2D', 'bluez_card.10_A2_D3_EE_BB_2A', 'bluez_card.98_FE_3E_1F_29_B6']
+DEBUG: Running command -> pactl set-card-profile bluez_card.10_A2_D3_EE_BB_2A off
+DEACTIVATE: bluez_card.10_A2_D3_EE_BB_2A -> off
+DEBUG: Running command -> pactl set-card-profile bluez_card.98_FE_3E_1F_29_B6 off
+DEACTIVATE: bluez_card.98_FE_3E_1F_29_B6 -> off
+DEBUG: Attempting to unlink bluez_input.98_FE_3E_1F_29_B6.2:output_FL -> bluez_output.74_DF_3A_3E_2D_2D.1:playback_FL
+DEBUG: Attempting to unlink bluez_input.98_FE_3E_1F_29_B6.2:output_FR -> bluez_output.74_DF_3A_3E_2D_2D.1:playback_FR
+PipeWire links removed.

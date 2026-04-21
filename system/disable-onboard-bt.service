@@ -1,0 +1,13 @@
+[Unit]
+Description=Disable onboard Bluetooth controller
+After=bluetooth.service
+Wants=bluetooth.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/sbin/disable-onboard-bt
+TimeoutStartSec=10
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target

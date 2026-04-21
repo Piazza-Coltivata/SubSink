@@ -1,0 +1,23 @@
+#!/bin/sh
+set -eu
+
+for dev in /sys/class/bluetooth/hci[0-9]*; do
+    [ -e "$dev" ] || continue
+    case "$dev" in
+        *:*)
+            continue
+            ;;
+    esac
+
+    controller="$(basename "$dev")"
+    real_path="$(readlink -f "$dev" 2>/dev/null || true)"
+    modalias="$(cat "$dev/device/modalias" 2>/dev/null || true)"
+
+    case "$real_path $modalias" in
+        *serial0*|*brcm,bcm43438-bt*|*brcm,bcm4345*|*serial:*)
+            logger -t disable-onboard-bt "Disabling onboard controller $controller ($real_path $modalias)"
+            timeout 5s btmgmt -i "$controller" power off >/dev/null 2>&1 || true
+            hciconfig "$controller" down >/dev/null 2>&1 || true
+            ;;
+    esac
+done

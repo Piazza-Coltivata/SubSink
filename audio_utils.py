@@ -4,6 +4,27 @@ PulseAudio/PipeWire utility functions for listing and managing audio devices.
 import subprocess
 import time
 
+
+# Keep the best user-facing label seen for each device MAC so transient
+# bluetoothctl renames do not churn the UI while a device is reconnecting.
+_BT_DEVICE_LABEL_CACHE = {}
+
+
+def _run_bluetoothctl(*args, timeout=10):
+    """Run bluetoothctl and return stdout when available."""
+    try:
+        result = subprocess.run(
+            ["bluetoothctl", *args],
+            capture_output=True,
+            text=True,
+            timeout=timeout,
+        )
+    except Exception:
+        return None
+    if result.returncode != 0 and not result.stdout:
+        return None
+    return result.stdout
+
 def _pactl(*args):
     """Run a pactl command and return the result, with enhanced logging."""
     command = ["pactl"] + list(args)
@@ -79,17 +100,106 @@ def _extract_mac(name):
 
     return _normalize_mac(suffix.split(".", 1)[0])
 
+
+def _mac_to_bluez_card_name(device_mac):
+    """Convert a MAC address to the matching bluez_card name."""
+    normalized_mac = _normalize_mac(device_mac)
+    if not normalized_mac:
+        return ""
+    return f"bluez_card.{normalized_mac.replace(':', '_')}"
+
+
+def _strip_bt_status_suffix(description):
+    """Remove UI-only Bluetooth status suffixes from a device label."""
+    label = (description or "").strip()
+    for suffix in (" [idle]", " [connected]"):
+        if label.endswith(suffix):
+            return label[:-len(suffix)].strip()
+    return label
+
+
+def _bt_label_score(description, device_mac=""):
+    """Score a Bluetooth label; lower scores are better and more stable."""
+    label = _strip_bt_status_suffix(description)
+    if not label:
+        return 100
+
+    normalized_mac = _normalize_mac(device_mac)
+    generic_labels = {
+        "BT Device",
+        "Bluetooth Audio",
+        "Bluetooth Speaker",
+        "Bluetooth Headset",
+    }
+
+    if normalized_mac and label == normalized_mac:
+        return 95
+    if label in generic_labels or label.startswith("BT Device "):
+        return 80
+    if label.isdigit():
+        return 90
+
+    alnum_count = sum(char.isalnum() for char in label)
+    if alnum_count <= 1:
+        return 85
+    if not any(char.isalpha() for char in label):
+        return 70
+    return 10
+
+
+def _choose_bt_label(device_mac, *candidates):
+    """Choose the best available label for one Bluetooth device."""
+    best_label = ""
+    best_score = None
+
+    for candidate in candidates:
+        label = _strip_bt_status_suffix(candidate)
+        if not label:
+            continue
+
+        score = _bt_label_score(label, device_mac)
+        if best_score is None or score < best_score:
+            best_label = label
+            best_score = score
+
+    return best_label
+
+
+def _best_known_bt_label(device_mac, *candidates):
+    """Prefer the best label seen so far for a MAC over weaker live fallbacks."""
+    normalized_mac = _normalize_mac(device_mac)
+    cached_label = _BT_DEVICE_LABEL_CACHE.get(normalized_mac, "") if normalized_mac else ""
+    preferred_label = _choose_bt_label(normalized_mac, cached_label, *candidates)
+
+    if preferred_label and normalized_mac:
+        _BT_DEVICE_LABEL_CACHE[normalized_mac] = preferred_label
+
+    return preferred_label
+
 def _normalize_profile_name(value):
     """Normalize PulseAudio/PipeWire profile names for comparison."""
     return (value or "").strip().replace("_", "-")
 
+def _profile_aliases(profile_name):
+    """Return equivalent profile names used by different BlueZ backends."""
+    normalized_name = _normalize_profile_name(profile_name)
+    aliases = {normalized_name}
+
+    if normalized_name == "a2dp-source":
+        aliases.add("audio-gateway")
+    elif normalized_name == "audio-gateway":
+        aliases.add("a2dp-source")
+
+    return aliases
+
 def _profile_matches(profile_name, desired_profile):
-    """Return True when a profile matches a base role, including codec suffixes."""
+    """Return True when a profile matches a base role, including backend aliases."""
     normalized_profile = _normalize_profile_name(profile_name)
-    normalized_desired = _normalize_profile_name(desired_profile)
-    return (
-        normalized_profile == normalized_desired
-        or normalized_profile.startswith(f"{normalized_desired}-")
+    desired_aliases = _profile_aliases(desired_profile)
+    return any(
+        normalized_profile == candidate
+        or normalized_profile.startswith(f"{candidate}-")
+        for candidate in desired_aliases
     )
 
 def _choose_card_profile(card, desired_profile):
@@ -109,9 +219,10 @@ def _choose_card_profile(card, desired_profile):
         availability = (profile.get("available") or "").lower()
         normalized_name = _normalize_profile_name(profile.get("name", ""))
         normalized_desired = _normalize_profile_name(desired_profile)
+        desired_aliases = _profile_aliases(desired_profile)
         return (
             0 if availability == "yes" else 1 if availability in ("", "unknown") else 2,
-            0 if normalized_name == normalized_desired else 1,
+            0 if normalized_name == normalized_desired else 1 if normalized_name in desired_aliases else 2,
             normalized_name,
         )
 
@@ -178,6 +289,149 @@ def _list_bt_cards():
 
     print(f"BT_CARDS: all cards found: {all_card_names}")
     return cards
+
+
+def _bluetoothctl_info(device_mac):
+    """Return bluetoothctl info output for one device."""
+    normalized_mac = _normalize_mac(device_mac)
+    if not normalized_mac:
+        return ""
+    return _run_bluetoothctl("info", normalized_mac) or ""
+
+
+def is_bt_device_connected(device_mac):
+    """Return True when bluetoothctl reports the device is currently connected."""
+    return "Connected: yes" in _bluetoothctl_info(device_mac)
+
+
+def _list_connected_bluetoothctl_audio_devices():
+    """Return connected Bluetooth audio-capable devices even when PipeWire lost their cards."""
+    output = _run_bluetoothctl("devices", "Connected") or ""
+    devices = []
+
+    for raw_line in output.splitlines():
+        line = raw_line.strip()
+        if not line.startswith("Device "):
+            continue
+
+        parts = line.split(" ", 2)
+        if len(parts) < 3:
+            continue
+
+        device_mac = _normalize_mac(parts[1])
+        if not device_mac:
+            continue
+
+        info_output = _bluetoothctl_info(device_mac)
+        if "Connected: yes" not in info_output:
+            continue
+        if "UUID: Audio Source" not in info_output and "UUID: Handsfree Audio Gateway" not in info_output:
+            continue
+
+        info_description = None
+        list_description = parts[2].strip()
+        for info_line in info_output.splitlines():
+            stripped = info_line.strip()
+            if stripped.startswith("Alias:"):
+                info_description = stripped.split("Alias:", 1)[1].strip()
+                break
+            if stripped.startswith("Name:") and not info_description:
+                info_description = stripped.split("Name:", 1)[1].strip()
+
+        description = _best_known_bt_label(device_mac, list_description, info_description) or device_mac
+
+        devices.append({
+            "device_mac": device_mac,
+            "description": description,
+        })
+
+    return devices
+
+
+def has_pipewire_bt_source_node(device_mac):
+    """Return True when PipeWire exposes a live BT input node for the device."""
+    normalized_mac = _normalize_mac(device_mac)
+    if not normalized_mac:
+        return False
+
+    return any(
+        _extract_mac(node_name) == normalized_mac
+        for node_name in _list_pipewire_bluez_input_nodes()
+    )
+
+
+def has_pipewire_bt_audio_device(device_mac):
+    """Return True when PipeWire still exposes a BT card or input node for the device."""
+    normalized_mac = _normalize_mac(device_mac)
+    if not normalized_mac:
+        return False
+
+    for card in _list_bt_cards():
+        card_mac = _normalize_mac(card.get("properties", {}).get("device.string", "")) or _extract_mac(card.get("name", ""))
+        if card_mac == normalized_mac:
+            return True
+
+    return has_pipewire_bt_source_node(normalized_mac)
+
+
+def recover_bt_audio_device(device_mac, log_file=None, require_live_source=False):
+    """Try to recover a connected BT device whose PipeWire audio endpoints disappeared."""
+    normalized_mac = _normalize_mac(device_mac)
+    if not normalized_mac:
+        return False
+
+    if require_live_source:
+        if has_pipewire_bt_source_node(normalized_mac):
+            return True
+    elif has_pipewire_bt_audio_device(normalized_mac):
+        return True
+
+    commands = []
+    if is_bt_device_connected(normalized_mac):
+        commands.append(["bluetoothctl", "disconnect", normalized_mac])
+    commands.append(["bluetoothctl", "connect", normalized_mac])
+
+    recovery_reason = "no live PipeWire source" if require_live_source else "no PipeWire card/source"
+
+    _append_to_log_file(
+        log_file,
+        f"RECOVER_BT_AUDIO: mac={normalized_mac} reason={recovery_reason}; attempting reconnect.\n",
+    )
+
+    for command in commands:
+        try:
+            result = subprocess.run(
+                command,
+                capture_output=True,
+                text=True,
+                timeout=15,
+            )
+        except Exception as error:
+            _append_to_log_file(
+                log_file,
+                f"  Command: {' '.join(command)}\n  Exception: {error}\n",
+            )
+            return False
+
+        _append_to_log_file(
+            log_file,
+            f"  Command: {' '.join(command)}\n"
+            f"  Return Code: {result.returncode}\n"
+            f"  Stdout: {result.stdout.strip()}\n"
+            f"  Stderr: {result.stderr.strip()}\n",
+        )
+
+    time.sleep(2)
+    recovered = (
+        has_pipewire_bt_source_node(normalized_mac)
+        if require_live_source
+        else has_pipewire_bt_audio_device(normalized_mac)
+    )
+    _append_to_log_file(
+        log_file,
+        f"  Result: {'recovered' if recovered else 'still missing'}\n\n",
+    )
+    return recovered
 
 def _list_pipewire_bluez_input_nodes():
     """Return active Bluetooth input/source nodes discovered from pw-link."""
@@ -406,9 +660,12 @@ def get_bt_devices():
         card = cards_by_mac.get(device_mac)
         source["device_mac"] = device_mac
         source["is_active_source"] = True
+        source["audio_profile_ready"] = True
         source["source_name"] = source_name
         source["monitor_source_name"] = source_name
-        source["description"] = _build_bt_description(source, card, device_mac)
+        source["pipewire_card_present"] = bool(card)
+        source_description = _build_bt_description(source, card, device_mac)
+        source["description"] = _best_known_bt_label(device_mac, source_description) or source_description
         processed_devices.append(source)
         if device_mac:
             seen_macs.add(device_mac)
@@ -416,26 +673,48 @@ def get_bt_devices():
     for device_mac, card in cards_by_mac.items():
         if device_mac in seen_macs or device_mac in bt_output_sink_macs:
             continue
-        if not _choose_card_profile(card, "a2dp-source"):
-            print(
-                f"BT_DISCOVERY: skipping {card.get('name')} because it has no "
-                f"A2DP source profile."
-            )
-            continue
+        profile_ready = bool(_choose_card_profile(card, "a2dp-source"))
         idle_description = _build_bt_description({}, card, device_mac)
+        idle_description = _best_known_bt_label(device_mac, idle_description) or idle_description
         processed_devices.append({
             "name": card.get("name"),
-            "description": f"{idle_description} [idle]",
+            "description": (
+                f"{idle_description} [idle]"
+                if profile_ready else f"{idle_description} [connected]"
+            ),
             "device_mac": device_mac,
             "is_active_source": False,
+            "audio_profile_ready": profile_ready,
             "source_name": None,
             "monitor_source_name": None,
+            "pipewire_card_present": True,
             "properties": card.get("properties", {}),
+        })
+        seen_macs.add(device_mac)
+
+    for device in _list_connected_bluetoothctl_audio_devices():
+        device_mac = device.get("device_mac")
+        if device_mac in seen_macs or device_mac in bt_output_sink_macs:
+            continue
+
+        fallback_description = _best_known_bt_label(device_mac, device.get("description")) or device_mac
+
+        processed_devices.append({
+            "name": _mac_to_bluez_card_name(device_mac),
+            "description": f"{fallback_description} [connected]",
+            "device_mac": device_mac,
+            "is_active_source": False,
+            "audio_profile_ready": False,
+            "source_name": None,
+            "monitor_source_name": None,
+            "pipewire_card_present": False,
+            "properties": {},
         })
 
     processed_devices.sort(
         key=lambda device: (
             device.get("source_name") is None,
+            not device.get("audio_profile_ready", True),
             device.get("description", "").lower(),
         )
     )
@@ -483,7 +762,7 @@ def activate_bt_source_cards(exclude_macs=None, log_file=None):
     return activated
 
 
-def deactivate_bt_source_cards(exclude_macs=None):
+def deactivate_bt_source_cards(exclude_macs=None, log_file=None):
     """
     Set all BT phone cards to 'off' profile, skipping the speaker.
     Called on app close so WirePlumber cannot auto-route phones after exit.
@@ -493,14 +772,28 @@ def deactivate_bt_source_cards(exclude_macs=None):
         exclude_macs = set()
     exclude_macs = {_normalize_mac(m) for m in exclude_macs}
 
+    _append_to_log_file(log_file, "--- Deactivating BT Source Cards ---\n")
+
     for card in _list_bt_cards():
         card_name = card.get("name", "")
         card_mac = _normalize_mac(
             card.get("properties", {}).get("device.string", "")
         ) or _extract_mac(card_name)
         if card_mac in exclude_macs:
+            _append_to_log_file(
+                log_file,
+                f"DEACTIVATE: Skipping {card_name} (excluded MAC {card_mac})\n",
+            )
             continue
-        _pactl("set-card-profile", card_name, "off")
+        result = _pactl("set-card-profile", card_name, "off")
+        if result:
+            _append_to_log_file(
+                log_file,
+                f"DEACTIVATE: {card_name} -> off\n"
+                f"  Return Code: {result.returncode}\n"
+                f"  Stdout: {result.stdout.strip()}\n"
+                f"  Stderr: {result.stderr.strip()}\n",
+            )
         print(f"DEACTIVATE: {card_name} -> off")
 
 
