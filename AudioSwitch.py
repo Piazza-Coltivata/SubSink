@@ -85,19 +85,73 @@ class MultiPhoneSwitcher(tk.Tk):
     def on_source_select(self, event=None):
         """Callback when a new source is selected from the dropdown."""
         choice = self.device_var.get()
-        if self.capture_pipeline and self.capture_pipeline.is_running():
-            selected_device = next((dev for dev in self.bt_devices if dev['description'] == choice), None)
-            if selected_device and selected_device.get('source_name'):
-                if self.capture_pipeline.switch_source(selected_device['source_name']):
-                    self.null_sink_manager.set_active_source(selected_device['source_name'])
-                    self.status_label.config(text=f"Switched to {choice}", foreground="green")
-                else:
-                    error = self.capture_pipeline.last_error or f"Could not switch to {choice}."
-                    self.status_label.config(text=f"Error: {error}", foreground="red")
-            elif selected_device:
-                self.status_label.config(text=f"Error: {choice} is connected but not streaming audio.", foreground="orange")
-            else:
-                self.status_label.config(text=f"Error: Could not find device for {choice}", foreground="red")
+        if not (self.capture_pipeline and self.capture_pipeline.is_running()):
+            return
+
+        selected_device = next((dev for dev in self.bt_devices if dev['description'] == choice), None)
+        if not selected_device:
+            self.status_label.config(text=f"Error: Could not find device for {choice}", foreground="red")
+            return
+
+        source_name = selected_device.get('source_name')
+
+        # If no active source node, the watcher may have set the card profile
+        # to 'off' to free BT bandwidth. Re-activate it before switching.
+        if not source_name:
+            card_name = selected_device.get('name', '')
+            if not card_name.startswith('bluez_card.'):
+                self.status_label.config(
+                    text=f"{choice} has no active audio stream. Play audio on the device first.",
+                    foreground="orange",
+                )
+                return
+
+            self.status_label.config(text=f"Activating {choice}...", foreground="yellow")
+            self.update_idletasks()
+
+            r = subprocess.run(
+                ["pactl", "set-card-profile", card_name, "a2dp_source"],
+                capture_output=True, text=True,
+            )
+            if r.returncode != 0:
+                self.status_label.config(
+                    text=f"Error: Could not activate {choice}. Try playing audio on the device.",
+                    foreground="red",
+                )
+                return
+
+            # Poll up to 5 s for the source node to appear in PipeWire.
+            for _ in range(5):
+                time.sleep(1)
+                fresh = get_bt_devices()
+                found = next(
+                    (d for d in fresh
+                     if d['device_mac'] == selected_device['device_mac'] and d.get('source_name')),
+                    None,
+                )
+                if found:
+                    selected_device = found
+                    source_name = found['source_name']
+                    self.bt_devices = fresh
+                    self.device_menu['values'] = [d['description'] for d in fresh]
+                    break
+
+            if not source_name:
+                self.status_label.config(
+                    text=f"{choice} didn't start streaming. Play audio on the device first.",
+                    foreground="orange",
+                )
+                return
+
+        # Update the watcher's active source (also removes card from _silenced_cards
+        # so the watcher won't immediately silence it again).
+        self.null_sink_manager.set_active_source(source_name)
+
+        if self.capture_pipeline.switch_source(source_name):
+            self.status_label.config(text=f"Switched to {choice}", foreground="green")
+        else:
+            error = self.capture_pipeline.last_error or f"Could not switch to {choice}."
+            self.status_label.config(text=f"Error: {error}", foreground="red")
 
 
     def on_sink_select(self, event=None):
