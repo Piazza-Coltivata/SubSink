@@ -95,33 +95,12 @@ class MultiPhoneSwitcher(tk.Tk):
 
         source_name = selected_device.get('source_name')
 
-        # If no active source node, the watcher may have set the card profile
-        # to 'off' to free BT bandwidth. Re-activate it before switching.
+        # Device is paired but not yet streaming (just connected, profile still
+        # negotiating). Wait briefly for WirePlumber to create the source node.
         if not source_name:
-            card_name = selected_device.get('name', '')
-            if not card_name.startswith('bluez_card.'):
-                self.status_label.config(
-                    text=f"{choice} has no active audio stream. Play audio on the device first.",
-                    foreground="orange",
-                )
-                return
-
-            self.status_label.config(text=f"Activating {choice}...", foreground="yellow")
+            self.status_label.config(text=f"Waiting for {choice} to stream...", foreground="yellow")
             self.update_idletasks()
-
-            r = subprocess.run(
-                ["pactl", "set-card-profile", card_name, "a2dp_source"],
-                capture_output=True, text=True,
-            )
-            if r.returncode != 0:
-                self.status_label.config(
-                    text=f"Error: Could not activate {choice}. Try playing audio on the device.",
-                    foreground="red",
-                )
-                return
-
-            # Poll up to 5 s for the source node to appear in PipeWire.
-            for _ in range(5):
+            for _ in range(4):
                 time.sleep(1)
                 fresh = get_bt_devices()
                 found = next(
@@ -130,21 +109,20 @@ class MultiPhoneSwitcher(tk.Tk):
                     None,
                 )
                 if found:
-                    selected_device = found
                     source_name = found['source_name']
+                    selected_device = found
                     self.bt_devices = fresh
                     self.device_menu['values'] = [d['description'] for d in fresh]
                     break
 
-            if not source_name:
-                self.status_label.config(
-                    text=f"{choice} didn't start streaming. Play audio on the device first.",
-                    foreground="orange",
-                )
-                return
+        if not source_name:
+            self.status_label.config(
+                text=f"{choice} is not streaming — play audio on the device first.",
+                foreground="orange",
+            )
+            return
 
-        # Update the watcher's active source (also removes card from _silenced_cards
-        # so the watcher won't immediately silence it again).
+        # Tell the watcher which source to protect before switching the link.
         self.null_sink_manager.set_active_source(source_name)
 
         if self.capture_pipeline.switch_source(source_name):
@@ -152,7 +130,6 @@ class MultiPhoneSwitcher(tk.Tk):
         else:
             error = self.capture_pipeline.last_error or f"Could not switch to {choice}."
             self.status_label.config(text=f"Error: {error}", foreground="red")
-
 
     def on_sink_select(self, event=None):
         """Placeholder for switching output sink if needed in the future."""

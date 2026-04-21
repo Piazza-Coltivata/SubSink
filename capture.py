@@ -255,9 +255,10 @@ class CapturePipeline:
 
 class NullSinkManager:
     """
-    Silences non-active Bluetooth sources using pactl set-source-mute.
-    WirePlumber can keep its routing graph intact; muted sources produce no audio
-    regardless of what WirePlumber does with pw-link connections.
+    Prevents non-active Bluetooth sources from playing through the speaker
+    by breaking any pw-link connections they have to the sink each watcher cycle.
+    Card profiles are never touched, so all devices stay connected and ready
+    to switch to instantly.
     NULL_SINK_NAME kept as a class attribute so AudioSwitch can filter it from
     the speaker list (in case a stale module exists from a previous run).
     """
@@ -266,25 +267,12 @@ class NullSinkManager:
     def __init__(self):
         self._active_source_name = None
         self._active_sink_name = None
-        self._silenced_cards = set()   # cards set to 'off' profile by the watcher
         self._watching = False
         self._watcher_thread = None
 
     def set_active_source(self, source_name):
-        """Switch the protected source. Re-enables the card profile if we had silenced it."""
+        """Update the active source the watcher should protect."""
         self._active_source_name = source_name
-        if not source_name:
-            return
-        card_name = _source_name_to_card(source_name)
-        if card_name and card_name in self._silenced_cards:
-            result = subprocess.run(
-                ["pactl", "set-card-profile", card_name, "a2dp_source"],
-                capture_output=True, text=True,
-            )
-            if result.returncode == 0:
-                self._silenced_cards.discard(card_name)
-                print(f"Re-enabled {card_name} profile for active source.")
-                time.sleep(0.5)  # allow profile negotiation to settle
 
     def start_watcher(self, active_source_name, active_sink_name):
         """Start background thread that keeps non-active BT sources muted."""
@@ -310,45 +298,43 @@ class NullSinkManager:
                     ["pw-link", "-iol"],
                     capture_output=True, text=True, check=True,
                 )
-                node_ports = {}
-                for raw_line in result.stdout.splitlines():
-                    line = raw_line.strip()
-                    if not line or line.startswith("|") or " (" in line or ":" not in line:
-                        continue
-                    node_name, port_name = line.rsplit(":", 1)
-                    node_ports.setdefault(node_name, set()).add(port_name)
+                if not self._active_sink_name:
+                    time.sleep(2)
+                    continue
 
-                bt_sources = [
-                    name for name, ports in node_ports.items()
-                    if name.startswith(("bluez_input.", "bluez_source."))
-                    and any(p.startswith(("output_", "monitor_", "capture_")) for p in ports)
-                ]
+                sink_mac = _au._extract_mac(self._active_sink_name)
 
-                sink_mac = _au._extract_mac(self._active_sink_name) if self._active_sink_name else ""
-                print(f"WATCHER: sources={bt_sources}  active={self._active_source_name}")
-
-                for source_name in bt_sources:
-                    if source_name == self._active_source_name:
-                        continue
-                    if sink_mac and _au._extract_mac(source_name) == sink_mac:
-                        print(f"  WATCHER: Skipping {source_name} (speaker's own mic)")
-                        continue
-
-                    # Non-active BT source — terminate its A2DP stream by setting
-                    # its card profile to off.  This frees BT bandwidth immediately
-                    # and prevents WirePlumber from re-routing it.
-                    card_name = _source_name_to_card(source_name)
-                    if not card_name:
-                        continue
-                    print(f"  WATCHER: Silencing interloper {source_name} -> {card_name}")
-                    r = subprocess.run(
-                        ["pactl", "set-card-profile", card_name, "off"],
-                        capture_output=True, text=True,
-                    )
-                    if r.returncode == 0:
-                        self._silenced_cards.add(card_name)
+                # Walk pw-link output: find any non-active BT source that is
+                # connected to a playback port of our sink and break the link.
+                # Format:
+                #   sink_name:playback_FL
+                #     |<- source_name:output_FL
+                current_sink_port = None
+                for line in result.stdout.splitlines():
+                    stripped = line.strip()
+                    if stripped.startswith(f"{self._active_sink_name}:playback"):
+                        current_sink_port = stripped
+                    elif current_sink_port and stripped.startswith("|<-"):
+                        source_port = stripped[4:].strip()  # drop "|<- "
+                        source_node = source_port.rsplit(":", 1)[0] if ":" in source_port else ""
+                        # Skip the active source — it should stay linked.
+                        if source_node == self._active_source_name:
+                            current_sink_port = None
+                            continue
+                        # Skip the speaker's own HFP mic.
+                        if sink_mac and _au._extract_mac(source_node) == sink_mac:
+                            current_sink_port = None
+                            continue
+                        # Break any other BT source linked to our sink.
+                        if source_node.startswith(("bluez_input.", "bluez_source.")):
+                            print(f"WATCHER: Breaking link {source_port} -> {current_sink_port}")
+                            subprocess.run(
+                                ["pw-link", "-d", source_port, current_sink_port],
+                                capture_output=True, text=True,
+                            )
+                        current_sink_port = None
                     else:
-                        print(f"  WATCHER: Could not silence {card_name}: {r.stderr.strip()}")
+                        current_sink_port = None
 
                 check_active_links(self._active_sink_name)
             except Exception as exc:
@@ -371,13 +357,5 @@ class NullSinkManager:
         return True
 
     def teardown(self):
-        """Stop watcher and restore any cards we set to 'off' profile."""
+        """Stop the watcher. Card profiles are never touched so nothing to restore."""
         self.stop_watcher()
-        for card_name in list(self._silenced_cards):
-            r = subprocess.run(
-                ["pactl", "set-card-profile", card_name, "a2dp_source"],
-                capture_output=True, text=True,
-            )
-            if r.returncode == 0:
-                print(f"Restored {card_name} to a2dp_source.")
-        self._silenced_cards.clear()
