@@ -133,6 +133,8 @@ def get_bt_devices():
         if not ensure_a2dp_sink(device["name"]):
             continue
         device_mac = device.get("properties", {}).get("device.string", "")
+        # Print all properties for debugging
+        print(f"DEBUG: Device properties for {device.get('name')}: {device.get('properties')}")
         # Use a more descriptive name for the device
         alias = device.get("properties", {}).get("device.alias", "")
         if alias:
